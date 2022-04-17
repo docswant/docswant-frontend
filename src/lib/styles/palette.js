@@ -1,9 +1,10 @@
 const palette = {
   green: [
-    '#D4E9C3', //기본 색
+    '#D4E9C3', //main
   ],
   gray: [
-    '#eeeeee', //border 색
+    '#eeeeee', //border
+    '#808893', //subText
   ],
 };
 
