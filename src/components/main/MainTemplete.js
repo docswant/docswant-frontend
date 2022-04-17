@@ -30,7 +30,7 @@ const MainBlock = styled.div`
   .Register {
     margin-top: 1rem;
     font-size: 14px;
-    color: #808893;
+    color: ${palette.gray[1]};
 
     #registerText {
       margin-left: 0.5rem;
