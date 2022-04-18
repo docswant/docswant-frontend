@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
 
 const MainTempleteBlock = styled.div`
   width: 100%;
@@ -62,7 +63,9 @@ const MainTemplete = () => {
         </div>
         <div className="Register">
           <span>아이디가 없으신가요?</span>
-          <span id="registerText">회원가입</span>
+          <Link to="/register">
+            <span id="registerText">회원가입</span>
+          </Link>
         </div>
       </MainBlock>
     </MainTempleteBlock>
