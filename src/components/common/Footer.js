@@ -60,7 +60,7 @@ const Footer = () => {
           <div className="Member">
             <div style={{ paddingLeft: 0 }}>16000000 권준원</div>
             <div>17011480 정재욱</div>
-            <div>19000000 김유진</div>
+            <div>19011560 김유진</div>
             <div style={{ borderRight: 'none' }}>19000000 김민</div>
           </div>
         </div>
