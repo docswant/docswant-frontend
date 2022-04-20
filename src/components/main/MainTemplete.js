@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
@@ -58,8 +59,10 @@ const MainTemplete = () => {
       <MainBlock>
         <div id="image"></div>
         <div className="Auth">
-          <AuthBlock>의사로 로그인 하기</AuthBlock>
-          <AuthBlock style={{ marginRight: 0 }}>환자로 로그인 하기</AuthBlock>
+          <Link to="/login">
+            <AuthBlock>의사로 로그인 하기</AuthBlock>
+            <AuthBlock style={{ marginRight: 0 }}>환자로 로그인 하기</AuthBlock>
+          </Link>
         </div>
         <div className="Register">
           <span>아이디가 없으신가요?</span>
