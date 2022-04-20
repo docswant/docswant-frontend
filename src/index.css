@@ -11,6 +11,7 @@ body {
   padding: 0;
   min-height: 100%;
   font-weight: 500;
+  color: #333333;
 }
 
 #root {
