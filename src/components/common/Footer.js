@@ -6,7 +6,7 @@ import { SiNotion } from 'react-icons/si';
 
 //화면 하단 고정
 const FooterBlock = styled.div`
-  position: absolute;
+  position: flex;
   width: 100%;
   bottom: 0;
   border-top: 1px solid ${palette.gray[0]};
