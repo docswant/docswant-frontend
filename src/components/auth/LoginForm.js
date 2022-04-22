@@ -21,7 +21,7 @@ const LoginBlock = styled.div`
         margin-top: 30px;
         margin-bottom: 70px;
       }
-      input {
+      input{
         font-size: 16px;
         width: 70%;
         margin-bottom: 12px;
@@ -38,7 +38,10 @@ const LoginBlock = styled.div`
         color: white;
         font-size: 16px;
         cursor: pointer;
-        background-color: #94c8f7;
+        background-color: #94C8F7;
+        &:hover{
+          background-color: #156DBC;
+        }
       }
       p {
         font-size: 15px;
@@ -60,7 +63,7 @@ const LoginBlock = styled.div`
   }
 `;
 
-function Login() {
+function LoginForm() {
   return (
     <LoginBlock>
       <div className="login_box">
@@ -85,4 +88,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginForm;
