@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import Logo from '../../lib/image/Logo.png'
+import Logo from '../../lib/image/Logo.png';
 import { Link } from 'react-router-dom';
 
 const LoginBlock = styled.div`
-  padding: 1.5rem 0 6rem;
-  background-color: #EBEBEB;
-  .login_box{
+  padding: 5rem 0 6rem;
+  background-color: #ebebeb;
+  width: 100%;
+  .login_box {
     text-align: center;
     width: 35rem;
     margin: 0 auto;
     border-radius: 6px;
-    background-color: #EBEBEB;
     color: #555;
     form {
       padding: 2rem 1.5rem;
-      img{
+      img {
         width: 100%;
         margin-top: 30px;
         margin-bottom: 70px;
@@ -31,7 +31,7 @@ const LoginBlock = styled.div`
         outline: none;
         box-sizing: border-box;
       }
-      [type="submit"]{
+      [type='submit'] {
         width: 10rem;
         margin-top: 12px;
         border: none;
@@ -68,13 +68,13 @@ function LoginForm() {
     <LoginBlock>
       <div className="login_box">
         <form>
-          <img src={Logo} />
-          <input type="text" placeholder='아이디를 입력하세요.' />
-          <input type="password" placeholder='비밀번호를 입력하세요.' />
-          <input type="submit" value={"LOGIN"} />
+          <img src={Logo} alt="MainLogo" />
+          <input type="text" placeholder="아이디를 입력하세요." />
+          <input type="password" placeholder="비밀번호를 입력하세요." />
+          <input type="submit" value={'LOGIN'} />
           <p>
-            * 환자의 경우 아이디는 환자 번호이고, 초기 비밀번호는 생년월일입니다. <br/>
-            * 로그인 후 비밀번호를 변경하세요!
+            * 환자의 경우 아이디는 환자 번호이고, 초기 비밀번호는
+            생년월일입니다. <br />* 로그인 후 비밀번호를 변경하세요!
           </p>
           <div className="Register">
             <span>아이디가 없으신가요?</span>
