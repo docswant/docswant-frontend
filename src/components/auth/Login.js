@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Logo from '../../lib/image/Logo.png'
@@ -46,7 +46,7 @@ const LoginBlock = styled.div`
         cursor: pointer;
         background-color: #94C8F7;
       }
-      p{
+      p {
         font-size: 15px;
         color: #333;
       }
@@ -70,7 +70,7 @@ function Login() {
         </form>
       </div>
     </LoginBlock>
-  )
+  );
 }
 
-export default Login
+export default Login;
