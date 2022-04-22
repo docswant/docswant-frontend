@@ -5,12 +5,12 @@ import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 
 const RegisterFormBlock = styled.div`
   width: 100%;
+  padding: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  background-color: #ebebeb;
 
   .formBlock {
     width: 414px;
@@ -25,13 +25,14 @@ const RegisterFormBlock = styled.div`
       button {
         width: 100%;
         outline: none;
-        background-color: ${palette.green[0]};
+        background-color: ${palette.blue[0]};
         border: none;
         padding: 1rem;
         border-radius: 7px;
         font-size: 20px;
         font-weight: bold;
         margin-top: 1rem;
+        color: white;
       }
     }
   }
@@ -39,7 +40,7 @@ const RegisterFormBlock = styled.div`
 
 const StyledInput = styled.input`
   margin: 0.5rem 0;
-  border: 1px solid ${palette.green[0]};
+  border: 1px solid #ddd;
   border-radius: 7px;
   width: 100%;
   padding: 1rem;
@@ -49,13 +50,18 @@ const StyledInput = styled.input`
   &::placeholder {
     color: #cccccc;
   }
+
+  &:hover {
+    border: 1px solid ${palette.blue[0]};
+  }
 `;
 
 const MedicalSubjectBlock = styled.div`
   width: 100%;
-  border: 1px solid ${palette.green[0]};
+  border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 7px;
+  background-color: white;
   margin: 0.5rem 0;
   color: #cccccc;
   position: relative;
@@ -77,12 +83,16 @@ const MedicalSubjectBlock = styled.div`
   svg {
     cursor: pointer;
   }
+
+  &:hover {
+    border: 1px solid ${palette.blue[0]};
+  }
 `;
 
 const DropDownBlock = styled.div`
   position: absolute;
   width: 100%;
-  border: 1px solid ${palette.green[0]};
+  border: 1px solid #ddd;
   border-top: none;
   left: 0;
   background-color: white;
@@ -95,12 +105,18 @@ const DropDownBlock = styled.div`
     li {
       list-style: none;
       height: 40px;
-      border-top: 1px solid ${palette.green[0]};
+      border: 1px solid #ddd;
       color: #333333;
       display: flex;
       align-items: center;
       padding: 0.5rem 1rem;
       cursor: pointer;
+
+      &:hover {
+        background-color: ${palette.blue[0]};
+        color: white;
+        border: 1px solid ${palette.blue[0]};
+      }
     }
   }
 `;
