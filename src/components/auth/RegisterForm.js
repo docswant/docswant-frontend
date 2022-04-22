@@ -10,6 +10,7 @@ const RegisterFormBlock = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 
   .formBlock {
     width: 414px;
