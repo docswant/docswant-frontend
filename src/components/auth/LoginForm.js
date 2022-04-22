@@ -10,7 +10,7 @@ const LoginBlock = styled.div`
   width: 100%;
   .login_box {
     text-align: center;
-    width: 40%;
+    width: 35rem;
     margin: 0 auto;
     border-radius: 6px;
     color: #555;
