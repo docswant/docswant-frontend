@@ -70,7 +70,7 @@ const LoginBlock = styled.div`
 function Login() {
   return (
     <LoginBlock>
-      <div class="login_box">
+      <div className="login_box">
         <form>
           <img src={Logo} />
           <input type="text" placeholder='아이디를 입력하세요.' />
