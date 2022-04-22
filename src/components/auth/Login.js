@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Logo from '../../lib/image/Logo.png'
+import { Link } from 'react-router-dom';
 
 const LoginBlock = styled.div`
   padding: 1.5rem 0 6rem;
@@ -50,6 +51,18 @@ const LoginBlock = styled.div`
         font-size: 15px;
         color: #333;
       }
+      .Register {
+        margin-top: 1rem;
+        font-size: 14px;
+        color: ${palette.gray[1]};
+
+        #registerText {
+          margin-left: 0.5rem;
+          text-decoration: underline;
+          color: black;
+          cursor: pointer;
+        }
+      }
     }
   }
 `;
@@ -67,6 +80,12 @@ function Login() {
             * 환자의 경우 아이디는 환자 번호이고, 초기 비밀번호는 생년월일입니다. <br/>
             * 로그인 후 비밀번호를 변경하세요!
           </p>
+          <div className="Register">
+            <span>아이디가 없으신가요?</span>
+            <Link to="/register">
+              <span id="registerText">회원가입</span>
+            </Link>
+          </div>
         </form>
       </div>
     </LoginBlock>
