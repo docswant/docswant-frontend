@@ -5,7 +5,7 @@ import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 
 const RegisterFormBlock = styled.div`
   width: 100%;
-  padding: 3.5rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
