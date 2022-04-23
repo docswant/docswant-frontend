@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import RegisterForm from '../components/auth/RegisterForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeField, initializeForm } from '../modules/auth';
+import {
+  changeField,
+  initializeForm,
+  registerFailure,
+  registerSuccess,
+} from '../modules/auth';
+import axios from 'axios';
 
 function RegisterFormContainer() {
   const { form } = useSelector(({ auth }) => ({
@@ -30,8 +36,25 @@ function RegisterFormContainer() {
     );
   };
 
+  async function register() {
+    try {
+      const response = await axios.post('/api/v1/doctors', form);
+      dispatch(registerSuccess(response.data));
+    } catch (e) {
+      dispatch(registerFailure(e));
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
+
+    register();
+
+    const { username, password, passwordConfirm, code, name, major } = form;
+
+    if ([username, password, passwordConfirm, code, name, major].includes('')) {
+      alert('빈 칸을 모두 입력하세요');
+    }
   };
 
   useEffect(() => {
