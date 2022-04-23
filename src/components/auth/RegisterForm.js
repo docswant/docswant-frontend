@@ -135,7 +135,7 @@ const DropDownBlock = styled.div`
   }
 `;
 
-const RegisterForm = ({ form, onChange, onMajor }) => {
+const RegisterForm = ({ form, onChange, onMajor, onSubmit }) => {
   const [medicalText, setMedicalText] = useState('진료과목을 고르세요');
   const [toggle, setToggle] = useState(false);
 
@@ -143,16 +143,16 @@ const RegisterForm = ({ form, onChange, onMajor }) => {
     setToggle(!toggle);
   };
 
-  const onSetMedicalText = (text) => {
+  const onSetMedicalText = (text, major) => {
     setMedicalText(text);
     setToggle(!toggle);
-    onMajor(text);
+    onMajor(major);
   };
   return (
     <RegisterFormBlock>
       <h2>회원가입</h2>
       <div className="formBlock">
-        <form>
+        <form onSubmit={onSubmit}>
           <span>아이디</span>
           <div className="duplicateBlock">
             <StyledInput type="text" placeholder="아이디 입력" />
@@ -198,17 +198,21 @@ const RegisterForm = ({ form, onChange, onMajor }) => {
             )}
             {toggle && (
               <DropDownBlock>
-                <ul name="major">
-                  <li value="a" onClick={() => onSetMedicalText('정형외과')}>
+                <ul>
+                  <li
+                    onClick={() => onSetMedicalText('정형외과', 'orthopedics')}
+                  >
                     정형외과
                   </li>
-                  <li value="b" onClick={() => onSetMedicalText('내과')}>
+                  <li onClick={() => onSetMedicalText('내과', 'medicine')}>
                     내과
                   </li>
-                  <li value="c" onClick={() => onSetMedicalText('외과')}>
+                  <li onClick={() => onSetMedicalText('외과', 'surgical')}>
                     외과
                   </li>
-                  <li value="d" onClick={() => onSetMedicalText('신경외과')}>
+                  <li
+                    onClick={() => onSetMedicalText('신경외과', 'neurosurgery')}
+                  >
                     신경외과
                   </li>
                 </ul>
