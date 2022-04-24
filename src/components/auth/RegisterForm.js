@@ -34,6 +34,20 @@ const RegisterFormBlock = styled.div`
         margin-top: 1rem;
         color: white;
       }
+
+      .duplicateBlock {
+        display: flex;
+        align-items: center;
+
+        #duplicate {
+          width: 25%;
+          margin: 0;
+          margin-left: 1rem;
+          font-size: 12px;
+          padding: 1rem;
+          cursor: pointer;
+        }
+      }
     }
   }
 `;
@@ -139,7 +153,10 @@ const RegisterForm = () => {
       <div className="formBlock">
         <form>
           <span>아이디</span>
-          <StyledInput type="text" placeholder="아이디 입력" />
+          <div className="duplicateBlock">
+            <StyledInput type="text" placeholder="아이디 입력" />
+            <button id="duplicate">중복 확인</button>
+          </div>
           <span>비밀번호</span>
           <StyledInput type="password" placeholder="비밀번호 입력" />
           <span>비밀번호 확인</span>
@@ -172,7 +189,10 @@ const RegisterForm = () => {
             )}
           </MedicalSubjectBlock>
           <span>의사 코드</span>
-          <StyledInput type="text" placeholder="의사코드 입력" />
+          <div className="duplicateBlock">
+            <StyledInput type="text" placeholder="의사코드 입력" />
+            <button id="duplicate">코드 확인</button>
+          </div>
           <button>회원가입</button>
         </form>
       </div>
