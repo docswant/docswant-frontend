@@ -121,7 +121,7 @@ const DropDownBlock = styled.div`
   }
 `;
 
-const RegisterForm = () => {
+const RegisterForm = ({ form, onChange, onMajor }) => {
   const [medicalText, setMedicalText] = useState('진료과목을 고르세요');
   const [toggle, setToggle] = useState(false);
 
@@ -132,6 +132,7 @@ const RegisterForm = () => {
   const onSetMedicalText = (text) => {
     setMedicalText(text);
     setToggle(!toggle);
+    onMajor(text);
   };
   return (
     <RegisterFormBlock>
@@ -139,13 +140,37 @@ const RegisterForm = () => {
       <div className="formBlock">
         <form>
           <span>아이디</span>
-          <StyledInput type="text" placeholder="아이디 입력" />
+          <StyledInput
+            type="text"
+            name="username"
+            value={form.username}
+            placeholder="아이디 입력"
+            onChange={onChange}
+          />
           <span>비밀번호</span>
-          <StyledInput type="password" placeholder="비밀번호 입력" />
+          <StyledInput
+            type="password"
+            name="password"
+            value={form.password}
+            placeholder="비밀번호 입력"
+            onChange={onChange}
+          />
           <span>비밀번호 확인</span>
-          <StyledInput type="password" placeholder="비밀번호 확인" />
+          <StyledInput
+            type="password"
+            name="passwordConfirm"
+            value={form.passwordConfirm}
+            placeholder="비밀번호 확인"
+            onChange={onChange}
+          />
           <span>이름</span>
-          <StyledInput type="text" placeholder="이름 입력" />
+          <StyledInput
+            type="text"
+            name="name"
+            value={form.name}
+            placeholder="이름 입력"
+            onChange={onChange}
+          />
           <span>진료 과목</span>
           <MedicalSubjectBlock>
             {medicalText === '진료과목을 고르시오' ? (
@@ -162,17 +187,31 @@ const RegisterForm = () => {
             )}
             {toggle && (
               <DropDownBlock>
-                <ul>
-                  <li onClick={() => onSetMedicalText('정형외과')}>정형외과</li>
-                  <li onClick={() => onSetMedicalText('내과')}>내과</li>
-                  <li onClick={() => onSetMedicalText('외과')}>외과</li>
-                  <li onClick={() => onSetMedicalText('신경외과')}>신경외과</li>
+                <ul name="major">
+                  <li value="a" onClick={() => onSetMedicalText('정형외과')}>
+                    정형외과
+                  </li>
+                  <li value="b" onClick={() => onSetMedicalText('내과')}>
+                    내과
+                  </li>
+                  <li value="c" onClick={() => onSetMedicalText('외과')}>
+                    외과
+                  </li>
+                  <li value="d" onClick={() => onSetMedicalText('신경외과')}>
+                    신경외과
+                  </li>
                 </ul>
               </DropDownBlock>
             )}
           </MedicalSubjectBlock>
           <span>의사 코드</span>
-          <StyledInput type="text" placeholder="의사코드 입력" />
+          <StyledInput
+            type="text"
+            name="code"
+            value={form.code}
+            placeholder="의사코드 입력"
+            onChange={onChange}
+          />
           <button>회원가입</button>
         </form>
       </div>
