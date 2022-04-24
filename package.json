@@ -6,8 +6,16 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     "axios": "^0.26.1",
     "immer": "^9.0.12",
+>>>>>>> 85cf824 (Add : axios)
+=======
+    "axios": "^0.26.1",
+    "immer": "^9.0.12",
+>>>>>>> 6719f26a29f78fbc98aef774c7ed3fddc76aba81
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
