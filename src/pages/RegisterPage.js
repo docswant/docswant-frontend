@@ -1,10 +1,10 @@
 import React from 'react';
-import RegisterForm from '../components/auth/RegisterForm';
+import RegisterFormContainer from '../container/RegisterFormContainer';
 
 function RegisterPage() {
   return (
     <div>
-      <RegisterForm />
+      <RegisterFormContainer />
     </div>
   );
 }
