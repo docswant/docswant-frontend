@@ -3,9 +3,9 @@ import RegisterForm from '../components/auth/RegisterForm';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   changeField,
+  duplicateFailure,
+  duplicateSuccess,
   initializeForm,
-  registerFailure,
-  registerSuccess,
 } from '../modules/auth';
 import axios from 'axios';
 
@@ -36,19 +36,24 @@ function RegisterFormContainer() {
     );
   };
 
-  async function register() {
+  async function getDuplicate(code) {
     try {
-      const response = await axios.post('/api/v1/doctors', form);
-      dispatch(registerSuccess(response.data));
+      const response = await axios.get(
+        `https://docswant.zooneon.dev/api/v1/doctor/validate?code=${code}`,
+      );
+      console.log(response.data);
     } catch (e) {
-      dispatch(registerFailure(e));
+      duplicateFailure(e);
+      console.log(e);
     }
   }
 
+  const onDuplicate = () => {
+    getDuplicate(form.code);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-
-    register();
 
     const { username, password, passwordConfirm, code, name, major } = form;
 
@@ -69,8 +74,9 @@ function RegisterFormContainer() {
     <RegisterForm
       form={form}
       onChange={onChange}
-      onSubmit={onSubmit}
       onMajor={onMajor}
+      onDuplicate={onDuplicate}
+      onSubmit={onSubmit}
     />
   );
 }
