@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
@@ -35,26 +35,35 @@ const BtnBlock = styled.div`
     font-size: 20px;
     cursor: pointer;
     background-color: ${palette.blue[0]};
-    &:hover{
+    &:hover:not([disabled]){
       background-color: ${palette.blue[1]};
     }
   }
 `
 
 function InquiryForm() {
+  const [text, setText] = useState('');
+
+  const onChange = (e) =>{
+    setText(e.target.value);
+  };
+
+  const onReset = () => {
+    setText('');
+    alert("제출 완료 되었습니다.");
+  };
+
   return (
     <>
       <InquiryBlock>
         <p>문의사항을 적어주세요.</p>
-        <textarea />
+        <textarea onChange={onChange} value={text} />
       </InquiryBlock>
       <BtnBlock>
-        <Link to ="/">
+        <Link to ="/inquiry_list">
           <button>목록 확인</button>
         </Link>
-        <Link to="/">
-          <button>제출</button>
-        </Link>
+        <button disabled={!text} onClick={onReset}>제출</button>
       </BtnBlock>
     </>
   )
