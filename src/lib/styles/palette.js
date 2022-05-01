@@ -8,7 +8,8 @@ const palette = {
     '#EBEBEB' //main background
   ],
   blue:[
-    '#94C8F7' // btn
+    '#94C8F7', // btn
+    '#156DBC' // hover
   ]
 };
 
