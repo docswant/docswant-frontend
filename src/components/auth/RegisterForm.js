@@ -33,13 +33,14 @@ const RegisterFormBlock = styled.div`
         font-weight: bold;
         margin-top: 1rem;
         color: white;
+        cursor: pointer;
       }
 
       .duplicateBlock {
         display: flex;
         align-items: center;
 
-        #duplicate {
+        .duplicate {
           width: 25%;
           margin: 0;
           margin-left: 1rem;
@@ -135,10 +136,21 @@ const DropDownBlock = styled.div`
   }
 `;
 
-const RegisterForm = ({ form, onChange, onMajor, onSubmit }) => {
+const ErrorMessageBlock = styled.div`
+  text-align: center;
+  margin: 0.3rem 0;
+  color: red;
+  font-weight: bold;
+`;
+
+const RegisterForm = ({ form, onChange, onMajor, onSubmit, onDuplicate }) => {
   const [medicalText, setMedicalText] = useState('진료과목을 고르세요');
   const [toggle, setToggle] = useState(false);
-
+  const [error, setError] = useState({
+    username: null,
+    password: null,
+    code: null,
+  });
   const onToggle = () => {
     setToggle(!toggle);
   };
@@ -148,6 +160,16 @@ const RegisterForm = ({ form, onChange, onMajor, onSubmit }) => {
     setToggle(!toggle);
     onMajor(major);
   };
+
+  const onCheckPasswordConfirm = (e) => {
+    const { password, passwordConfirm } = form;
+
+    if (password !== passwordConfirm) {
+      setError({ ...error, password: false });
+    } else {
+      setError({ ...error, password: true });
+    }
+  };
   return (
     <RegisterFormBlock>
       <h2>회원가입</h2>
@@ -155,9 +177,20 @@ const RegisterForm = ({ form, onChange, onMajor, onSubmit }) => {
         <form onSubmit={onSubmit}>
           <span>아이디</span>
           <div className="duplicateBlock">
-            <StyledInput type="text" placeholder="아이디 입력" />
-            <button id="duplicate">중복 확인</button>
+            <StyledInput
+              type="text"
+              name="username"
+              value={form.username}
+              placeholder="아이디 입력"
+              onChange={onChange}
+            />
+            <button type="button" className="duplicate">
+              중복 확인
+            </button>
           </div>
+          {error.username === false && (
+            <ErrorMessageBlock>아이디가 중복됩니다.</ErrorMessageBlock>
+          )}
           <span>비밀번호</span>
           <StyledInput
             type="password"
@@ -172,8 +205,12 @@ const RegisterForm = ({ form, onChange, onMajor, onSubmit }) => {
             name="passwordConfirm"
             value={form.passwordConfirm}
             placeholder="비밀번호 확인"
+            onKeyUp={onCheckPasswordConfirm}
             onChange={onChange}
           />
+          {error.password === false && (
+            <ErrorMessageBlock>비밀번호가 일치하지 않습니다</ErrorMessageBlock>
+          )}
           <span>이름</span>
           <StyledInput
             type="text"
@@ -221,9 +258,20 @@ const RegisterForm = ({ form, onChange, onMajor, onSubmit }) => {
           </MedicalSubjectBlock>
           <span>의사 코드</span>
           <div className="duplicateBlock">
-            <StyledInput type="text" placeholder="의사코드 입력" />
-            <button id="duplicate">코드 확인</button>
+            <StyledInput
+              type="text"
+              name="code"
+              value={form.code}
+              placeholder="의사코드 입력"
+              onChange={onChange}
+            />
+            <button type="button" className="duplicate" onClick={onDuplicate}>
+              코드 확인
+            </button>
           </div>
+          {error.code === false && (
+            <ErrorMessageBlock>의사코드가 일치하지 않습니다.</ErrorMessageBlock>
+          )}
           <button>회원가입</button>
         </form>
       </div>
