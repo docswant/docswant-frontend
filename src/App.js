@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import InquiryPage from './pages/InquiryPage';
+import InquiryListPage from './pages/InquiryListPage';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/inquiry" element={<InquiryPage/>} />
+      <Route path='/inquiry_list' element={<InquiryListPage />} />
     </Routes>
   );
 }

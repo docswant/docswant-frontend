@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 
-const InquiryBlock = styled.div`
+const InquiryListBlock = styled.div`
   background-color: ${palette.gray[2]};
   padding: 2rem 0 6rem;
   height: 70vh;
@@ -12,13 +12,15 @@ const InquiryBlock = styled.div`
   p{
     font-size: 30px;
   }
-  textarea{
+  div{
+    background-color: white;
+    display: inline-block;
     width: 50%;
     height: 80%;
-    resize: none;
     margin-top: 10px;
     overflow-y: scroll;
     font-size: 18px;
+    border: 1px solid black;
   }
 `
 const BtnBlock = styled.div`
@@ -41,23 +43,23 @@ const BtnBlock = styled.div`
   }
 `
 
-function InquiryForm() {
+function InquiryListForm() {
   return (
     <>
-      <InquiryBlock>
-        <p>문의사항을 적어주세요.</p>
-        <textarea />
-      </InquiryBlock>
+      <InquiryListBlock>
+        <p>나의 문의함</p>
+        <div style={{color: '#808893'}}>제출된 문의가 없습니다.</div>
+      </InquiryListBlock>
       <BtnBlock>
-        <Link to ="/inquiry_list">
-          <button>목록 확인</button>
+        <Link to ="/inquiry">
+          <button>문의 하기</button>
         </Link>
         <Link to="/">
-          <button>제출</button>
+          <button>돌아 가기</button>
         </Link>
       </BtnBlock>
     </>
   )
 }
 
-export default InquiryForm
+export default InquiryListForm
