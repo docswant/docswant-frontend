@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import InquiryPage from './pages/InquiryPage';
 import InquiryListPage from './pages/InquiryListPage';
+import InquiryModifyPage from './pages/InquiryModifyPage';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/inquiry" element={<InquiryPage/>} />
       <Route path='/inquiry_list' element={<InquiryListPage />} />
+      <Route path='/inquiry_modify' element={<InquiryModifyPage />} />
     </Routes>
   );
 }
