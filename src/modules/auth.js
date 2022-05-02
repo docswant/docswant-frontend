@@ -5,8 +5,6 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
-const DUPLICATE_SUCCESS = 'auth/DUPLICATE_SUCCESS';
-const DUPLICATE_FAILURE = 'auth/DUPLICATE_FAILURE';
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -19,14 +17,6 @@ export const registerSuccess = createAction(
   (registerForm) => registerForm,
 );
 export const registerFailure = createAction(REGISTER_FAILURE, (error) => error);
-export const duplicateSuccess = createAction(
-  DUPLICATE_SUCCESS,
-  (success) => success,
-);
-export const duplicateFailure = createAction(
-  DUPLICATE_FAILURE,
-  (error) => error,
-);
 const initialState = {
   //회원가입 input value
   register: {
@@ -42,9 +32,6 @@ const initialState = {
   registerForm: null,
   //회원가입 response error
   registerError: null,
-
-  duplicate: null,
-  duplicateError: null,
 };
 
 const auth = handleActions(
@@ -65,15 +52,6 @@ const auth = handleActions(
     [REGISTER_FAILURE]: (state, { payload: error }) => ({
       ...state,
       registerFailure: error,
-    }),
-    [DUPLICATE_SUCCESS]: (state, { payload: success }) => ({
-      ...state,
-      duplicate: success,
-      duplicateError: null,
-    }),
-    [DUPLICATE_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      duplicateError: error,
     }),
   },
   initialState,
