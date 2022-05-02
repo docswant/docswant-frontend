@@ -143,13 +143,21 @@ const ErrorMessageBlock = styled.div`
   font-weight: bold;
 `;
 
-const RegisterForm = ({ form, onChange, onMajor, onSubmit, onDuplicate }) => {
+const RegisterForm = ({
+  form,
+  onChange,
+  onMajor,
+  onSubmit,
+  onDuplicateCode,
+  onDuplicateUser,
+  duplicateCode,
+  duplicateUser,
+}) => {
   const [medicalText, setMedicalText] = useState('진료과목을 고르세요');
   const [toggle, setToggle] = useState(false);
   const [error, setError] = useState({
     username: null,
     password: null,
-    code: null,
   });
   const onToggle = () => {
     setToggle(!toggle);
@@ -184,12 +192,19 @@ const RegisterForm = ({ form, onChange, onMajor, onSubmit, onDuplicate }) => {
               placeholder="아이디 입력"
               onChange={onChange}
             />
-            <button type="button" className="duplicate">
+            <button
+              type="button"
+              className="duplicate"
+              onClick={onDuplicateUser}
+            >
               중복 확인
             </button>
           </div>
-          {error.username === false && (
+          {duplicateUser === true && (
             <ErrorMessageBlock>아이디가 중복됩니다.</ErrorMessageBlock>
+          )}
+          {duplicateUser === false && (
+            <ErrorMessageBlock>사용가능한 아이디 입니다.</ErrorMessageBlock>
           )}
           <span>비밀번호</span>
           <StyledInput
@@ -265,12 +280,19 @@ const RegisterForm = ({ form, onChange, onMajor, onSubmit, onDuplicate }) => {
               placeholder="의사코드 입력"
               onChange={onChange}
             />
-            <button type="button" className="duplicate" onClick={onDuplicate}>
+            <button
+              type="button"
+              className="duplicate"
+              onClick={onDuplicateCode}
+            >
               코드 확인
             </button>
           </div>
-          {error.code === false && (
+          {duplicateCode === false && (
             <ErrorMessageBlock>의사코드가 일치하지 않습니다.</ErrorMessageBlock>
+          )}
+          {duplicateCode === true && (
+            <ErrorMessageBlock>의사코드가 일치 합니다.</ErrorMessageBlock>
           )}
           <button>회원가입</button>
         </form>
