@@ -46,36 +46,36 @@ function RegisterFormContainer() {
     );
   };
 
-  async function register() {
-    let registerForm = {
-      code: form.code,
-      username: form.username,
-      password: form.password,
-      name: form.name,
-      major: form.major,
-    };
-    console.log(registerForm);
+  async function getRegister() {
+    const { code, username, password, name, major } = form;
     try {
-      const response = await axios.post('/api/vi/doctor', { registerForm });
-
+      const response = await axios.post('/api/v1/doctor', {
+        code,
+        username,
+        password,
+        name,
+        major,
+      });
       dispatch(registerSuccess(response.data.data));
     } catch (e) {
       dispatch(registerFailure(e));
     }
   }
-  async function getDuplicateCode(code) {
+  async function getDuplicateCode() {
     try {
-      const response = await axios.get(`/api/v1/doctor/validate?code=${code}`);
+      const response = await axios.get(
+        `/api/v1/doctor/validate?code=${form.code}`,
+      );
       dispatch(duplicateCodeSuccess(response.data.data));
     } catch (e) {
       dispatch(duplicateCodeFailure(e));
     }
   }
 
-  async function getDuplicateUser(username) {
+  async function getDuplicateUser() {
     try {
       const response = await axios.get(
-        `api/v1/account/exists?username=${username}`,
+        `api/v1/account/exists?username=${form.username}`,
       );
       dispatch(duplicateUserSuccess(response.data.data));
     } catch (e) {
@@ -84,15 +84,16 @@ function RegisterFormContainer() {
   }
 
   const onDuplicateCode = () => {
-    getDuplicateCode(form.code);
+    getDuplicateCode();
   };
 
   const onDuplicateUser = () => {
-    getDuplicateUser(form.username);
+    getDuplicateUser();
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
+    getRegister();
 
     const { username, password, passwordConfirm, code, name, major } = form;
 
@@ -100,17 +101,6 @@ function RegisterFormContainer() {
       alert('빈 칸을 모두 입력하세요');
       return;
     }
-    if (
-      duplicateCode === false ||
-      duplicateUser === true ||
-      duplicateCode === null ||
-      duplicateUser === null
-    ) {
-      alert('중복 검사를 진행해 주세요');
-      return;
-    }
-
-    register();
   };
 
   useEffect(() => {
