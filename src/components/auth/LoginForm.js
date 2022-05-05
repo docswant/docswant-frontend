@@ -5,9 +5,10 @@ import Logo from '../../lib/image/Logo.png';
 import { Link } from 'react-router-dom';
 
 const LoginBlock = styled.div`
-  padding: 5rem 0 6rem;
+  padding: 3rem 0;//
   background-color: #ebebeb;
   width: 100%;
+  height: 100vh;//
   .login_box {
     text-align: center;
     width: 35rem;

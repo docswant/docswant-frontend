@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { BsGithub } from 'react-icons/bs';
 import { SiNotion } from 'react-icons/si';
+import Logo from '../../lib/image/Logo.png';
 
 //화면 하단 고정
 const FooterBlock = styled.div`
@@ -15,10 +16,9 @@ const FooterBlock = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    #image {
-      width: 100px;
-      height: 100px;
-      background-color: gray;
+    img {
+      width: 15rem;
+      height: 6rem;
       margin-right: 1rem;
     }
 
@@ -46,7 +46,7 @@ const Footer = () => {
   return (
     <FooterBlock>
       <div className="FooterWrapper">
-        <div id="image"></div>
+        <img src={Logo} alt="Logo" />
         <div className="FooterInfo">
           <div className="LinkSNS">
             <a href="https://github.com/docswant">
