@@ -33,10 +33,10 @@ const BtnBlock = styled.div`
     border: none;
     color: white;
     font-size: 20px;
-    cursor: pointer;
     background-color: ${palette.blue[0]};
     &:hover:not([disabled]){
       background-color: ${palette.blue[1]};
+      cursor: pointer;
     }
   }
 `
