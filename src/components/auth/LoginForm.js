@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Logo from '../../lib/image/Logo.png';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginBlock = styled.div`
   padding: 5rem 0 6rem;
@@ -63,6 +64,24 @@ const LoginBlock = styled.div`
   }
 `;
 
+async function login(){
+  try{
+    const response = await axios.post('https://docswant.zooneon.dev/api/v1/login',{
+      username : "test123",
+      password : "1234"
+    })
+    console.log(response.data);
+  }
+  catch(e){
+    console.log(e);
+  }
+}
+
+const onLogin = (e) => {
+  e.preventDefault();
+  login();
+}
+
 function LoginForm() {
   return (
     <LoginBlock>
@@ -71,7 +90,7 @@ function LoginForm() {
           <img src={Logo} alt="MainLogo" />
           <input type="text" placeholder="아이디를 입력하세요." />
           <input type="password" placeholder="비밀번호를 입력하세요." />
-          <input type="submit" value={'LOGIN'} />
+          <input type="submit" value={'LOGIN'} onClick={onLogin}/>
           <p>
             * 환자의 경우 아이디는 환자 번호이고, 초기 비밀번호는
             생년월일입니다. <br />* 로그인 후 비밀번호를 변경하세요!
