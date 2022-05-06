@@ -7,12 +7,22 @@ import {
   registerFailure,
   registerSuccess,
 } from '../modules/auth';
+import {
+  duplicateCodeFailure,
+  duplicateCodeSuccess,
+  duplicateUserFailure,
+  duplicateUserSuccess,
+} from '../modules/duplicate';
 import axios from 'axios';
 
 function RegisterFormContainer() {
-  const { form } = useSelector(({ auth }) => ({
-    form: auth.register,
-  }));
+  const { form, duplicateCode, duplicateUser } = useSelector(
+    ({ auth, duplicate }) => ({
+      form: auth.register,
+      duplicateCode: duplicate.duplicateCode,
+      duplicateUser: duplicate.duplicateUser,
+    }),
+  );
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -36,24 +46,60 @@ function RegisterFormContainer() {
     );
   };
 
-  async function register() {
+  async function getRegister() {
+    const { code, username, password, major, name } = form;
     try {
-      const response = await axios.post('/api/v1/doctors', form);
-      dispatch(registerSuccess(response.data));
+      const response = await axios.post('/api/v1/doctor', {
+        code,
+        username,
+        password,
+        major,
+        name,
+      });
+      dispatch(registerSuccess(response.data.data));
     } catch (e) {
       dispatch(registerFailure(e));
     }
   }
+  async function getDuplicateCode() {
+    try {
+      const response = await axios.get(
+        `/api/v1/doctor/validate?code=${form.code}`,
+      );
+      dispatch(duplicateCodeSuccess(response.data.data));
+    } catch (e) {
+      dispatch(duplicateCodeFailure(e));
+    }
+  }
+
+  async function getDuplicateUser() {
+    try {
+      const response = await axios.get(
+        `api/v1/account/exists?username=${form.username}`,
+      );
+      dispatch(duplicateUserSuccess(response.data.data));
+    } catch (e) {
+      dispatch(duplicateUserFailure(e));
+    }
+  }
+
+  const onDuplicateCode = () => {
+    getDuplicateCode();
+  };
+
+  const onDuplicateUser = () => {
+    getDuplicateUser();
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    register();
+    getRegister();
 
     const { username, password, passwordConfirm, code, name, major } = form;
 
     if ([username, password, passwordConfirm, code, name, major].includes('')) {
       alert('빈 칸을 모두 입력하세요');
+      return;
     }
   };
 
@@ -69,8 +115,12 @@ function RegisterFormContainer() {
     <RegisterForm
       form={form}
       onChange={onChange}
-      onSubmit={onSubmit}
       onMajor={onMajor}
+      onDuplicateCode={onDuplicateCode}
+      onDuplicateUser={onDuplicateUser}
+      onSubmit={onSubmit}
+      duplicateCode={duplicateCode}
+      duplicateUser={duplicateUser}
     />
   );
 }
