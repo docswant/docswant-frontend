@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import InquiryPage from './pages/InquiryPage';
 import InquiryListPage from './pages/InquiryListPage';
 import InquiryModifyPage from './pages/InquiryModifyPage';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/inquiry" element={<InquiryPage/>} />
-      <Route path='/inquiry_list' element={<InquiryListPage />} />
-      <Route path='/inquiry_modify' element={<InquiryModifyPage />} />
+      <Route path="/patient/mypage" element={<MyPage />} />
+      <Route path="/inquiry" element={<InquiryPage />} />
+      <Route path="/inquiry_list" element={<InquiryListPage />} />
+      <Route path="/inquiry_modify" element={<InquiryModifyPage />} />
     </Routes>
   );
 }
