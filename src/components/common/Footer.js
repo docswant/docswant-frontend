@@ -9,7 +9,7 @@ import Logo from '../../lib/image/Logo.png';
 const FooterBlock = styled.div`
   width: 100%;
   bottom: 0;
-  border-top: 1px solid ${palette.gray[0]};
+  border-top: 1px solid #E1E1E1;
   padding: 1rem;
 
   .FooterWrapper {

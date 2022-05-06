@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../../lib/image/Logo.png';
 
 const HeaderBlock = styled.div`
-  border-bottom: 1px solid ${palette.gray[0]};
+  border-bottom: 1px solid #E1E1E1;
   padding: 0 2rem;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@ const HeaderBlock = styled.div`
     display: flex;
     img {
       width: 90%;
-      height: 100px;
+      height: 90px;
       margin: .5rem 0;
       cursor: pointer;
     }
@@ -23,16 +23,7 @@ const HeaderBlock = styled.div`
 
   span {
     font-size: 25px;
-  }
-
-  .HeaderRight {
-    display: flex;
-    button {
-      width: 11rem;
-      height: 3rem;
-      margin: .5rem 3rem;
-      cursor: pointer;
-    }
+    margin-right: 2rem;
   }
 
 `;
@@ -54,9 +45,6 @@ const Header = () => {
         <img src={Logo} alt="Logo" onClick={onGoMain}/>
       </div>
       <span>{dataString}</span>
-      <div className="HeaderRight">
-        <button>Menu</button>
-      </div>
     </HeaderBlock>
   );
 };

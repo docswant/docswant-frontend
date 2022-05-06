@@ -4,7 +4,7 @@ import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 
 const InquiryListBlock = styled.div`
-  background-color: ${palette.gray[2]};
+  /* background-color: ${palette.gray[2]}; */
   padding: 2rem 0 6rem;
   height: 70vh;
   text-align: center;
@@ -24,7 +24,7 @@ const InquiryListBlock = styled.div`
   }
 `
 const BtnBlock = styled.div`
-  background-color: ${palette.gray[2]};
+  /* background-color: ${palette.gray[2]}; */
   text-align: right;
   padding-right: 10rem;
   height: 6rem;
@@ -35,6 +35,8 @@ const BtnBlock = styled.div`
     border: none;
     color: white;
     font-size: 20px;
+    border-radius: 7px;
+    font-weight: 600;
     cursor: pointer;
     background-color: ${palette.blue[0]};
     &:hover{
@@ -55,7 +57,7 @@ function InquiryListForm({inquiries}) {
     <>
       <InquiryListBlock>
         <p>나의 문의함</p>
-        <div class="box" style={{color: '#808893'}}>
+        <div className="box" style={{color: '#808893'}}>
           제출된 문의가 없습니다.
           {inquiries.map(inquiry => (
             <Link to="/inquiry_modify">
