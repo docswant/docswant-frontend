@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Logo from '../../lib/image/Logo.png';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 const LoginBlock = styled.div`
   padding: 5rem 0 6rem;
@@ -22,7 +21,7 @@ const LoginBlock = styled.div`
         margin-top: 30px;
         margin-bottom: 70px;
       }
-      input{
+      input {
         font-size: 16px;
         width: 70%;
         margin-bottom: 12px;
@@ -39,9 +38,9 @@ const LoginBlock = styled.div`
         color: white;
         font-size: 16px;
         cursor: pointer;
-        background-color: #94C8F7;
-        &:hover{
-          background-color: #156DBC;
+        background-color: #94c8f7;
+        &:hover {
+          background-color: #156dbc;
         }
       }
       p {
@@ -64,33 +63,27 @@ const LoginBlock = styled.div`
   }
 `;
 
-async function login(){
-  try{
-    const response = await axios.post('https://docswant.zooneon.dev/api/v1/login',{
-      username : "test123",
-      password : "1234"
-    })
-    console.log(response.data);
-  }
-  catch(e){
-    console.log(e);
-  }
-}
-
-const onLogin = (e) => {
-  e.preventDefault();
-  login();
-}
-
-function LoginForm() {
+function LoginForm({ form, onChange, onSubmit }) {
   return (
     <LoginBlock>
       <div className="login_box">
         <form>
           <img src={Logo} alt="MainLogo" />
-          <input type="text" placeholder="아이디를 입력하세요." />
-          <input type="password" placeholder="비밀번호를 입력하세요." />
-          <input type="submit" value={'LOGIN'} onClick={onLogin}/>
+          <input
+            type="text"
+            name="username"
+            value={form.username}
+            onChange={onChange}
+            placeholder="아이디를 입력하세요."
+          />
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={onChange}
+            placeholder="비밀번호를 입력하세요."
+          />
+          <input type="submit" value={'LOGIN'} onClick={onSubmit} />
           <p>
             * 환자의 경우 아이디는 환자 번호이고, 초기 비밀번호는
             생년월일입니다. <br />* 로그인 후 비밀번호를 변경하세요!

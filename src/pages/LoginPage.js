@@ -1,11 +1,10 @@
-
-import React from 'react'
-import LoginForm from '../components/auth/LoginForm'
+import React from 'react';
+import LoginFormContainer from '../container/LoginFormContainer';
 
 function LoginPage() {
   return (
     <div>
-      <LoginForm />
+      <LoginFormContainer />
     </div>
   );
 }
