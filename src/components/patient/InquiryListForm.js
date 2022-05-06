@@ -12,7 +12,7 @@ const InquiryListBlock = styled.div`
   p{
     font-size: 30px;
   }
-  div{
+  .box{
     background-color: white;
     display: inline-block;
     width: 50%;
@@ -42,13 +42,27 @@ const BtnBlock = styled.div`
     }
   }
 `
+function Inquiry({inquiry}){
+  return (
+    <div>
+      <b>{inquiry.id}</b> {inquiry.text}
+    </div>
+  );
+}
 
-function InquiryListForm() {
+function InquiryListForm({inquiries}) {
   return (
     <>
       <InquiryListBlock>
         <p>나의 문의함</p>
-        <div style={{color: '#808893'}}>제출된 문의가 없습니다.</div>
+        <div class="box" style={{color: '#808893'}}>
+          제출된 문의가 없습니다.
+          {inquiries.map(inquiry => (
+            <Link to="/inquiry_modify">
+              <Inquiry inquiry={inquiry} key={inquiry.id} />
+            </Link>
+          ))}
+        </div>
       </InquiryListBlock>
       <BtnBlock>
         <Link to ="/inquiry">

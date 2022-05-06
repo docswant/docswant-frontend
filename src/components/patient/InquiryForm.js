@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
@@ -41,18 +41,7 @@ const BtnBlock = styled.div`
   }
 `
 
-function InquiryForm() {
-  const [text, setText] = useState('');
-
-  const onChange = (e) =>{
-    setText(e.target.value);
-  };
-
-  const onReset = () => {
-    setText('');
-    alert("제출 완료 되었습니다.");
-  };
-
+function InquiryForm({text, onChange, onCreate}) {
   return (
     <>
       <InquiryBlock>
@@ -63,7 +52,7 @@ function InquiryForm() {
         <Link to ="/inquiry_list">
           <button>목록 확인</button>
         </Link>
-        <button disabled={!text} onClick={onReset}>제출</button>
+        <button disabled={!text} onClick={onCreate}>제출</button>
       </BtnBlock>
     </>
   )
