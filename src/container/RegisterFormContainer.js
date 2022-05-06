@@ -47,14 +47,14 @@ function RegisterFormContainer() {
   };
 
   async function getRegister() {
-    const { code, username, password, name, major } = form;
+    const { code, username, password, major, name } = form;
     try {
       const response = await axios.post('/api/v1/doctor', {
         code,
         username,
         password,
-        name,
         major,
+        name,
       });
       dispatch(registerSuccess(response.data.data));
     } catch (e) {
