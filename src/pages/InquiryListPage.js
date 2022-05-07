@@ -6,10 +6,7 @@ import Navi from '../components/patient/Navi'
 
 function InquiryListPage() {
   const [inquiries, setInquiries] = useState([
-    {
-      id: 1,
-      text: '안녕하세요'
-    },
+    
   ]);
 
   return (
