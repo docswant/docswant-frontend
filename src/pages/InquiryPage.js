@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import InquiryForm from '../components/patient/InquiryForm';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
-import Navi from '../components/common/Navi';
+import Navi from '../components/patient/Navi';
 
 function InquiryPage() {
   const [text, setText] = useState('');

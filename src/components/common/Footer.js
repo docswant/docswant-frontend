@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
 import { BsGithub } from 'react-icons/bs';
 import { SiNotion } from 'react-icons/si';
 import Logo from '../../lib/image/Logo.png';
