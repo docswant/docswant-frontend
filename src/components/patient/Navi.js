@@ -7,26 +7,36 @@ const NaviBlock = styled.div`
   border-bottom: 1px solid #E1E1E1;
   align-items: center;
   display: flex;
-  padding: 1rem 10rem;
+  padding: 0 13rem;
   justify-content: space-between;
   font-size: 20px;
   font-weight: 600;
+  div{
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+    border-bottom: 5px solid white;
+    &:hover{
+      /* text-decoration: underline;
+      text-underline-position: under; */
+      border-bottom: 5px solid ${palette.blue[1]};
+    }
+  }
 `;
 
 function Navi() {
   return (
     <NaviBlock>
       <Link to='/'>
-        <span>마이페이지</span>
+        <div>마이페이지</div>
       </Link>
       <Link to='/'>
-        <span>환경설정</span>
+        <div>환경설정</div>
       </Link>
       <Link to='/'>
-        <span>설문</span>
+        <div>설문</div>
       </Link>
       <Link to='/inquiry_list'>
-        <span>나의 문의함</span>
+        <div>나의 문의함</div>
       </Link>
     </NaviBlock>
   )
