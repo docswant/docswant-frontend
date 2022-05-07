@@ -1,8 +1,8 @@
-import React from 'react'
-import Header from '../components/common/Header'
-import InquiryModifyForm from '../components/patient/InquiryModifyForm'
-import Footer from '../components/common/Footer'
-import Navi from '../components/patient/Navi'
+import React from 'react';
+import Header from '../components/common/Header';
+import InquiryModifyForm from '../components/patient/InquiryModifyForm';
+import Footer from '../components/common/Footer';
+import Navi from '../components/common/Navi';
 
 function InquiryModifyPage() {
   return (
@@ -12,7 +12,7 @@ function InquiryModifyPage() {
       <InquiryModifyForm />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default InquiryModifyPage
+export default InquiryModifyPage;
