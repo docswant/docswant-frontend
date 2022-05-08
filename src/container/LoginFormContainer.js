@@ -8,12 +8,23 @@ import {
   loginSucess,
 } from '../modules/auth';
 import axios from 'axios';
+import jwt from 'jwt-decode';
+import Cookies from 'universal-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function LoginFormContainer() {
-  const { form } = useSelector(({ auth }) => ({
+  const { form, loginForm, loginError } = useSelector(({ auth }) => ({
     form: auth.login,
+    loginForm: auth.loginForm,
+    loginError: auth.loginError,
   }));
   const dispatch = useDispatch();
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+
+  const setCookie = (name, value, option) => {
+    return cookies.set(name, value, { ...option });
+  };
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +44,13 @@ function LoginFormContainer() {
         'https://docswant.zooneon.dev/api/v1/login',
         { username, password },
       );
-      dispatch(loginSucess(response.data.data));
+      let token = response.data.data.refreshToken;
+      setCookie('myToken', token, {
+        path: '/',
+        secure: true,
+        sameSite: 'none',
+      });
+      dispatch(loginSucess(jwt(token)));
     } catch (e) {
       dispatch(loginFailure(e));
     }
@@ -52,7 +69,21 @@ function LoginFormContainer() {
     );
   }, [dispatch]);
 
-  return <LoginForm form={form} onChange={onChange} onSubmit={onSubmit} />;
+  useEffect(() => {
+    if (loginForm) {
+      navigate(`/patient/mypage/${loginForm.sub}`);
+    }
+  }, [loginForm, navigate]);
+
+  return (
+    <LoginForm
+      form={form}
+      loginForm={loginForm}
+      loginError={loginError}
+      onChange={onChange}
+      onSubmit={onSubmit}
+    />
+  );
 }
 
 export default LoginFormContainer;
