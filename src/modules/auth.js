@@ -70,6 +70,15 @@ const auth = handleActions(
       ...state,
       registerError: error,
     }),
+    [LOGIN_SUCCESS]: (state, { payload: loginForm }) => ({
+      ...state,
+      loginForm,
+      loginError: null,
+    }),
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      loginError: error,
+    }),
   },
   initialState,
 );
