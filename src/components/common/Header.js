@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../../lib/image/Logo.png';
 
 const HeaderBlock = styled.div`
   border-bottom: 1px solid ${palette.gray[0]};
@@ -12,23 +13,28 @@ const HeaderBlock = styled.div`
 
   .HeaderLeft {
     display: flex;
-    align-items: center;
-    div {
-      width: 50px;
-      height: 50px;
-      background-color: gray;
-      margin-right: 1rem;
+    img {
+      width: 90%;
+      height: 100px;
+      margin: .5rem 0;
       cursor: pointer;
-    }
-
-    h2 {
-      color: ${palette.green[0]};
     }
   }
 
   span {
     font-size: 25px;
   }
+
+  .HeaderRight {
+    display: flex;
+    button {
+      width: 11rem;
+      height: 3rem;
+      margin: .5rem 3rem;
+      cursor: pointer;
+    }
+  }
+
 `;
 
 const Header = () => {
@@ -45,10 +51,12 @@ const Header = () => {
   return (
     <HeaderBlock>
       <div className="HeaderLeft">
-        <div onClick={onGoMain}></div>
-        <h2>닥스원트</h2>
+        <img src={Logo} alt="Logo" onClick={onGoMain}/>
       </div>
       <span>{dataString}</span>
+      <div className="HeaderRight">
+        <button>Menu</button>
+      </div>
     </HeaderBlock>
   );
 };

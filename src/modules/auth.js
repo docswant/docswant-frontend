@@ -5,6 +5,8 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
+const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -17,6 +19,13 @@ export const registerSuccess = createAction(
   (registerForm) => registerForm,
 );
 export const registerFailure = createAction(REGISTER_FAILURE, (error) => error);
+
+export const loginSucess = createAction(
+  LOGIN_SUCCESS,
+  (loginForm) => loginForm,
+);
+export const loginFailure = createAction(LOGIN_FAILURE, (error) => error);
+
 const initialState = {
   //회원가입 input value
   register: {
@@ -28,10 +37,18 @@ const initialState = {
     major: '',
   },
 
+  login: {
+    username: '',
+    password: '',
+  },
+
   //회원가입 response
   registerForm: null,
   //회원가입 response error
   registerError: null,
+
+  loginForm: null,
+  loginError: null,
 };
 
 const auth = handleActions(
