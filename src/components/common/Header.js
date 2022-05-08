@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../../lib/image/Logo.png';
 
 const HeaderBlock = styled.div`
@@ -12,11 +12,11 @@ const HeaderBlock = styled.div`
 
   .HeaderLeft {
     display: flex;
+    cursor: pointer;
     img {
       width: 90%;
       height: 90px;
       margin: 0.5rem 0;
-      cursor: pointer;
     }
   }
 
@@ -30,13 +30,15 @@ const Header = () => {
   //현재 시간
   const today = new Date();
   const dataString = today.toLocaleDateString();
+  const navigate = useNavigate();
 
+  const onMoveMyPage = (userId) => {
+    navigate(`/patient/mypage/${userId}`);
+  };
   return (
     <HeaderBlock>
-      <div className="HeaderLeft">
-        <Link to="/patient/mypage">
-          <img src={Logo} alt="Logo" />
-        </Link>
+      <div className="HeaderLeft" onClick={() => onMoveMyPage(999)}>
+        <img src={Logo} alt="Logo" />
       </div>
       <span>{dataString}</span>
     </HeaderBlock>

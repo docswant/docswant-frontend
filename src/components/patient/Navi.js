@@ -28,14 +28,16 @@ const NaviBlock = styled.div`
 function Navi() {
   const navigate = useNavigate();
 
+  const onMoveMyPage = (userId) => {
+    navigate(`/patient/mypage/${userId}`);
+  };
   const onMoveSurvey = (userId) => {
     navigate(`/patient/survey/${userId}`);
   };
   return (
     <NaviBlock>
-      <Link to="/patient/mypage">
-        <div>마이페이지</div>
-      </Link>
+      <div onClick={() => onMoveMyPage(999)}>마이페이지</div>
+
       <div onClick={() => onMoveSurvey(999)}>설문</div>
       <Link to="/inquiry_list">
         <div>나의 문의함</div>

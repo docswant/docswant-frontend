@@ -7,8 +7,10 @@ import Logo from '../../lib/image/Logo.png';
 //화면 하단 고정
 const FooterBlock = styled.div`
   width: 100%;
-  bottom: 0;
+  height: 120px;
   border-top: 1px solid #e1e1e1;
+  bottom: 0;
+  position: absolute;
   padding: 1rem;
 
   .FooterWrapper {
