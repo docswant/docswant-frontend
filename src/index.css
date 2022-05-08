@@ -12,6 +12,7 @@ body {
   min-height: 100%;
   font-weight: 500;
   color: #333333;
+  position: relative;
 }
 
 #root {
