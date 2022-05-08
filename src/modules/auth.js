@@ -51,7 +51,7 @@ const auth = handleActions(
     }),
     [REGISTER_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      registerFailure: error,
+      registerError: error,
     }),
   },
   initialState,
