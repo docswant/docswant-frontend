@@ -9,6 +9,7 @@ const PatientModifiyBlock = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1rem 0;
+  padding-bottom: 150px;
 
   h2 {
     margin: 1rem;
