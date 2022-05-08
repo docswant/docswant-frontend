@@ -14,16 +14,19 @@ import {
   duplicateUserSuccess,
 } from '../modules/duplicate';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterFormContainer() {
-  const { form, duplicateCode, duplicateUser } = useSelector(
-    ({ auth, duplicate }) => ({
+  const { form, duplicateCode, duplicateUser, registerForm, registerError } =
+    useSelector(({ auth, duplicate }) => ({
       form: auth.register,
+      registerForm: auth.registerForm,
+      registerError: auth.registerError,
       duplicateCode: duplicate.duplicateCode,
       duplicateUser: duplicate.duplicateUser,
-    }),
-  );
+    }));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -101,6 +104,11 @@ function RegisterFormContainer() {
       alert('빈 칸을 모두 입력하세요');
       return;
     }
+
+    if (duplicateCode === null || duplicateUser === null) {
+      alert('중복검사를 해주세요');
+      return;
+    }
   };
 
   useEffect(() => {
@@ -111,10 +119,19 @@ function RegisterFormContainer() {
     );
   }, [dispatch]);
 
+  useEffect(() => {
+    if (registerForm) {
+      navigate('/');
+    } else if (registerError) {
+      alert('아이디 또는 의사코드를 확인해주세요');
+    }
+  }, [registerForm, registerError, navigate]);
+
   return (
     <RegisterForm
       form={form}
       onChange={onChange}
+      registerError={registerError}
       onMajor={onMajor}
       onDuplicateCode={onDuplicateCode}
       onDuplicateUser={onDuplicateUser}

@@ -12,9 +12,16 @@ const RegisterFormBlock = styled.div`
   align-items: center;
   background-color: #ebebeb;
 
+  @media (max-width: 425px) {
+    padding: 0 1rem;
+  }
+
   .formBlock {
-    width: 414px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     form {
+      width: 425px;
       display: flex;
       flex-direction: column;
 
@@ -41,12 +48,16 @@ const RegisterFormBlock = styled.div`
         align-items: center;
 
         .duplicate {
-          width: 25%;
+          width: 30%;
           margin: 0;
           margin-left: 1rem;
           font-size: 12px;
           padding: 1rem;
           cursor: pointer;
+
+          @media (max-width: 425px) {
+            width: 40%;
+          }
         }
       }
     }
@@ -148,6 +159,7 @@ const RegisterForm = ({
   onChange,
   onMajor,
   onSubmit,
+  registerError,
   onDuplicateCode,
   onDuplicateUser,
   duplicateCode,
