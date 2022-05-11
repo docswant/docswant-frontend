@@ -52,13 +52,16 @@ function RegisterFormContainer() {
   async function getRegister() {
     const { code, username, password, major, name } = form;
     try {
-      const response = await axios.post('/api/v1/doctor', {
-        code,
-        username,
-        password,
-        major,
-        name,
-      });
+      const response = await axios.post(
+        'https://docswant.zooneon.dev/api/v1/doctor',
+        {
+          code,
+          username,
+          password,
+          major,
+          name,
+        },
+      );
       dispatch(registerSuccess(response.data.data));
     } catch (e) {
       dispatch(registerFailure(e));
@@ -66,9 +69,7 @@ function RegisterFormContainer() {
   }
   async function getDuplicateCode() {
     try {
-      const response = await axios.get(
-        `/api/v1/doctor/validate?code=${form.code}`,
-      );
+      const response = await axios.get(`/api/v1/doctor/validate/${form.code}`);
       dispatch(duplicateCodeSuccess(response.data.data));
     } catch (e) {
       dispatch(duplicateCodeFailure(e));
@@ -78,7 +79,7 @@ function RegisterFormContainer() {
   async function getDuplicateUser() {
     try {
       const response = await axios.get(
-        `api/v1/account/exists?username=${form.username}`,
+        `api/v1/account/exists/${form.username}`,
       );
       dispatch(duplicateUserSuccess(response.data.data));
     } catch (e) {
