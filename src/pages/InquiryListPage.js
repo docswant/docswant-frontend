@@ -5,18 +5,11 @@ import Footer from '../components/common/Footer';
 import Navi from '../components/patient/Navi';
 
 function InquiryListPage() {
-  const [inquiries, setInquiries] = useState([
-    {
-      id: 1,
-      text: '안녕하세요',
-    },
-  ]);
-
   return (
     <div>
       <Header />
       <Navi />
-      <InquiryListForm inquiries={inquiries} />
+      <InquiryListForm />
       <Footer />
     </div>
   );

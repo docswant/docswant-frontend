@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
+import InquiryForm from './InquiryForm';
 
 const InquiryListBlock = styled.div`
   height: 50vh;
@@ -35,30 +36,42 @@ const BtnBlock = styled.div`
     }
   }
 `
-function Inquiry({inquiry}){
-  return (
-    <div>
-      <b>{inquiry.id}</b> {inquiry.text}
-    </div>
-  );
-}
 
 function InquiryListForm({inquiries}) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [textValue, setTextValue] = useState("");
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal=()=>{
+    setModalOpen(false);
+  };
+  const onChange=(e)=>{
+    setTextValue(e.target.value);
+  }
+  const onReset=()=>{
+    alert("제출되었습니다.");
+    console.log(textValue);
+    setTextValue("");
+  }
+
   return (
     <>
       <BtnBlock>
-        <Link to ="/inquiry">
-          <button>문의 하기</button>
-        </Link>
+        <button onClick={openModal}>문의 하기</button>
       </BtnBlock>
+
+      <InquiryForm
+        open={modalOpen}
+        close={closeModal}
+        onChange={onChange}
+        text={textValue}
+        reset={onReset}/>
+
       <InquiryListBlock>
         <div className="box" style={{color: '#808893'}}>
           제출된 문의가 없습니다.
-          {inquiries.map(inquiry => (
-            <Link to="/inquiry_modify">
-              <Inquiry inquiry={inquiry} key={inquiry.id} />
-            </Link>
-          ))}
         </div>
       </InquiryListBlock>
     </>
