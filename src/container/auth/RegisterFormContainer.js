@@ -79,7 +79,7 @@ function RegisterFormContainer() {
   async function getDuplicateUser() {
     try {
       const response = await axios.get(
-        `api/v1/account/exists/${form.username}`,
+        `/api/v1/account/exists/${form.username}`,
       );
       dispatch(duplicateUserSuccess(response.data.data));
     } catch (e) {
