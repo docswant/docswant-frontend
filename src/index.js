@@ -8,9 +8,19 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './modules';
+import { getCookie } from './lib/cookie';
+import jwt from 'jwt-decode';
+import { stageUser } from './modules/user';
 
 const store = createStore(rootReducer, composeWithDevTools());
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+async function loadUser() {
+  let access = getCookie('myRToken');
+  store.dispatch(stageUser(jwt(access)));
+}
+
+loadUser();
 root.render(
   <Provider store={store}>
     <BrowserRouter>

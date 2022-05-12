@@ -84,11 +84,11 @@ const PatientMypageBlock = styled.div`
   }
 `;
 
-const PatientMypage = () => {
+const PatientMypage = ({ user }) => {
   const navigate = useNavigate();
 
-  const onMoveModify = (userId) => {
-    navigate(`/patient/modify/${userId}`);
+  const onMoveModify = () => {
+    navigate(`/patient/modify/${user.sub}`);
   };
   return (
     <PatientMypageBlock>
@@ -103,7 +103,7 @@ const PatientMypage = () => {
             <div>퇴원까지 D-10</div>
           </div>
         </div>
-        <button onClick={() => onMoveModify(999)}>설정</button>
+        <button onClick={onMoveModify}>설정</button>
         <div className="subInfo">
           <div className="totalRequest">
             <FcSurvey />

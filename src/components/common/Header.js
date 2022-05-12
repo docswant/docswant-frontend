@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../../lib/image/Logo.png';
 
 const HeaderBlock = styled.div`
@@ -33,23 +33,18 @@ const HeaderBlock = styled.div`
   }
 `;
 
-const Header = () => {
+const Header = ({ user }) => {
   //현재 시간
   const today = new Date();
   const dataString = today.toLocaleDateString();
   const navigate = useNavigate();
-  const { user_Info } = useParams();
 
-  const onMoveMyPage = (userId) => {
-    if (user_Info === 'doctor') {
-      navigate(`/${user_Info}/mainpage/${userId}/D`);
-    } else {
-      navigate(`/${user_Info}/mainpage/${userId}/P`);
-    }
+  const onMoveMyPage = () => {
+    navigate(`/patient/mainpage/${user.sub}`);
   };
   return (
     <HeaderBlock>
-      <div className="HeaderLeft" onClick={() => onMoveMyPage(999)}>
+      <div className="HeaderLeft" onClick={onMoveMyPage}>
         <img src={Logo} alt="Logo" />
       </div>
       <span>{dataString}</span>

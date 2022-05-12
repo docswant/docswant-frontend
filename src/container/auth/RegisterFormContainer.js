@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import RegisterForm from '../components/auth/RegisterForm';
+import RegisterForm from '../../components/auth/RegisterForm';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   changeField,
   initializeForm,
   registerFailure,
   registerSuccess,
-} from '../modules/auth';
+} from '../../modules/auth';
 import {
   duplicateCodeFailure,
   duplicateCodeSuccess,
   duplicateUserFailure,
   duplicateUserSuccess,
-} from '../modules/duplicate';
+} from '../../modules/duplicate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 

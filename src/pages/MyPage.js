@@ -1,15 +1,15 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
-import Header from '../components/common/Header';
-import Navi from '../components/patient/Navi';
-import PatientMypage from '../components/patient/PatientMypage';
+import HeaderContainer from '../container/common/HeaderContainer';
+import NaviContainer from '../container/patient/NaviContainer';
+import PatientMyPageContainer from '../container/patient/PatientMyPageContainer';
 
 export default function MyPage() {
   return (
     <div>
-      <Header />
-      <Navi />
-      <PatientMypage />
+      <HeaderContainer />
+      <NaviContainer />
+      <PatientMyPageContainer />
       <Footer />
     </div>
   );

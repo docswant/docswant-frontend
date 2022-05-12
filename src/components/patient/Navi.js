@@ -25,27 +25,27 @@ const NaviBlock = styled.div`
   }
 `;
 
-function Navi() {
+function Navi({ user }) {
   const navigate = useNavigate();
 
-  const onMoveMyPage = (userId) => {
-    navigate(`/patient/mainpage/${userId}`);
+  const onMoveMyPage = () => {
+    navigate(`/patient/mainpage/${user.sub}`);
   };
-  const onMoveSurvey = (userId) => {
-    navigate(`/patient/survey/${userId}`);
+  const onMoveSurvey = () => {
+    navigate(`/patient/survey/${user.sub}`);
   };
 
-  const onMoveInquiry = (userId) => {
-    navigate(`/patient/inquiry_list/${userId}`);
+  const onMoveInquiry = () => {
+    navigate(`/patient/inquiry_list/${user.sub}`);
   };
 
   return (
     <NaviBlock>
-      <div onClick={() => onMoveMyPage(999)}>마이페이지</div>
+      <div onClick={onMoveMyPage}>마이페이지</div>
 
-      <div onClick={() => onMoveSurvey(999)}>설문</div>
+      <div onClick={onMoveSurvey}>설문</div>
 
-      <div onClick={() => onMoveInquiry(999)}>나의 문의함</div>
+      <div onClick={onMoveInquiry}>나의 문의함</div>
     </NaviBlock>
   );
 }
