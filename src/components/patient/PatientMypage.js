@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const PatientMypageBlock = styled.div`
   width: 100%;
   padding: 3rem 10rem;
+  padding-bottom: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
