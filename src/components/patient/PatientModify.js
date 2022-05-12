@@ -78,8 +78,19 @@ const StyledInput = styled.input`
     border: 1px solid ${palette.blue[0]};
   }
 `;
+const ErrorMessageBlock = styled.div`
+  text-align: center;
+  margin: 0.3rem 0;
+  color: red;
+  font-weight: bold;
+`;
 
-const PatientModifiy = () => {
+const PatientModifiy = ({
+  duplicatePatient,
+  onChange,
+  form,
+  onDuplicatePatient,
+}) => {
   return (
     <PatientModifiyBlock>
       <h1>회원 정보 수정</h1>
@@ -90,39 +101,66 @@ const PatientModifiy = () => {
             <StyledInput
               type="text"
               name="username"
+              value={form.username}
               placeholder="아이디 입력"
+              onChange={onChange}
             />
-            <button type="button" className="duplicate">
+            <button
+              type="button"
+              className="duplicate"
+              onClick={onDuplicatePatient}
+            >
               중복 확인
             </button>
           </div>
+          {duplicatePatient === true && (
+            <ErrorMessageBlock>아이디가 중복됩니다.</ErrorMessageBlock>
+          )}
+          {duplicatePatient === false && (
+            <ErrorMessageBlock>사용가능한 아이디 입니다.</ErrorMessageBlock>
+          )}
           <span>현재 비밀번호</span>
           <StyledInput
             type="password"
             name="password"
+            value={form.password}
             placeholder="현재 비밀번호 입력"
+            onChange={onChange}
           />
           <span>새로운 비밀번호</span>
           <StyledInput
             type="password"
-            name="password"
+            name="newPassword"
+            value={form.newPassword}
             placeholder="새로운 비밀번호 입력"
+            onChange={onChange}
           />
           <span>비밀번호 확인</span>
           <StyledInput
             type="password"
-            name="passwordConfirm"
+            name="newPasswordConfirm"
+            value={form.ewPasswordConfirm}
             placeholder="비밀번호 확인"
+            onChange={onChange}
           />
 
           <span>D-Day</span>
           <div className="makeDay">
             <StyledInput
               type="text"
+              name="dayText"
+              value={form.dayText}
               style={{ width: '50%', marginRight: '1rem' }}
               placeholder="D-Day"
+              onChange={onChange}
             />
-            <StyledInput type="date" style={{ width: '50%' }} />
+            <StyledInput
+              type="date"
+              name="date"
+              value={form.date}
+              style={{ width: '50%' }}
+              onChange={onChange}
+            />
           </div>
           <button>회원 정보 수정</button>
         </form>
