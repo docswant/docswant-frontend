@@ -42,6 +42,15 @@ const initialState = {
     password: '',
   },
 
+  modify: {
+    username: '',
+    password: '',
+    newPassword: '',
+    newPasswordComfirm: '',
+    dayText: '',
+    date: '',
+  },
+
   //회원가입 response
   registerForm: null,
   //회원가입 response error
