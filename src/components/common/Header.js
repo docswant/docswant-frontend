@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Logo from '../../lib/image/Logo.png';
 
 const HeaderBlock = styled.div`
@@ -10,8 +10,11 @@ const HeaderBlock = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  @media (max-width: 425px) {
+    display: none;
+  }
   .HeaderLeft {
-    display: flex;
+    width: 200px;
     cursor: pointer;
     img {
       width: 90%;
@@ -23,6 +26,10 @@ const HeaderBlock = styled.div`
   span {
     font-size: 25px;
     margin-right: 2rem;
+
+    @media (max-width: 476px) {
+      font-size: 20px;
+    }
   }
 `;
 
@@ -31,9 +38,14 @@ const Header = () => {
   const today = new Date();
   const dataString = today.toLocaleDateString();
   const navigate = useNavigate();
+  const { user_Info } = useParams();
 
   const onMoveMyPage = (userId) => {
-    navigate(`/patient/mypage/${userId}`);
+    if (user_Info === 'doctor') {
+      navigate(`/${user_Info}/mainpage/${userId}/D`);
+    } else {
+      navigate(`/${user_Info}/mainpage/${userId}/P`);
+    }
   };
   return (
     <HeaderBlock>
