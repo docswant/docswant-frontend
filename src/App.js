@@ -3,7 +3,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import InquiryPage from './pages/InquiryPage';
 import InquiryListPage from './pages/InquiryListPage';
 import InquiryModifyPage from './pages/InquiryModifyPage';
 import MyPage from './pages/MyPage';
@@ -40,6 +39,8 @@ function App() {
         path="/:user_Info/modify/:user_Id/D"
         element={<DoctorModifyPage />}
       />
+      <Route path='/inquiry_list' element={<InquiryListPage />} />
+      <Route path='/inquiry_modify' element={<InquiryModifyPage />} />
     </Routes>
   );
 }
