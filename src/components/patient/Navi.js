@@ -29,19 +29,23 @@ function Navi() {
   const navigate = useNavigate();
 
   const onMoveMyPage = (userId) => {
-    navigate(`/patient/mypage/${userId}`);
+    navigate(`/patient/mainpage/${userId}`);
   };
   const onMoveSurvey = (userId) => {
     navigate(`/patient/survey/${userId}`);
   };
+
+  const onMoveInquiry = (userId) => {
+    navigate(`/patient/inquiry_list/${userId}`);
+  };
+
   return (
     <NaviBlock>
       <div onClick={() => onMoveMyPage(999)}>마이페이지</div>
 
       <div onClick={() => onMoveSurvey(999)}>설문</div>
-      <Link to="/inquiry_list">
-        <div>나의 문의함</div>
-      </Link>
+
+      <div onClick={() => onMoveInquiry(999)}>나의 문의함</div>
     </NaviBlock>
   );
 }
