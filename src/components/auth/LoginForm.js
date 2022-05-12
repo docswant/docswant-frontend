@@ -84,7 +84,7 @@ const ErrorMessageBlock = styled.div`
   font-weight: bold;
 `;
 
-function LoginForm({ form, loginForm, loginError, onChange, onSubmit }) {
+function LoginForm({ form, loginError, onChange, onSubmit }) {
   return (
     <LoginBlock>
       <div className="login_box">

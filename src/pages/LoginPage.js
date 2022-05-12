@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginFormContainer from '../container/LoginFormContainer';
+import LoginFormContainer from '../container/auth/LoginFormContainer';
 
 function LoginPage() {
   return (

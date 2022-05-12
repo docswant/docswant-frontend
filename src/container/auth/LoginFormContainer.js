@@ -1,30 +1,26 @@
 import React, { useEffect } from 'react';
-import LoginForm from '../components/auth/LoginForm';
+import LoginForm from '../../components/auth/LoginForm';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   changeField,
   initializeForm,
   loginFailure,
   loginSucess,
-} from '../modules/auth';
+} from '../../modules/auth';
 import axios from 'axios';
 import jwt from 'jwt-decode';
-import Cookies from 'universal-cookie';
+import { setCookie } from '../../lib/cookie';
 import { useNavigate } from 'react-router-dom';
+import { stageUser } from '../../modules/user';
 
 function LoginFormContainer() {
-  const { form, loginForm, loginError } = useSelector(({ auth }) => ({
+  const { form, user, loginError } = useSelector(({ auth, user }) => ({
     form: auth.login,
-    loginForm: auth.loginForm,
     loginError: auth.loginError,
+    user: user.user,
   }));
   const dispatch = useDispatch();
-  const cookies = new Cookies();
   const navigate = useNavigate();
-
-  const setCookie = (name, value, option) => {
-    return cookies.set(name, value, { ...option });
-  };
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -42,17 +38,28 @@ function LoginFormContainer() {
     try {
       const response = await axios.post(
         'https://docswant.zooneon.dev/api/v1/login',
-        { username, password },
+        {
+          username,
+          password,
+        },
       );
-      let token = response.data.data.refreshToken;
-      setCookie('myToken', token, {
+      let refresh = response.data.data.refreshToken;
+      let access = response.data.data.accessToken;
+      setCookie('myRToken', refresh, {
         path: '/',
         secure: true,
         sameSite: 'none',
       });
-      dispatch(loginSucess(jwt(token)));
+      setCookie('myAToken', access, {
+        path: '/',
+        secure: true,
+        sameSite: 'none',
+      });
+      dispatch(loginSucess(true));
+      dispatch(stageUser(jwt(access)));
     } catch (e) {
       dispatch(loginFailure(e));
+      dispatch(stageUser(e));
     }
   }
 
@@ -70,15 +77,14 @@ function LoginFormContainer() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (loginForm) {
-      navigate(`/patient/mypage/${loginForm.sub}`);
+    if (user) {
+      navigate(`/patient/mainpage/${user.sub}`);
     }
-  }, [loginForm, navigate]);
+  }, [user, navigate]);
 
   return (
     <LoginForm
       form={form}
-      loginForm={loginForm}
       loginError={loginError}
       onChange={onChange}
       onSubmit={onSubmit}

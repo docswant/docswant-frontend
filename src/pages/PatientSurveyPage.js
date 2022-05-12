@@ -1,14 +1,14 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
-import Header from '../components/common/Header';
-import Navi from '../components/patient/Navi';
 import PatientSurvey from '../components/patient/PatientSurvey';
+import HeaderContainer from '../container/common/HeaderContainer';
+import NaviContainer from '../container/patient/NaviContainer';
 
 export default function PatientSurveyPage() {
   return (
     <div>
-      <Header />
-      <Navi />
+      <HeaderContainer />
+      <NaviContainer />
       <PatientSurvey />
       <Footer />
     </div>
