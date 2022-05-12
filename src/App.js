@@ -18,29 +18,17 @@ function App() {
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       {/* 환자 */}
-      <Route path="/:user_Info/mainpage/:user_Id/P" element={<MyPage />} />
+      <Route path="/patient/mainpage/:user_Id" element={<MyPage />} />
+      <Route path="/patient/survey/:user_Id" element={<PatientSurveyPage />} />
+      <Route path="/patient/modify/:user_Id" element={<PatientModifyPage />} />
       <Route
-        path="/:user_Info/survey/:user_Id/P"
-        element={<PatientSurveyPage />}
+        path="/patient/inquiry_list/:user_Id"
+        element={<InquiryListPage />}
       />
-      <Route
-        path="/:user_Info/modify/:user_Id/P"
-        element={<PatientModifyPage />}
-      />
-      <Route path="/inquiry" element={<InquiryPage />} />
-      <Route path="/inquiry_list" element={<InquiryListPage />} />
-      <Route path="/inquiry_modify" element={<InquiryModifyPage />} />
+      <Route path="/patient/inquiry_modify" element={<InquiryModifyPage />} />
       {/* 의사 */}
-      <Route
-        path="/:user_Indo/mainpage/:user_Id/D"
-        element={<DoctorMainPage />}
-      />
-      <Route
-        path="/:user_Info/modify/:user_Id/D"
-        element={<DoctorModifyPage />}
-      />
-      <Route path='/inquiry_list' element={<InquiryListPage />} />
-      <Route path='/inquiry_modify' element={<InquiryModifyPage />} />
+      <Route path="/doctor/mainpage/:user_Id/D" element={<DoctorMainPage />} />
+      <Route path="/doctor/modify/:user_Id/D" element={<DoctorModifyPage />} />
     </Routes>
   );
 }
