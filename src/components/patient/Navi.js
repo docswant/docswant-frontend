@@ -40,13 +40,15 @@ function Navi({ user }) {
   };
 
   return (
-    <NaviBlock>
-      <div onClick={onMoveMyPage}>마이페이지</div>
+    user && (
+      <NaviBlock>
+        <div onClick={onMoveMyPage}>마이페이지</div>
 
-      <div onClick={onMoveSurvey}>설문</div>
+        <div onClick={onMoveSurvey}>설문</div>
 
-      <div onClick={onMoveInquiry}>나의 문의함</div>
-    </NaviBlock>
+        <div onClick={onMoveInquiry}>나의 문의함</div>
+      </NaviBlock>
+    )
   );
 }
 
