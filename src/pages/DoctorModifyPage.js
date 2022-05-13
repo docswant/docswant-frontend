@@ -1,12 +1,14 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
-import Header from '../components/common/Header';
 import DoctorModify from '../components/doctor/DoctorModify';
+import DoctorHeaderContainer from '../container/doctor/DoctorHeaderContainer';
+import DoctorNaviContainer from '../container/doctor/DoctorNaviContainer';
 
 function DoctorModifyPage() {
   return (
     <div>
-      <Header />
+      <DoctorHeaderContainer />
+      <DoctorNaviContainer />
       <DoctorModify />
       <Footer />
     </div>

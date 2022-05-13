@@ -1,12 +1,14 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
-import Header from '../components/common/Header';
 import DoctorMain from '../components/doctor/DoctorMain';
+import DoctorNaviContainer from '../container/doctor/DoctorNaviContainer';
+import DoctorHeaderContainer from '../container/doctor/DoctorHeaderContainer';
 
 function DoctorMainPage() {
   return (
     <div>
-      <Header />
+      <DoctorHeaderContainer />
+      <DoctorNaviContainer />
       <DoctorMain />
       <Footer />
     </div>
