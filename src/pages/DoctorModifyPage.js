@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
-import DoctorModify from '../components/doctor/DoctorModify';
 import DoctorHeaderContainer from '../container/doctor/DoctorHeaderContainer';
+import DoctorModifyContainer from '../container/doctor/DoctorModifyContainer';
 import DoctorNaviContainer from '../container/doctor/DoctorNaviContainer';
 
 function DoctorModifyPage() {
@@ -9,7 +9,7 @@ function DoctorModifyPage() {
     <div>
       <DoctorHeaderContainer />
       <DoctorNaviContainer />
-      <DoctorModify />
+      <DoctorModifyContainer />
       <Footer />
     </div>
   );
