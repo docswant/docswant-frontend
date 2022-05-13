@@ -11,7 +11,7 @@ import axios from 'axios';
 import jwt from 'jwt-decode';
 import { setCookie } from '../../lib/cookie';
 import { useNavigate } from 'react-router-dom';
-import { stageUser } from '../../modules/user';
+import { stageUser, stageUserError } from '../../modules/user';
 
 function LoginFormContainer() {
   const { form, user, loginError } = useSelector(({ auth, user }) => ({
@@ -59,7 +59,7 @@ function LoginFormContainer() {
       dispatch(stageUser(jwt(access)));
     } catch (e) {
       dispatch(loginFailure(e));
-      dispatch(stageUser(e));
+      dispatch(stageUserError(e));
     }
   }
 
