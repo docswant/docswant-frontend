@@ -64,6 +64,12 @@ const InquiryModal = styled.div`
     main{
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
+      input{
+        width: 100%;
+        margin-bottom: 1rem;
+        border: none;
+        font-size: 18px;
+      }
       textarea{
         resize: none;
         width: 100%;
@@ -100,7 +106,7 @@ const InquiryModal = styled.div`
 `
 
 function InquiryForm(props) {
-  const {open, close, onChange, text, reset} = props;
+  const {open, close, onChange, text, reset, title} = props;
 
   return (
     <InquiryModal>
@@ -114,8 +120,15 @@ function InquiryForm(props) {
               </button>
             </header>
             <main>
+              <input 
+                name="title"
+                type="text"
+                placeholder='제목을 입력하세요.'
+                value={title}
+                onChange={onChange}/>
               <textarea 
-                placeholder='여기에 입력하세요.' 
+                name="text"
+                placeholder='내용을 입력하세요.' 
                 value={text}
                 onChange={onChange} />
             </main>
