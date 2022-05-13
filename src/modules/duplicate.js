@@ -6,6 +6,8 @@ const DUPLICATE_USER_SUCCESS = 'auth/DUPLICATE_USER_SUCCESS';
 const DUPLICATE_USER_FALIURE = 'auth/DUPLICATE_USER_FAILURE';
 const DUPLICATE_PATIENT_SUCCESS = 'auth/DUPLICATE_PATIENT_SUCCESS';
 const DUPLICATE_PATIENT_FAILURE = 'auth/DUPLICATE_PATIENT_FAILURE';
+const DUPLICATE_DOCTOR_SUCCESS = 'auth/DUPLICATE_DOCTOR_SUCCESS';
+const DUPLICATE_DOCTOR_FAILURE = 'auth/DUPLICATE_DOCTOR_FAILURE';
 
 export const duplicateCodeSuccess = createAction(
   DUPLICATE_CODE_SUCCESS,
@@ -32,6 +34,14 @@ export const duplicatePatientFailure = createAction(
   DUPLICATE_PATIENT_FAILURE,
   (error) => error,
 );
+export const duplicateDoctorSuccess = createAction(
+  DUPLICATE_DOCTOR_SUCCESS,
+  (success) => success,
+);
+export const duplicateDoctorFailure = createAction(
+  DUPLICATE_DOCTOR_FAILURE,
+  (error) => error,
+);
 
 const initialState = {
   //의사코드 중복
@@ -44,6 +54,9 @@ const initialState = {
 
   duplicatePatient: null,
   duplicatePatientError: null,
+
+  duplicateDoctor: null,
+  duplicateDoctorError: null,
 };
 
 const duplicate = handleActions(
@@ -74,6 +87,15 @@ const duplicate = handleActions(
     [DUPLICATE_PATIENT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       duplicatePatientError: error,
+    }),
+    [DUPLICATE_DOCTOR_SUCCESS]: (state, { payload: success }) => ({
+      ...state,
+      duplicateDoctor: success,
+      duplicateDoctorError: null,
+    }),
+    [DUPLICATE_DOCTOR_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      duplicateDoctorError: error,
     }),
   },
   initialState,
