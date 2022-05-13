@@ -11,9 +11,12 @@ import rootReducer from './modules';
 import { getCookie } from './lib/cookie';
 import jwt from 'jwt-decode';
 import { stageUser } from './modules/user';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const store = createStore(rootReducer, composeWithDevTools());
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const persistor = persistStore(store);
 
 async function loadUser() {
   let access = getCookie('myRToken');
@@ -23,9 +26,11 @@ async function loadUser() {
 loadUser();
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <PersistGate persistor={persistor}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </PersistGate>
   </Provider>,
 );
 
