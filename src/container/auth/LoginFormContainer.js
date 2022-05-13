@@ -14,11 +14,14 @@ import { useNavigate } from 'react-router-dom';
 import { stageUser, stageUserError } from '../../modules/user';
 
 function LoginFormContainer() {
-  const { form, user, loginError } = useSelector(({ auth, user }) => ({
-    form: auth.login,
-    loginError: auth.loginError,
-    user: user.user,
-  }));
+  const { form, user, loginForm, loginError } = useSelector(
+    ({ auth, user }) => ({
+      form: auth.login,
+      loginForm: auth.loginForm,
+      loginError: auth.loginError,
+      user: user.user,
+    }),
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,7 +58,7 @@ function LoginFormContainer() {
         secure: true,
         sameSite: 'none',
       });
-      dispatch(loginSucess(true));
+      dispatch(loginSucess(response.data.data.accountType));
       dispatch(stageUser(jwt(access)));
     } catch (e) {
       dispatch(loginFailure(e));
@@ -77,10 +80,12 @@ function LoginFormContainer() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (user) {
+    if (user && loginForm === 'ACCOUNT_PATIENT') {
       navigate(`/patient/mainpage/${user.sub}`);
+    } else if (user && loginForm === 'ACCOUNT_DOCTOR') {
+      navigate(`/doctor/mainpage/${user.sub}`);
     }
-  }, [user, navigate]);
+  }, [loginForm, navigate, user]);
 
   return (
     <LoginForm
