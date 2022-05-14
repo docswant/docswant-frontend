@@ -2,17 +2,29 @@ import React, {useState, useRef} from 'react'
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import InquiryForm from './InquiryForm';
-import { Link } from 'react-router-dom';
-import {MdDelete} from 'react-icons/md';
+import {MdDelete, MdEdit} from 'react-icons/md';
+import InquiryModifyForm from './InquiryModifyForm';
 
 
-const ListMody = styled.div`
+const ListDel = styled.div`
   display: flex;
-  color:#dee2e6;
-  font-size: 24px;
+  color: lightgray;
+  font-size: 20px;
+  margin-left: 1rem;
+  margin-right: .5rem;
   cursor: pointer;
   &:hover{
     color: #ff6b6b;
+  }
+  display: none;
+`
+const ListEdit = styled.div`
+  display: flex;
+  color: lightgray;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover{
+    color: blue;
   }
   display: none;
 `
@@ -22,7 +34,7 @@ const InquiryListBlock = styled.div`
   padding-bottom: 150px;
   align-items: center;
   .box{
-    position: relative;
+    display: flex;
     margin: 0 auto;
     justify-content: space-between;
     align-items: center;
@@ -31,7 +43,10 @@ const InquiryListBlock = styled.div`
     padding: 0.5rem;
     color: black;
     &:hover{
-      ${ListMody} {
+      ${ListDel} {
+        display: initial;
+      }
+      ${ListEdit} {
         display: initial;
       }
     }
@@ -57,21 +72,29 @@ const BtnBlock = styled.div`
   }
 `
 
-function Inquiry({inquiry}){
+function Inquiry({inquiry, onRemove, openModal2, onToggle}){
   return (
     <div className="box">
-      <p>
-        <span>제목 : {inquiry.title} _ {inquiry.id}</span>
-      </p>
-      <ListMody>
-        <MdDelete />
-      </ListMody>
+      <div>
+        제목 : {inquiry.title} _ {inquiry.id}
+        <ListDel onClick={()=>onRemove(inquiry.id)}>
+          <MdDelete />
+        </ListDel>
+        <ListEdit onClick={()=>{
+          openModal2()
+          onToggle(inquiry.id)
+        }}>
+          <MdEdit />
+        </ListEdit>
+      </div>
+      <p>읽음</p>
     </div>
   );
 }
 
 function InquiryListForm() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen1, setModalOpen1] = useState(false);
+  const [modalOpen2, setModalOpen2] = useState(false);
   const [inputs, setInputs] = useState({
     title: '',
     text: ''
@@ -82,44 +105,56 @@ function InquiryListForm() {
     {
       id: 1,
       title: '약 관련 문의',
-      text: '첫번째 약 관련 문의'
+      text: '첫번째 약 관련 문의',
+      active: true
     },
     {
       id: 2,
       title: '약 관련 문의',
-      text: '두번째 약 관련 문의'
+      text: '두번째 약 관련 문의',
+      active: false
     },
     {
       id: 3,
       title: '약 관련 문의',
-      text: '세번째 약 관련 문의'
+      text: '세번째 약 관련 문의',
+      active: false
     },
     {
       id: 4,
       title: '약 관련 문의',
-      text: '네번째 약 관련 문의'
+      text: '네번째 약 관련 문의',
+      active: false
     },
     {
       id: 5,
       title: '약 관련 문의',
-      text: '다섯번째 약 관련 문의'
+      text: '다섯번째 약 관련 문의',
+      active: false
     },
   ]);
   const nextId = useRef(6);
 
-  const openModal = () => {
-    setModalOpen(true);
+  const openModal1 = () => {
+    setModalOpen1(true);
   };
-  const closeModal=()=>{
-    setModalOpen(false);
+  const closeModal1=()=>{
+    setModalOpen1(false);
   };
+  const openModal2 = () => {
+    setModalOpen2(true);
+  };
+  const closeModal2=()=>{
+    setModalOpen2(false);
+  };
+
   const onChange=(e)=>{
     const {name, value} = e.target;
     setInputs({
       ...inputs,
       [name]: value
     });
-  }
+  };
   const onReset=()=>{
     alert("제출되었습니다.");
 
@@ -136,28 +171,49 @@ function InquiryListForm() {
       text: ''
     });
     nextId.current += 1;
+  };
+  const onSubmit=()=>{
+    alert("성공적으로 수정되었습니다.")
+  };
+  const onRemove = id => {
+    setInquiries(inquiries.filter(inquiry => inquiry.id !== id));
+  };
+  const onToggle = id => {
+    setInquiries(
+      inquiries.map(inquiry =>
+        inquiry.id === id ? {...inquiry, active: !inquiry.active} : inquiry
+      )
+    )
   }
 
   return (
     <>
       <BtnBlock>
-        <button onClick={openModal}>문의 하기</button>
+        <button onClick={openModal1}>문의 하기</button>
       </BtnBlock>
 
       <InquiryForm
-        open={modalOpen}
-        close={closeModal}
+        open={modalOpen1}
+        close={closeModal1}
         onChange={onChange}
         text={text}
         reset={onReset}
         title={title}/>
 
       <InquiryListBlock>
-        <Link to='/inquiry_modify'>
-          {inquiries.map(inquiry => (
-            <Inquiry inquiry = {inquiry} key={inquiry.id}/>
-          ))}
-        </Link>
+        {inquiries.map(inquiry => (
+          <Inquiry 
+            inquiry = {inquiry}
+            key={inquiry.id}
+            onRemove={onRemove}
+            openModal2={openModal2}
+            onToggle = {onToggle}/>
+        ))}
+        <InquiryModifyForm 
+          open={modalOpen2}
+          close={closeModal2}
+          onSubmit={onSubmit}
+          inquiries={inquiries} />
       </InquiryListBlock>
     </>
   )

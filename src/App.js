@@ -4,12 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import InquiryListPage from './pages/InquiryListPage';
-import InquiryModifyPage from './pages/InquiryModifyPage';
 import MyPage from './pages/MyPage';
-import PatientModifyPage from './pages/PatientModifyPage';
+// import PatientModifyPage from './pages/PatientModifyPage';
 import PatientSurveyPage from './pages/PatientSurveyPage';
-import DoctorModifyPage from './pages/DoctorModifyPage';
 import DoctorMainPage from './pages/DoctorMainPage';
+import DoctorModifyPage from './pages/DoctorModifyPage';
 
 function App() {
   return (
@@ -20,12 +19,10 @@ function App() {
       {/* 환자 */}
       <Route path="/patient/mainpage/:user_Id" element={<MyPage />} />
       <Route path="/patient/survey/:user_Id" element={<PatientSurveyPage />} />
-      <Route path="/patient/modify/:user_Id" element={<PatientModifyPage />} />
       <Route
         path="/patient/inquiry_list/:user_Id"
         element={<InquiryListPage />}
       />
-      <Route path="/patient/inquiry_modify" element={<InquiryModifyPage />} />
       {/* 의사 */}
       <Route path="/doctor/mainpage/:user_Id" element={<DoctorMainPage />} />
       <Route path="/doctor/modify/:user_Id" element={<DoctorModifyPage />} />
