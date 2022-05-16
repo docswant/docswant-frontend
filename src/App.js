@@ -10,6 +10,7 @@ import PatientModifyPage from './pages/PatientModifyPage';
 import PatientSurveyPage from './pages/PatientSurveyPage';
 import DoctorModifyPage from './pages/DoctorModifyPage';
 import DoctorMainPage from './pages/DoctorMainPage';
+import DoctorListPage from './pages/DoctorListPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       {/* 의사 */}
       <Route path="/doctor/mainpage/:user_Id" element={<DoctorMainPage />} />
       <Route path="/doctor/modify/:user_Id" element={<DoctorModifyPage />} />
+      <Route path="/doctor/list/:patient_Id" element={<DoctorListPage />} />
     </Routes>
   );
 }
