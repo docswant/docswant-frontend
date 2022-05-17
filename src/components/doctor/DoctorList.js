@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { AiOutlinePlus } from 'react-icons/ai';
+import DoctorListToPatientContainer from '../../container/doctor/DoctorListToPatientContainer';
 
 const DoctorListBlock = styled.div`
   width: 80%;
@@ -61,55 +62,62 @@ const DoctorListBlock = styled.div`
   }
 `;
 
-const DoctorList = () => {
+const NoQuestionBlock = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: ${palette.blue[0]};
+`;
+
+const DoctorList = ({ patientGet, questionList, onGetDeleteQuestion }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <DoctorListBlock>
-      <div className="listHeader">
-        <span>김세종 : 25세</span>
-        <span>병동위치 : 1층</span>
-        <span>입원날짜 : 3/23</span>
-        <span>병명 : 코로나</span>
-      </div>
-      <div className="listInfo">
-        <div className="listText">
-          <span>심한 몸살</span>
-        </div>
-        <div className="listButton">
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
-      </div>
-      <div className="listInfo">
-        <div className="listText">
-          <span>심한 몸살</span>
-        </div>
-        <div className="listButton">
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
-      </div>
-      <div className="listInfo">
-        <div className="listText">
-          <span>심한 몸살</span>
-        </div>
-        <div className="listButton">
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
-      </div>
-      <div className="listInfo">
-        <div className="listText">
-          <span>심한 몸살</span>
-        </div>
-        <div className="listButton">
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
-      </div>
-      <div className="patientListPlus">
-        <AiOutlinePlus />
-      </div>
-    </DoctorListBlock>
+    patientGet &&
+    questionList && (
+      <>
+        {isOpen && <DoctorListToPatientContainer onOpen={onOpen} />}
+        <DoctorListBlock>
+          <div className="listHeader">
+            <span>{patientGet.name} : 25세</span>
+            <span>병동위치 : {patientGet.hospitalRoom}</span>
+            <span>입원날짜 : {patientGet.hospitalizationDate}</span>
+            <span>병명 : {patientGet.diseaseName}</span>
+          </div>
+          {questionList.content.length !== 0 ? (
+            <>
+              {questionList.content.map((c) => (
+                <div className="listInfo" key={c.id}>
+                  <div className="listText">
+                    <span>{c.content}</span>
+                  </div>
+                  <div className="listButton">
+                    <button>수정</button>
+                    <button onClick={() => onGetDeleteQuestion(c.id)}>
+                      삭제
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            <NoQuestionBlock>
+              <span>등록된 설문이 없습니다.</span>
+            </NoQuestionBlock>
+          )}
+          <div className="patientListPlus">
+            <AiOutlinePlus onClick={onOpen} />
+          </div>
+        </DoctorListBlock>
+      </>
+    )
   );
 };
 

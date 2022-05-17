@@ -15,8 +15,10 @@ import {
 import { getCookie } from '../../lib/cookie';
 
 function DoctorRegisterPatContainer({ onOpen }) {
-  const { registerP, duplicateDoctor } = useSelector(
-    ({ registerPatient, duplicate }) => ({
+  const { registerP, duplicateDoctor, registerSuccess, user } = useSelector(
+    ({ registerPatient, duplicate, user }) => ({
+      user: user.user,
+      registerSuccess: registerPatient.registerSuccess,
       registerP: registerPatient.registerP,
       duplicateDoctor: duplicate.duplicateDoctor,
     }),
@@ -57,11 +59,11 @@ function DoctorRegisterPatContainer({ onOpen }) {
     const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
-      const response = await axios.post(
+      await axios.post(
         'https://docswant.zooneon.dev/api/v1/patient',
         registerP,
       );
-      dispatch(registerPatientSuccess(response.data.data));
+      dispatch(registerPatientSuccess(true));
     } catch (e) {
       dispatch(registerPatientFailure(e));
     }
@@ -75,6 +77,13 @@ function DoctorRegisterPatContainer({ onOpen }) {
   const onDuplicateDoctor = () => {
     getDoctorDuplicate();
   };
+
+  useEffect(() => {
+    if (registerSuccess === true) {
+      window.location.reload(`/doctor/mainpage/${user.sub}`);
+    }
+  }, [registerSuccess, user]);
+
   return (
     <DoctorRegisterPat
       onOpen={onOpen}
