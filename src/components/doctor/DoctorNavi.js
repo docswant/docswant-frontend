@@ -44,7 +44,6 @@ const DoctorNavi = ({ user }) => {
   return (
     <DoctorNaviBlock>
       <div onClick={onMoveMyPage}>마이페이지</div>
-      <div>환자 설문</div>
       <div>회진 일정</div>
       <div onClick={onMoveModify}>환경 설정</div>
     </DoctorNaviBlock>
