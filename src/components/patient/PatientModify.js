@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 const PatientModifiyBlock = styled.div`
-  width: 80%;
+  width: 100%;
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
@@ -11,13 +11,20 @@ const PatientModifiyBlock = styled.div`
   padding: 1rem 0;
   padding-bottom: 150px;
 
+  @media (max-width: 425px) {
+    padding: 150px 1rem;
+  }
+
   h2 {
     margin: 1rem;
     margin-bottom: 5rem;
   }
   .formBlock {
-    width: 414px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     form {
+      width: 425px;
       display: flex;
       flex-direction: column;
 
@@ -44,12 +51,16 @@ const PatientModifiyBlock = styled.div`
         align-items: center;
 
         .duplicate {
-          width: 25%;
+          width: 30%;
           margin: 0;
           margin-left: 1rem;
           font-size: 12px;
           padding: 1rem;
           cursor: pointer;
+
+          @media (max-width: 425px) {
+            width: 40%;
+          }
         }
       }
     }

@@ -51,6 +51,13 @@ const initialState = {
     date: '',
   },
 
+  modifyDoctor: {
+    username: '',
+    password: '',
+    newPassword: '',
+    newPasswordComfirm: '',
+  },
+
   //회원가입 response
   registerForm: null,
   //회원가입 response error
