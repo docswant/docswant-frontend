@@ -64,134 +64,32 @@ const PatientSurveyBlock = styled.div`
   }
 `;
 
-const PatientSurvey = () => {
+const PatientSurvey = ({ questionList }) => {
   return (
-    <PatientSurveyBlock>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
+    questionList && (
+      <PatientSurveyBlock>
+        {questionList.content.map((c) => (
+          <div className="surveyList">
+            <div className="surveyInfo">
+              <span>김의사</span>
+              <span>2022.05.07</span>
+            </div>
+            <div className="surveyCheck">
+              <p>{c.content}</p>
+              <div className="surveyButton">
+                <button>많이 아파요</button>
+                <button>조금 아파요</button>
+                <button>괜찮아요</button>
+                <button>아주 괜찮아요</button>
+              </div>
+            </div>
           </div>
+        ))}
+        <div className="submitArea">
+          <button>설문 제출</button>
         </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-      <div className="surveyList">
-        <div className="surveyInfo">
-          <span>김의사</span>
-          <span>2022.05.07</span>
-        </div>
-        <div className="surveyCheck">
-          <p>어디어디 부분은 아직도 아프신가요?</p>
-          <div className="surveyButton">
-            <button>많이 아파요</button>
-            <button>조금 아파요</button>
-            <button>괜찮아요</button>
-            <button>아주 괜찮아요</button>
-          </div>
-        </div>
-      </div>
-
-      <div className="submitArea">
-        <button>설문 제출</button>
-      </div>
-    </PatientSurveyBlock>
+      </PatientSurveyBlock>
+    )
   );
 };
 
