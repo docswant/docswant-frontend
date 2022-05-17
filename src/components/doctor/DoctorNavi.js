@@ -37,6 +37,9 @@ const DoctorNavi = ({ user }) => {
   const onMoveMyPage = () => {
     navigate(`/doctor/mainpage/${user.sub}`);
   };
+  const onMoveRound = () => {
+    navigate(`/doctor/round/${user.sub}`);
+  };
   const onMoveModify = () => {
     navigate(`/doctor/modify/${user.sub}`);
   };
@@ -44,7 +47,7 @@ const DoctorNavi = ({ user }) => {
   return (
     <DoctorNaviBlock>
       <div onClick={onMoveMyPage}>마이페이지</div>
-      <div>회진 일정</div>
+      <div onClick={onMoveRound}>회진 일정</div>
       <div onClick={onMoveModify}>환경 설정</div>
     </DoctorNaviBlock>
   );
