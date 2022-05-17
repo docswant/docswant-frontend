@@ -57,7 +57,7 @@ const DoctorMainBlock = styled.div`
   }
 `;
 
-const DoctorMain = ({ patientList }) => {
+const DoctorMain = ({ patientList, onGetPatientDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -84,8 +84,8 @@ const DoctorMain = ({ patientList }) => {
               </div>
               <div className="buttonWrapper">
                 <button>수정</button>
-                <button>삭제</button>
-                <button onClick={() => onMovePatientList(999)}>LIST</button>
+                <button onClick={() => onGetPatientDelete(p.code)}>삭제</button>
+                <button onClick={() => onMovePatientList(p.code)}>LIST</button>
               </div>
             </div>
           ))}
