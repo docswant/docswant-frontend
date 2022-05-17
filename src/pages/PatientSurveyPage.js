@@ -1,15 +1,15 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
-import PatientSurvey from '../components/patient/PatientSurvey';
 import HeaderContainer from '../container/common/HeaderContainer';
 import NaviContainer from '../container/patient/NaviContainer';
+import PatientSurveyContainer from '../container/patient/PatientSurveyContainer';
 
 export default function PatientSurveyPage() {
   return (
     <div>
       <HeaderContainer />
       <NaviContainer />
-      <PatientSurvey />
+      <PatientSurveyContainer />
       <Footer />
     </div>
   );
