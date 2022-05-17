@@ -84,45 +84,48 @@ const PatientMypageBlock = styled.div`
   }
 `;
 
-const PatientMypage = ({ user }) => {
+const PatientMypage = ({ user, patientGet, questionList }) => {
   const navigate = useNavigate();
 
   const onMoveModify = () => {
     navigate(`/patient/modify/${user.sub}`);
   };
   return (
-    <PatientMypageBlock>
-      <div className="infoBlock">
-        <div className="imgBlock"></div>
-        <div className="patientInfo">
-          <h2>정재욱</h2>
-          <div className="patientSubInfo">
-            <div style={{ marginRight: '0.3rem', marginBottom: '0.3rem' }}>
-              26세
+    patientGet &&
+    questionList && (
+      <PatientMypageBlock>
+        <div className="infoBlock">
+          <div className="imgBlock"></div>
+          <div className="patientInfo">
+            <h2>{patientGet.name}</h2>
+            <div className="patientSubInfo">
+              <div style={{ marginRight: '0.3rem', marginBottom: '0.3rem' }}>
+                26세
+              </div>
+              <div>퇴원까지 D-10</div>
             </div>
-            <div>퇴원까지 D-10</div>
+          </div>
+          <button onClick={onMoveModify}>설정</button>
+          <div className="subInfo">
+            <div className="totalRequest">
+              <FcSurvey />
+              <b>총 설문</b>
+              <span>{questionList.content.length}</span>
+            </div>
+            <div className="answerRequest">
+              <BiCommentCheck />
+              <b>답변한 설문</b>
+              <span>3</span>
+            </div>
+            <div className="noAnswerRequest">
+              <BiCommentX />
+              <b>미답변 설문</b>
+              <span>7</span>
+            </div>
           </div>
         </div>
-        <button onClick={onMoveModify}>설정</button>
-        <div className="subInfo">
-          <div className="totalRequest">
-            <FcSurvey />
-            <b>총 설문</b>
-            <span>10</span>
-          </div>
-          <div className="answerRequest">
-            <BiCommentCheck />
-            <b>답변한 설문</b>
-            <span>3</span>
-          </div>
-          <div className="noAnswerRequest">
-            <BiCommentX />
-            <b>미답변 설문</b>
-            <span>7</span>
-          </div>
-        </div>
-      </div>
-    </PatientMypageBlock>
+      </PatientMypageBlock>
+    )
   );
 };
 
