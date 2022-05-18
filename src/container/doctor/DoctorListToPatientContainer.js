@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { getCookie } from '../../lib/cookie';
 import axios from 'axios';
 
-function DoctorListToPatientContainer() {
+function DoctorListToPatientContainer({ onOpen }) {
   const { questionText, questionSubmit } = useSelector(({ questionList }) => ({
     questionText: questionList.questionText,
     questionSubmit: questionList.questionSubmit,
@@ -59,6 +59,7 @@ function DoctorListToPatientContainer() {
       questionText={questionText}
       onChangeQuestion={onChangeQuestion}
       onSubmit={onSubmit}
+      onOpen={onOpen}
     />
   );
 }

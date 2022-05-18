@@ -6,25 +6,41 @@ import DoctorRegisterPatContainer from '../../container/doctor/DoctorRegisterPat
 
 const DoctorMainBlock = styled.div`
   width: 100%;
-  padding: 3rem 10rem;
+  padding: 3rem 0;
   padding-bottom: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .patientIndi {
-    width: 70%;
+    width: 100%;
     padding: 0.5rem;
     border-bottom: 1px solid ${palette.blue[0]};
     display: flex;
     justify-content: space-between;
-    font-size: 18px;
     margin-bottom: 2.5rem;
 
+    @media (max-width: 912px) {
+      flex-direction: column;
+    }
+
     .patientInfo {
-      width: 70%;
+      width: 75%;
       display: flex;
       justify-content: space-between;
+
+      @media (max-width: 912px) {
+        width: 90%;
+        margin-bottom: 1rem;
+      }
+
+      @media (max-width: 750px) {
+        flex-direction: column;
+        margin-bottom: 0;
+        span {
+          margin-bottom: 0.8rem;
+        }
+      }
     }
     .buttonWrapper {
       button {
@@ -35,11 +51,14 @@ const DoctorMainBlock = styled.div`
         padding: 0.3rem 0.9rem;
         cursor: pointer;
       }
+      @media (max-width: 912px) {
+        text-align: right;
+      }
     }
   }
 
   .submitPatient {
-    width: 70%;
+    width: 100%;
     text-align: right;
     button {
       width: 200px;
@@ -53,6 +72,10 @@ const DoctorMainBlock = styled.div`
       margin-top: 1rem;
       color: white;
       cursor: pointer;
+
+      @media (max-width: 425px) {
+        width: 100%;
+      }
     }
   }
 `;
