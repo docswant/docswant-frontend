@@ -49,7 +49,7 @@ function DoctorMainContainer() {
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
-        const response = await axios.get('/api/v1/patient?page=1&size=3');
+        const response = await axios.get('/api/v1/patient?page=1&size=6');
         dispatch(patientListSuccess(response.data.data));
       } catch (e) {
         dispatch(patientListFailure(e));
