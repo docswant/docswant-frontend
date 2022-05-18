@@ -13,8 +13,7 @@ const DoctorModifyBlock = styled.div`
   padding-bottom: 150px;
 
   @media (max-width: 425px) {
-    padding: 0 1rem;
-    padding-bottom: 150px;
+    padding: 150px 1rem;
   }
 
   h2 {
@@ -29,7 +28,6 @@ const DoctorModifyBlock = styled.div`
       width: 425px;
       display: flex;
       flex-direction: column;
-
       span {
         font-size: 15px;
       }
@@ -90,41 +88,71 @@ const StyledInput = styled.input`
     border: 1px solid ${palette.blue[0]};
   }
 `;
+const ErrorMessageBlock = styled.div`
+  text-align: center;
+  margin: 0.3rem 0;
+  color: red;
+  font-weight: bold;
+`;
 
-const DoctorModify = () => {
+const DoctorModify = ({
+  form,
+  onChange,
+  onSubmit,
+  duplicateDoctor,
+  onDuplicateDoctor,
+}) => {
   return (
     <DoctorModifyBlock>
       <h1>의사 정보 수정</h1>
       <div className="formBlock">
-        <form>
+        <form onSubmit={onSubmit}>
           <span>아이디</span>
           <div className="duplicateBlock">
             <StyledInput
               type="text"
               name="username"
+              value={form.username}
               placeholder="아이디 입력"
+              onChange={onChange}
             />
-            <button type="button" className="duplicate">
+            <button
+              type="button"
+              className="duplicate"
+              onClick={onDuplicateDoctor}
+            >
               중복 확인
             </button>
           </div>
+          {duplicateDoctor === true && (
+            <ErrorMessageBlock>아이디가 중복됩니다.</ErrorMessageBlock>
+          )}
+          {duplicateDoctor === false && (
+            <ErrorMessageBlock>사용가능한 아이디 입니다.</ErrorMessageBlock>
+          )}
           <span>현재 비밀번호</span>
           <StyledInput
             type="password"
             name="password"
+            value={form.password}
             placeholder="현재 비밀번호 입력"
+            onChange={onChange}
           />
           <span>새로운 비밀번호</span>
           <StyledInput
             type="password"
-            name="password"
+            name="newPassword"
+            value={form.newPassword}
             placeholder="새로운 비밀번호 입력"
+            onChange={onChange}
           />
           <span>비밀번호 확인</span>
           <StyledInput
             type="password"
-            name="passwordConfirm"
+            name="newPasswordConfirm"
+            value={form.newPasswordConfirm}
             placeholder="비밀번호 확인"
+            onChange={onChange}
           />
           <button>정보 수정</button>
         </form>

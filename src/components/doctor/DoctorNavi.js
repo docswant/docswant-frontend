@@ -7,7 +7,7 @@ const DoctorNaviBlock = styled.div`
   border-bottom: 1px solid #e1e1e1;
   align-items: center;
   display: flex;
-  padding: 0 13rem;
+  padding: 0 10rem;
   justify-content: space-between;
   font-size: 20px;
   font-weight: 600;
@@ -21,6 +21,13 @@ const DoctorNaviBlock = styled.div`
       text-underline-position: under; */
       border-bottom: 5px solid ${palette.blue[1]};
     }
+  }
+
+  @media (max-width: 1000px) {
+    padding: 0 5rem;
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 

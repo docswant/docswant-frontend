@@ -22,6 +22,10 @@ const NaviBlock = styled.div`
       border-bottom: 5px solid ${palette.blue[1]};
     }
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function Navi({ user }) {
