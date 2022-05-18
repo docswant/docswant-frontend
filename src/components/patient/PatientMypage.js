@@ -5,6 +5,7 @@ import { FcSurvey } from 'react-icons/fc';
 import { BiCommentCheck } from 'react-icons/bi';
 import { BiCommentX } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+import getCalculate from '../../lib/calculateYear';
 
 const PatientMypageBlock = styled.div`
   width: 100%;
@@ -100,7 +101,7 @@ const PatientMypage = ({ user, patientGet, questionList }) => {
             <h2>{patientGet.name}</h2>
             <div className="patientSubInfo">
               <div style={{ marginRight: '0.3rem', marginBottom: '0.3rem' }}>
-                26세
+                {getCalculate(patientGet.birthDate.substr(0, 4))}세
               </div>
               <div>퇴원까지 D-10</div>
             </div>
