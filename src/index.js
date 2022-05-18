@@ -19,7 +19,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const persistor = persistStore(store);
 
 async function loadUser() {
-  let access = getCookie('myRToken');
+  let access = getCookie('myAToken');
+  if (!access) {
+    return;
+  }
   store.dispatch(stageUser(jwt(access)));
 }
 
