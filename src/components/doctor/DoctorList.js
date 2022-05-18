@@ -5,7 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import DoctorListToPatientContainer from '../../container/doctor/DoctorListToPatientContainer';
 
 const DoctorListBlock = styled.div`
-  width: 80%;
+  width: 100%;
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
@@ -16,13 +16,29 @@ const DoctorListBlock = styled.div`
 
   .listHeader {
     margin-bottom: 3rem;
+    display: flex;
+    @media (max-width: 626px) {
+      display: block;
+      .responsiveBlock {
+        margin-top: 1rem;
+      }
+    }
     span {
       margin-right: 2rem;
       font-size: 25px;
+
+      @media (max-width: 768px) {
+        font-size: 20px;
+        margin-right: 1rem;
+      }
+
+      @media (max-width: 425px) {
+        font-size: 16px;
+      }
     }
   }
   .listInfo {
-    width: 50%;
+    width: 80%;
     border-bottom: 1px solid ${palette.blue[0]};
     display: flex;
     font-size: 20px;
@@ -30,8 +46,9 @@ const DoctorListBlock = styled.div`
     padding: 0.5rem;
 
     .listText {
-      width: 80%;
+      width: 70%;
       text-align: center;
+      flex: 1;
     }
     .listButton {
       button {
@@ -88,8 +105,10 @@ const DoctorList = ({ patientGet, questionList, onGetDeleteQuestion }) => {
           <div className="listHeader">
             <span>{patientGet.name} : 25세</span>
             <span>병동위치 : {patientGet.hospitalRoom}</span>
-            <span>입원날짜 : {patientGet.hospitalizationDate}</span>
-            <span>병명 : {patientGet.diseaseName}</span>
+            <div className="responsiveBlock">
+              <span>입원날짜 : {patientGet.hospitalizationDate}</span>
+              <span>병명 : {patientGet.diseaseName}</span>
+            </div>
           </div>
           {questionList.content.length !== 0 ? (
             <>

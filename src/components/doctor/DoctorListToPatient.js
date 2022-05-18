@@ -21,6 +21,10 @@ const DoctorListToPatientBlock = styled.div`
     padding: 1rem 1.5rem;
     border-radius: 12px;
 
+    @media (max-width: 425px) {
+      width: 315px;
+    }
+
     .closeBlock {
       width: 100%;
       text-align: right;

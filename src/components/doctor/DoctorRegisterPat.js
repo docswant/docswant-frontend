@@ -21,6 +21,10 @@ const DoctorRegisterPatBlock = styled.div`
     padding: 1rem 1.5rem;
     border-radius: 12px;
 
+    @media (max-width: 425px) {
+      width: 315px;
+    }
+
     input[type='number']::-webkit-outer-spin-button,
     input[type='number']::-webkit-inner-spin-button {
       -webkit-appearance: none;
