@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { AiOutlinePlus } from 'react-icons/ai';
 import DoctorListToPatientContainer from '../../container/doctor/DoctorListToPatientContainer';
+import DoctorListUpdateContainer from '../../container/doctor/DoctorListUpdateContainer';
+import getCalculate from '../../lib/calculateYear';
+import Loading from '../common/Loading';
 
 const DoctorListBlock = styled.div`
   width: 100%;
@@ -90,20 +93,51 @@ const NoQuestionBlock = styled.div`
   color: ${palette.blue[0]};
 `;
 
-const DoctorList = ({ patientGet, questionList, onGetDeleteQuestion }) => {
+const LOADINGBLOCK = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #eeeeee;
+`;
+
+const DoctorList = ({
+  patientGet,
+  questionList,
+  onGetDeleteQuestion,
+  loading,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [content, setContent] = useState('');
+  const [questionId, setQuestionId] = useState(null);
 
   const onOpen = () => {
     setIsOpen(!isOpen);
   };
-  return (
-    patientGet &&
-    questionList && (
+
+  const onUpdate = (content, id) => {
+    setIsUpdate(!isUpdate);
+    setContent(content);
+    setQuestionId(id);
+  };
+  return loading === true ? (
+    <Loading />
+  ) : (
+    patientGet && questionList && (
       <>
         {isOpen && <DoctorListToPatientContainer onOpen={onOpen} />}
+        {isUpdate && (
+          <DoctorListUpdateContainer
+            onUpdate={onUpdate}
+            content={content}
+            questionId={questionId}
+          />
+        )}
         <DoctorListBlock>
           <div className="listHeader">
-            <span>{patientGet.name} : 25세</span>
+            <span>
+              {patientGet.name} :
+              {getCalculate(patientGet.birthDate.substr(0, 4))}세
+            </span>
             <span>병동위치 : {patientGet.hospitalRoom}</span>
             <div className="responsiveBlock">
               <span>입원날짜 : {patientGet.hospitalizationDate}</span>
@@ -118,7 +152,9 @@ const DoctorList = ({ patientGet, questionList, onGetDeleteQuestion }) => {
                     <span>{c.content}</span>
                   </div>
                   <div className="listButton">
-                    <button>수정</button>
+                    <button onClick={() => onUpdate(c.content, c.id)}>
+                      수정
+                    </button>
                     <button onClick={() => onGetDeleteQuestion(c.id)}>
                       삭제
                     </button>
