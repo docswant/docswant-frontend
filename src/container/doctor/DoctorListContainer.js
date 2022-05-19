@@ -11,13 +11,15 @@ import {
   questionListFailure,
   questionListSuccess,
 } from '../../modules/questionList';
+import { loadingFinish, loadingStart } from '../../modules/loading';
 
 function DoctorListContainer() {
-  const { patientGet, questionList, questionDelete } = useSelector(
-    ({ patientGet, questionList }) => ({
+  const { patientGet, questionList, questionDelete, loading } = useSelector(
+    ({ patientGet, questionList, loading }) => ({
       patientGet: patientGet.patientGet,
       questionList: questionList.questionList,
       questionDelete: questionList.questionDelete,
+      loading: loading.loading,
     }),
   );
   const dispatch = useDispatch();
@@ -49,6 +51,7 @@ function DoctorListContainer() {
 
   useEffect(() => {
     async function onGetPatient() {
+      dispatch(loadingStart(true));
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
@@ -57,12 +60,14 @@ function DoctorListContainer() {
       } catch (e) {
         dispatch(patientGetFailure(e));
       }
+      dispatch(loadingFinish(false));
     }
     onGetPatient();
   }, [dispatch, patient_Id]);
 
   useEffect(() => {
     async function onGetList() {
+      dispatch(loadingStart(true));
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
@@ -74,6 +79,7 @@ function DoctorListContainer() {
       } catch (e) {
         dispatch(questionListFailure(e));
       }
+      dispatch(loadingFinish(false));
     }
     onGetList();
   }, [dispatch, patient_Id]);
@@ -89,6 +95,7 @@ function DoctorListContainer() {
       patientGet={patientGet}
       questionList={questionList}
       onGetDeleteQuestion={onGetDeleteQuestion}
+      loading={loading}
     />
   );
 }

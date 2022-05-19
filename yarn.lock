@@ -7227,6 +7227,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.0.0.tgz"
   "version" "18.0.0"
 
+"react-loading-icons@^1.1.0":
+  "integrity" "sha512-Y9eZ6HAufmUd8DIQd6rFrx5Bt/oDlTM9Nsjvf8YpajTa3dI8cLNU8jUN5z7KTANU+Yd6/KJuBjxVlrU2dMw33g=="
+  "resolved" "https://registry.npmjs.org/react-loading-icons/-/react-loading-icons-1.1.0.tgz"
+  "version" "1.1.0"
+
 "react-redux@^8.0.1":
   "integrity" "sha512-LMZMsPY4DYdZfLJgd7i79n5Kps5N9XVLCJJeWAaPYTV+Eah2zTuBjTxKtNEbjiyitbq80/eIkm55CYSLqAub3w=="
   "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-8.0.1.tgz"

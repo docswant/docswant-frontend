@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './modules';
-import { getCookie } from './lib/cookie';
+import { getCookie, removeCookie } from './lib/cookie';
 import jwt from 'jwt-decode';
 import { stageUser } from './modules/user';
 import { persistStore } from 'redux-persist';
@@ -23,7 +23,14 @@ async function loadUser() {
   if (!access) {
     return;
   }
-  store.dispatch(stageUser(jwt(access)));
+  const { exp } = jwt(access);
+  if (Date.now() >= exp * 1000) {
+    removeCookie('myAToken');
+    removeCookie('myRToken');
+    window.location.replace('/');
+  } else {
+    store.dispatch(stageUser(jwt(access)));
+  }
 }
 
 loadUser();

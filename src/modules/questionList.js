@@ -4,10 +4,13 @@ import { createAction } from 'redux-actions';
 const QUESTION_LIST_SUCCESS = 'questionList/QUESTION_LIST_SUCCESS';
 const QUESTION_LIST_FAILURE = 'questionList/QUESTION_LIST_FAILURE';
 const QUESTION_CHANGE = 'questionList/QUESTION_CHANGE';
+const QUESTION_UPDATE_CHANGE = 'questionList/QUESTION_UPDATE_CHANGE';
 const QUESTION_SUBMIT_SUCCESS = 'questionList/QUESTION_SUBMIT_SUCCESS';
 const QUESTION_SUBMIT_FAILURE = 'questionList/QUESTION_SUBMIT_FAILURE';
 const QUESTION_DELETE_SUCCESS = 'questionList/QUESTION_DELETE_SUCCESS';
 const QUESTION_DELETE_FAILURE = 'questionList/QUSTION_DELETE_FAILURE';
+const QUESTION_UPDATE_SUCCESS = 'questionList/QUESTION_UPDATE_SUCCESS';
+const QUESTION_UPDATE_FAILURE = 'questionList/QUSTION_UPDATE_FAILURE';
 
 export const questionListSuccess = createAction(
   QUESTION_LIST_SUCCESS,
@@ -19,6 +22,10 @@ export const questionListFailure = createAction(
 );
 export const questionChange = createAction(
   QUESTION_CHANGE,
+  ({ key, value }) => ({ key, value }),
+);
+export const questionUpdateChange = createAction(
+  QUESTION_UPDATE_CHANGE,
   ({ key, value }) => ({ key, value }),
 );
 export const questionSubmitSuccess = createAction(
@@ -37,6 +44,14 @@ export const questionDeleteFailure = createAction(
   QUESTION_DELETE_FAILURE,
   (error) => error,
 );
+export const questionUpdateSuccess = createAction(
+  QUESTION_UPDATE_SUCCESS,
+  (success) => success,
+);
+export const questionUpdateFailure = createAction(
+  QUESTION_UPDATE_FAILURE,
+  (error) => error,
+);
 
 const initialState = {
   questionList: null,
@@ -45,7 +60,10 @@ const initialState = {
   questionSubmitError: null,
   questionDelete: null,
   questionDeleteError: null,
+  questionUpdate: null,
+  questionUpdateError: null,
   questionText: '',
+  questionUpdateText: '',
 };
 
 const questionList = handleActions(
@@ -77,7 +95,20 @@ const questionList = handleActions(
       ...state,
       questionDeleteError: error,
     }),
+    [QUESTION_UPDATE_SUCCESS]: (state, { payload: success }) => ({
+      ...state,
+      questionUpdate: success,
+      questionUpdateError: null,
+    }),
+    [QUESTION_UPDATE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      questionUpdateError: error,
+    }),
     [QUESTION_CHANGE]: (state, { payload: { key, value } }) => ({
+      ...state,
+      [key]: value,
+    }),
+    [QUESTION_UPDATE_CHANGE]: (state, { payload: { key, value } }) => ({
       ...state,
       [key]: value,
     }),
