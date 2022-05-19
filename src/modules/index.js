@@ -8,6 +8,7 @@ import patientGet from './patientGet';
 import questionList from './questionList';
 import loading from './loading';
 import answer from './answer';
+import checkAnswer from './checkAnswer';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   questionList,
   loading,
   answer,
+  checkAnswer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

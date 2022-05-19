@@ -6,6 +6,7 @@ import DoctorListToPatientContainer from '../../container/doctor/DoctorListToPat
 import DoctorListUpdateContainer from '../../container/doctor/DoctorListUpdateContainer';
 import getCalculate from '../../lib/calculateYear';
 import Loading from '../common/Loading';
+import DoctorCheckAnswer from './DoctorCheckAnswer';
 
 const DoctorListBlock = styled.div`
   width: 100%;
@@ -52,6 +53,7 @@ const DoctorListBlock = styled.div`
       width: 70%;
       text-align: center;
       flex: 1;
+      cursor: pointer;
     }
     .listButton {
       button {
@@ -104,14 +106,21 @@ const DoctorList = ({
   questionList,
   onGetDeleteQuestion,
   loading,
+  onAnswerCheck,
+  checkAnswer,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(false);
   const [content, setContent] = useState('');
   const [questionId, setQuestionId] = useState(null);
 
   const onOpen = () => {
     setIsOpen(!isOpen);
+  };
+
+  const onAnswer = () => {
+    setIsAnswer(!isAnswer);
   };
 
   const onUpdate = (content, id) => {
@@ -132,6 +141,13 @@ const DoctorList = ({
             questionId={questionId}
           />
         )}
+        {isAnswer && (
+          <DoctorCheckAnswer
+            onAnswer={onAnswer}
+            checkAnswer={checkAnswer}
+            loading={loading}
+          />
+        )}
         <DoctorListBlock>
           <div className="listHeader">
             <span>
@@ -148,7 +164,13 @@ const DoctorList = ({
             <>
               {questionList.content.map((c) => (
                 <div className="listInfo" key={c.id}>
-                  <div className="listText">
+                  <div
+                    className="listText"
+                    onClick={() => {
+                      onAnswer();
+                      onAnswerCheck(c.id);
+                    }}
+                  >
                     <span>{c.content}</span>
                   </div>
                   <div className="listButton">
