@@ -11,17 +11,21 @@ import {
   questionListFailure,
   questionListSuccess,
 } from '../../modules/questionList';
+import {
+  checkAnswerFailure,
+  checkAnswerSuccess,
+} from '../../modules/checkAnswer';
 import { loadingFinish, loadingStart } from '../../modules/loading';
 
 function DoctorListContainer() {
-  const { patientGet, questionList, questionDelete, loading } = useSelector(
-    ({ patientGet, questionList, loading }) => ({
+  const { patientGet, questionList, questionDelete, loading, checkAnswer } =
+    useSelector(({ patientGet, questionList, loading, checkAnswer }) => ({
       patientGet: patientGet.patientGet,
       questionList: questionList.questionList,
       questionDelete: questionList.questionDelete,
       loading: loading.loading,
-    }),
-  );
+      checkAnswer: checkAnswer.checkAnswer,
+    }));
   const dispatch = useDispatch();
   const { patient_Id } = useParams();
 
@@ -47,6 +51,25 @@ function DoctorListContainer() {
     } else {
       return;
     }
+  };
+
+  async function getAnswerCheck(questionId) {
+    dispatch(loadingStart(true));
+    const accessToken = getCookie('myAToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    try {
+      const response = await axios.get(
+        `/api/v1/patient/${patient_Id}/question/${questionId}`,
+      );
+      dispatch(checkAnswerSuccess(response.data.data));
+    } catch (e) {
+      dispatch(checkAnswerFailure(e));
+    }
+    dispatch(loadingFinish(false));
+  }
+
+  const onAnswerCheck = (questionId) => {
+    getAnswerCheck(questionId);
   };
 
   useEffect(() => {
@@ -96,6 +119,8 @@ function DoctorListContainer() {
       questionList={questionList}
       onGetDeleteQuestion={onGetDeleteQuestion}
       loading={loading}
+      onAnswerCheck={onAnswerCheck}
+      checkAnswer={checkAnswer}
     />
   );
 }
