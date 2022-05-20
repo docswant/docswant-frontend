@@ -1,4 +1,5 @@
 import React from 'react';
+import BottomNav from '../components/common/BottomNav';
 import Footer from '../components/common/Footer';
 import HeaderContainer from '../container/common/HeaderContainer';
 import NaviContainer from '../container/patient/NaviContainer';
@@ -11,6 +12,7 @@ function PatientModifyPage() {
       <NaviContainer />
       <PatientModifyContainer />
       <Footer />
+      <BottomNav />
     </div>
   );
 }
