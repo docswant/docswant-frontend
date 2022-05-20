@@ -14,6 +14,10 @@ const FooterBlock = styled.div`
     padding: 1rem 0.5rem;
   }
 
+  @media (max-width: 425px) {
+    display: none;
+  }
+
   .FooterWrapper {
     display: flex;
     flex-direction: column;
@@ -60,20 +64,20 @@ const Footer = () => {
         <div className="FooterInfo">
           <div className="Member">
             <div style={{ paddingLeft: 0 }}>
-              <span>16000000</span>
+              <span>16011012</span>
               <span>권준원</span>
             </div>
             <div>
-              <span>16000000</span>
-              <span>권준원</span>
+              <span>17011480</span>
+              <span>정재욱</span>
             </div>
             <div>
-              <span>16000000</span>
-              <span>권준원</span>
+              <span>19011560</span>
+              <span>김유진</span>
             </div>
             <div style={{ borderRight: 'none' }}>
-              <span>16000000</span>
-              <span>권준원</span>
+              <span>19011513</span>
+              <span>김민</span>
             </div>
           </div>
         </div>

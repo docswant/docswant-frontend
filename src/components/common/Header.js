@@ -10,9 +10,6 @@ const HeaderBlock = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
-    display: none;
-  }
   .HeaderLeft {
     width: 200px;
     cursor: pointer;
@@ -27,8 +24,8 @@ const HeaderBlock = styled.div`
     font-size: 25px;
     margin-right: 2rem;
 
-    @media (max-width: 476px) {
-      font-size: 20px;
+    @media (max-width: 425px) {
+      display: none;
     }
   }
 `;
