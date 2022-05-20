@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
 import { FcSurvey } from 'react-icons/fc';
@@ -9,14 +9,18 @@ import getCalculate from '../../lib/calculateYear';
 
 const PatientMypageBlock = styled.div`
   width: 100%;
-  padding: 3rem 10rem;
+  margin: 1rem auto;
+  padding: 1rem 0;
   padding-bottom: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    padding-bottom: 0;
+  }
   .infoBlock {
-    width: 40%;
+    width: 414px;
     border: 1px solid ${palette.blue[0]};
     border-radius: 7px;
     display: flex;
@@ -68,6 +72,10 @@ const PatientMypageBlock = styled.div`
       display: flex;
       justify-content: space-between;
 
+      @media (max-width: 375px) {
+        padding: 1rem;
+      }
+
       .totalRequest,
       .answerRequest,
       .noAnswerRequest {
@@ -86,11 +94,22 @@ const PatientMypageBlock = styled.div`
 `;
 
 const PatientMypage = ({ user, patientGet, questionList }) => {
+  const [count, setCount] = useState(0);
   const navigate = useNavigate();
 
   const onMoveModify = () => {
     navigate(`/patient/modify/${user.sub}`);
   };
+
+  useEffect(() => {
+    if (questionList) {
+      const answer = questionList.content.filter(
+        (question) => question.answerStatus === 'DONE',
+      );
+      setCount(answer.length);
+    }
+  }, [questionList]);
+
   return (
     patientGet &&
     questionList && (
@@ -116,12 +135,12 @@ const PatientMypage = ({ user, patientGet, questionList }) => {
             <div className="answerRequest">
               <BiCommentCheck />
               <b>답변한 설문</b>
-              <span>3</span>
+              <span>{count}</span>
             </div>
             <div className="noAnswerRequest">
               <BiCommentX />
               <b>미답변 설문</b>
-              <span>7</span>
+              <span>{questionList.content.length - count}</span>
             </div>
           </div>
         </div>
