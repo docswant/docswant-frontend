@@ -62,7 +62,7 @@ const DoctorCheckAnswer = ({ onAnswer, checkAnswer, loading }) => {
           </div>
 
           <div className="answerBlock">
-            {checkAnswer.answer ? (
+            {checkAnswer.answerStatus === 'DONE' ? (
               <span>{checkAnswer.answer}</span>
             ) : (
               <span>답변이 없습니다.</span>

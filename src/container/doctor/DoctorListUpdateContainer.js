@@ -11,9 +11,12 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function DoctorListUpdateContainer({ onUpdate, content, questionId }) {
-  const { questionUpdateText } = useSelector(({ questionList }) => ({
-    questionUpdateText: questionList.questionUpdateText,
-  }));
+  const { questionUpdateText, questionUpdate } = useSelector(
+    ({ questionList }) => ({
+      questionUpdateText: questionList.questionUpdateText,
+      questionUpdate: questionList.questionUpdate,
+    }),
+  );
   const { patient_Id } = useParams();
   const dispatch = useDispatch();
 
@@ -56,6 +59,12 @@ function DoctorListUpdateContainer({ onUpdate, content, questionId }) {
       }),
     );
   }, [dispatch, content]);
+
+  useEffect(() => {
+    if (questionUpdate === true) {
+      window.location.replace(`/doctor/list/${patient_Id}`);
+    }
+  }, [questionUpdate, patient_Id]);
 
   return (
     <DoctorListUpdate
