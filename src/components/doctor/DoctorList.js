@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { MdOutlineQuestionAnswer } from 'react-icons/md';
 import DoctorListToPatientContainer from '../../container/doctor/DoctorListToPatientContainer';
 import DoctorListUpdateContainer from '../../container/doctor/DoctorListUpdateContainer';
 import getCalculate from '../../lib/calculateYear';
@@ -56,8 +57,10 @@ const DoctorListBlock = styled.div`
       cursor: pointer;
     }
     .listButton {
+      display: flex;
+      align-items: center;
       button {
-        margin-left: 1rem;
+        margin-right: 1rem;
         border: 1px solid ${palette.blue[0]};
         background-color: white;
         border-radius: 12px;
@@ -93,12 +96,6 @@ const NoQuestionBlock = styled.div`
   font-size: 25px;
   font-weight: bold;
   color: ${palette.blue[0]};
-`;
-
-const LOADINGBLOCK = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: #eeeeee;
 `;
 
 const DoctorList = ({
@@ -164,13 +161,7 @@ const DoctorList = ({
             <>
               {questionList.content.map((c) => (
                 <div className="listInfo" key={c.id}>
-                  <div
-                    className="listText"
-                    onClick={() => {
-                      onAnswer();
-                      onAnswerCheck(c.id);
-                    }}
-                  >
+                  <div className="listText">
                     <span>{c.content}</span>
                   </div>
                   <div className="listButton">
@@ -180,6 +171,15 @@ const DoctorList = ({
                     <button onClick={() => onGetDeleteQuestion(c.id)}>
                       삭제
                     </button>
+                    {c.answerStatus === 'DONE' && (
+                      <MdOutlineQuestionAnswer
+                        width={25}
+                        onClick={() => {
+                          onAnswer();
+                          onAnswerCheck(c.id);
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               ))}

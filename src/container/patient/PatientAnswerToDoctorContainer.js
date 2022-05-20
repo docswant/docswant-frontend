@@ -35,6 +35,9 @@ function PatientAnswerToDoctorContainer({ onOpen, questionId }) {
     try {
       await axios.patch(
         `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/question/${questionId}/answer`,
+        {
+          answer: answerText,
+        },
       );
       dispatch(answerSuccess(true));
     } catch (e) {

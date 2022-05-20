@@ -1,4 +1,5 @@
 import React from 'react';
+import BottomNav from '../components/common/BottomNav';
 import Footer from '../components/common/Footer';
 import MainTemplete from '../components/common/MainTemplete';
 import HeaderContainer from '../container/common/HeaderContainer';
@@ -14,6 +15,7 @@ export default function PatientSurveyPage() {
         <PatientSurveyContainer />
       </MainTemplete>
       <Footer />
+      <BottomNav />
     </div>
   );
 }

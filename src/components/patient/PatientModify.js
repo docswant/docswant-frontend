@@ -12,7 +12,7 @@ const PatientModifiyBlock = styled.div`
   padding-bottom: 150px;
 
   @media (max-width: 425px) {
-    padding: 150px 1rem;
+    padding: 1rem;
   }
 
   h2 {

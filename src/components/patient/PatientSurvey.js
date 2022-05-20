@@ -82,26 +82,24 @@ const PatientSurvey = ({ questionList }) => {
           />
         )}
         <PatientSurveyBlock>
-          {questionList.content.map((c) => (
-            <div className="surveyList">
-              <div className="surveyInfo">
-                <span>김의사</span>
-                <span>2022.05.07</span>
-              </div>
-              <div className="surveyCheck">
-                <p>{c.content}</p>
-                <div className="surveyButton">
-                  <button onClick={() => onOpen(c.id)}>답변하기</button>
-                  {/* <button>조금 아파요</button>
-                <button>괜찮아요</button>
-                <button>아주 괜찮아요</button> */}
+          {questionList.content.length === 0 ? (
+            <span>등록된 설문이 없습니다.</span>
+          ) : (
+            questionList.content.map((c) => (
+              <div className="surveyList" key={c.id}>
+                <div className="surveyInfo">
+                  <span>김의사</span>
+                  <span>2022.05.07</span>
+                </div>
+                <div className="surveyCheck">
+                  <p>{c.content}</p>
+                  <div className="surveyButton">
+                    <button onClick={() => onOpen(c.id)}>답변하기</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-          {/* <div className="submitArea">
-          <button>설문 제출</button>
-        </div> */}
+            ))
+          )}
         </PatientSurveyBlock>
       </>
     )
