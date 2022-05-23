@@ -1,8 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { AiOutlineClose } from 'react-icons/ai';
 
+const ModalFade = keyframes`
+  from{
+    opacity: 0;
+    margin-top: -50px;
+  }
+  to{
+    opacity: 1;
+    margin-top: 0%;
+  }
+`;
 const DoctorListUpdateBlock = styled.div`
   width: 100%;
   height: 100%;
@@ -20,6 +30,7 @@ const DoctorListUpdateBlock = styled.div`
     background-color: white;
     padding: 1rem 1.5rem;
     border-radius: 12px;
+    animation: ${ModalFade} 0.5s;
 
     @media (max-width: 425px) {
       width: 315px;

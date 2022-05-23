@@ -27,7 +27,7 @@ function DoctorListContainer() {
       checkAnswer: checkAnswer.checkAnswer,
     }));
   const dispatch = useDispatch();
-  const { patient_Id } = useParams();
+  const { patient_Id, page_number } = useParams();
 
   async function onDeleteQuestion(id) {
     const accessToken = getCookie('myAToken');
@@ -96,7 +96,7 @@ function DoctorListContainer() {
 
       try {
         const response = await axios.get(
-          `/api/v1/patient/${patient_Id}/question?page=1&size=3`,
+          `/api/v1/patient/${patient_Id}/question?page=${page_number}&size=5`,
         );
         dispatch(questionListSuccess(response.data.data));
       } catch (e) {
@@ -105,13 +105,13 @@ function DoctorListContainer() {
       dispatch(loadingFinish(false));
     }
     onGetList();
-  }, [dispatch, patient_Id]);
+  }, [dispatch, patient_Id, page_number]);
 
   useEffect(() => {
     if (questionDelete === true) {
-      window.location.replace(`/doctor/list/${patient_Id}`);
+      window.location.replace(`/doctor/list/${page_number}/${patient_Id}`);
     }
-  }, [questionDelete, patient_Id]);
+  }, [questionDelete, patient_Id, page_number]);
 
   return (
     <DoctorList

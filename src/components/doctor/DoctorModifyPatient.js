@@ -13,80 +13,7 @@ const ModalFade = keyframes`
     margin-top: 0%;
   }
 `;
-
-const DoctorRegisterPatBlock = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  top: 0;
-  z-index: 10000;
-  background-color: rgba(0, 0, 0, 0.7);
-
-  .formBlock {
-    width: 425px;
-    background-color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    animation: ${ModalFade} 0.5s;
-
-    @media (max-width: 425px) {
-      width: 315px;
-    }
-
-    input[type='number']::-webkit-outer-spin-button,
-    input[type='number']::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    .closeBlock {
-      width: 100%;
-      text-align: right;
-      cursor: pointer;
-      svg {
-        font-size: 25px;
-      }
-    }
-
-    h2 {
-      text-align: center;
-    }
-    .duplicateBlock {
-      display: flex;
-      align-items: center;
-
-      .duplicate {
-        width: 30%;
-        margin: 0;
-        margin-left: 1rem;
-        font-size: 12px;
-        padding: 1rem;
-        cursor: pointer;
-
-        @media (max-width: 425px) {
-          width: 40%;
-        }
-      }
-    }
-
-    button {
-      width: 100%;
-      outline: none;
-      background-color: ${palette.blue[0]};
-      border: none;
-      padding: 1rem;
-      border-radius: 7px;
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 1rem;
-      color: white;
-      cursor: pointer;
-    }
-  }
-`;
+const DoctorModifyPatientBlock = styled.div``;
 
 const StyledInput = styled.input`
   margin: 0.5rem 0;
@@ -106,23 +33,9 @@ const StyledInput = styled.input`
   }
 `;
 
-const ErrorMessageBlock = styled.div`
-  text-align: center;
-  margin: 0.3rem 0;
-  color: red;
-  font-weight: bold;
-`;
-
-const DoctorRegisterPat = ({
-  onOpen,
-  registerP,
-  onChangeField,
-  onDuplicateDoctor,
-  duplicateDoctor,
-  onSubmit,
-}) => {
+const DoctorModifyPatient = () => {
   return (
-    <DoctorRegisterPatBlock>
+    <DoctorModifyPatientBlock>
       <div className="formBlock">
         <div className="closeBlock" onClick={onOpen}>
           <AiOutlineClose />
@@ -193,8 +106,8 @@ const DoctorRegisterPat = ({
           <button>환자 등록</button>
         </form>
       </div>
-    </DoctorRegisterPatBlock>
+    </DoctorModifyPatientBlock>
   );
 };
 
-export default DoctorRegisterPat;
+export default DoctorModifyPatient;

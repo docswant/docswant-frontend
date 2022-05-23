@@ -279,6 +279,13 @@ const RegisterForm = ({
                   >
                     신경외과
                   </li>
+                  <li
+                    onClick={() =>
+                      onSetMedicalText('흉부외과', 'cardiothoracic')
+                    }
+                  >
+                    흉부외과
+                  </li>
                 </ul>
               </DropDownBlock>
             )}

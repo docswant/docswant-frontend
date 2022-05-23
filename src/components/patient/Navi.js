@@ -35,7 +35,7 @@ function Navi({ user }) {
     navigate(`/patient/mainpage/${user.sub}`);
   };
   const onMoveSurvey = () => {
-    navigate(`/patient/survey/${user.sub}`);
+    navigate(`/patient/survey/1/${user.sub}`);
   };
 
   const onMoveInquiry = () => {

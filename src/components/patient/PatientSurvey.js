@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PatientAnswerToDoctorContainer from '../../container/patient/PatientAnswerToDoctorContainer';
 import palette from '../../lib/styles/palette';
+import Loading from '../common/Loading';
+import PaginationPatientQuestion from '../common/PaginationPatientQuestion';
+import PatientCheckAnswer from './PatientCheckAnswer';
 
 const PatientSurveyBlock = styled.div`
   width: 100%;
@@ -22,6 +25,12 @@ const PatientSurveyBlock = styled.div`
       span {
         margin-right: 0.5rem;
         color: #999999;
+      }
+
+      #finish {
+        color: ${palette.blue[0]};
+        font-weight: bold;
+        cursor: pointer;
       }
     }
     .surveyCheck {
@@ -65,14 +74,22 @@ const PatientSurveyBlock = styled.div`
   }
 `;
 
-const PatientSurvey = ({ questionList }) => {
+const PatientSurvey = ({ questionList, loading }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAnswer, setIsOpenAnswer] = useState(false);
   const [questionId, setQuestionId] = useState(null);
+  const [answerText, setAnswerText] = useState('');
   const onOpen = (id) => {
     setIsOpen(!isOpen);
     setQuestionId(id);
   };
-  return (
+  const onAnswer = (text) => {
+    setIsOpenAnswer(!isOpenAnswer);
+    setAnswerText(text);
+  };
+  return loading === true ? (
+    <Loading />
+  ) : (
     questionList && (
       <>
         {isOpen && (
@@ -80,6 +97,9 @@ const PatientSurvey = ({ questionList }) => {
             onOpen={onOpen}
             questionId={questionId}
           />
+        )}
+        {isOpenAnswer && (
+          <PatientCheckAnswer onAnswer={onAnswer} answerText={answerText} />
         )}
         <PatientSurveyBlock>
           {questionList.content.length === 0 ? (
@@ -90,6 +110,11 @@ const PatientSurvey = ({ questionList }) => {
                 <div className="surveyInfo">
                   <span>김의사</span>
                   <span>2022.05.07</span>
+                  {c.answerStatus === 'DONE' && (
+                    <span id="finish" onClick={() => onAnswer(c.answer)}>
+                      답변완료
+                    </span>
+                  )}
                 </div>
                 <div className="surveyCheck">
                   <p>{c.content}</p>
@@ -100,6 +125,7 @@ const PatientSurvey = ({ questionList }) => {
               </div>
             ))
           )}
+          <PaginationPatientQuestion questionList={questionList} />
         </PatientSurveyBlock>
       </>
     )

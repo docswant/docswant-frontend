@@ -3,6 +3,7 @@ import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import DoctorRegisterPatContainer from '../../container/doctor/DoctorRegisterPatContainer';
+import Pagination from '../common/PaginationPatientList';
 
 const DoctorMainBlock = styled.div`
   width: 100%;
@@ -80,12 +81,23 @@ const DoctorMainBlock = styled.div`
   }
 `;
 
+const NoQuestionBlock = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: ${palette.blue[0]};
+`;
+
 const DoctorMain = ({ patientList, onGetPatientDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const onMovePatientList = (patient_Id) => {
-    navigate(`/doctor/list/${patient_Id}`);
+    navigate(`/doctor/list/1/${patient_Id}`);
   };
 
   const onOpen = () => {
@@ -96,25 +108,35 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
       <>
         {isOpen && <DoctorRegisterPatContainer onOpen={onOpen} />}
         <DoctorMainBlock>
-          {patientList.content.map((p) => (
-            <div className="patientIndi" key={p.code}>
-              <div className="patientInfo">
-                <span>이름 : {p.name}</span>
-                <span>생년월일 : {p.birthDate}</span>
-                <span>병동위치 : {p.hospitalRoom}</span>
-                <span>입원날짜 : {p.hospitalizationDate}</span>
-                <span>병명 : {p.diseaseName}</span>
+          {patientList.content.length === 0 ? (
+            <NoQuestionBlock>등록된 환자가 없습니다.</NoQuestionBlock>
+          ) : (
+            patientList.content.map((p) => (
+              <div className="patientIndi" key={p.code}>
+                <div className="patientInfo">
+                  <span>이름 : {p.name}</span>
+                  <span>생년월일 : {p.birthDate}</span>
+                  <span>병동위치 : {p.hospitalRoom}</span>
+                  <span>입원날짜 : {p.hospitalizationDate}</span>
+                  <span>퇴원날짜 : {p.dischargeDate}</span>
+                  <span>병명 : {p.diseaseName}</span>
+                </div>
+                <div className="buttonWrapper">
+                  <button>수정</button>
+                  <button onClick={() => onGetPatientDelete(p.code)}>
+                    삭제
+                  </button>
+                  <button onClick={() => onMovePatientList(p.code)}>
+                    LIST
+                  </button>
+                </div>
               </div>
-              <div className="buttonWrapper">
-                <button>수정</button>
-                <button onClick={() => onGetPatientDelete(p.code)}>삭제</button>
-                <button onClick={() => onMovePatientList(p.code)}>LIST</button>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
           <div className="submitPatient">
             <button onClick={onOpen}>환자 등록</button>
           </div>
+          <Pagination patientList={patientList} />
         </DoctorMainBlock>
       </>
     )

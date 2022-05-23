@@ -17,7 +17,7 @@ function PatientAnswerToDoctorContainer({ onOpen, questionId }) {
     answer: answer.answer,
   }));
   const dispatch = useDispatch();
-  const { user_Id } = useParams();
+  const { user_Id, page_number } = useParams();
 
   const onChangeField = (e) => {
     const { name, value } = e.target;
@@ -52,7 +52,7 @@ function PatientAnswerToDoctorContainer({ onOpen, questionId }) {
 
   useEffect(() => {
     if (answer === true) {
-      window.location.replace(`/patient/survey/${user_Id}`);
+      window.location.replace(`/patient/survey/${page_number}/${user_Id}`);
     }
   }, [answer, user_Id]);
 

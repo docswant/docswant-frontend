@@ -8,6 +8,7 @@ import DoctorListUpdateContainer from '../../container/doctor/DoctorListUpdateCo
 import getCalculate from '../../lib/calculateYear';
 import Loading from '../common/Loading';
 import DoctorCheckAnswer from './DoctorCheckAnswer';
+import PaginationQuestionList from '../common/PaginationQuestionList';
 
 const DoctorListBlock = styled.div`
   width: 100%;
@@ -192,6 +193,7 @@ const DoctorList = ({
           <div className="patientListPlus">
             <AiOutlinePlus onClick={onOpen} />
           </div>
+          <PaginationQuestionList questionList={questionList} />
         </DoctorListBlock>
       </>
     )

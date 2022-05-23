@@ -41,7 +41,7 @@ function PatientMyPageContainer() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(
-          `/api/v1/patient/${user_Id}/question?page=1&size=3`,
+          `/api/v1/patient/${user_Id}/question?page=1&size=100`,
         );
         dispatch(questionListSuccess(response.data.data));
       } catch (e) {
