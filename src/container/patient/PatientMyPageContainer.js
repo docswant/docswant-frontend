@@ -12,7 +12,7 @@ import {
 
 function PatientMyPageContainer() {
   const { patientGet, questionList } = useSelector(
-    ({ user, patientGet, questionList }) => ({
+    ({ patientGet, questionList }) => ({
       questionList: questionList.questionList,
       patientGet: patientGet.patientGet,
     }),

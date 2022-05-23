@@ -106,9 +106,9 @@ const PatientModifiy = ({
   const [error, setError] = useState(null);
 
   const onCheckPasswordConfirm = (e) => {
-    const { newPassword, newPasswordConfirm } = form;
+    const { password, passwordConfirm } = form;
 
-    if (newPassword !== newPasswordConfirm) {
+    if (password !== passwordConfirm) {
       setError(false);
     } else {
       setError(true);
@@ -145,24 +145,24 @@ const PatientModifiy = ({
           <span>현재 비밀번호</span>
           <StyledInput
             type="password"
-            name="password"
-            value={form.password}
+            name="oldPassword"
+            value={form.oldPassword}
             placeholder="현재 비밀번호 입력"
             onChange={onChange}
           />
           <span>새로운 비밀번호</span>
           <StyledInput
             type="password"
-            name="newPassword"
-            value={form.newPassword}
+            name="password"
+            value={form.password}
             placeholder="새로운 비밀번호 입력"
             onChange={onChange}
           />
           <span>비밀번호 확인</span>
           <StyledInput
             type="password"
-            name="newPasswordConfirm"
-            value={form.newPasswordConfirm}
+            name="passwordConfirm"
+            value={form.passwordConfirm}
             placeholder="비밀번호 확인"
             onKeyUp={onCheckPasswordConfirm}
             onChange={onChange}
@@ -170,6 +170,14 @@ const PatientModifiy = ({
           {error === false && (
             <ErrorMessageBlock>비밀번호가 일치하지 않습니다.</ErrorMessageBlock>
           )}
+
+          <span>생년월일</span>
+          <StyledInput
+            type="date"
+            name="birthDate"
+            value={form.birthDate}
+            onChange={onChange}
+          />
 
           {/* <span>D-Day</span>
           <div className="makeDay">
