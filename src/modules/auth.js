@@ -56,9 +56,10 @@ const initialState = {
 
   modify: {
     username: '',
+    oldPassword: '',
     password: '',
-    newPassword: '',
-    newPasswordConfirm: '',
+    passwordConfirm: '',
+    birthDate: '',
     // dayText: '',
     // date: '',
   },

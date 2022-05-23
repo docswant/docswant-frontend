@@ -14,7 +14,7 @@ import {
   patientModifySuccess,
 } from '../../modules/auth';
 import _ from 'lodash';
-import { getCookie, removeCookie } from '../../lib/cookie';
+import { getCookie } from '../../lib/cookie';
 
 function PatientModifyContainer() {
   const { form, duplicatePatient, modifySuccess } = useSelector(
@@ -65,8 +65,6 @@ function PatientModifyContainer() {
         `https://docswant.zooneon.dev/api/v1/patient/${user_Id}`,
         editObject,
       );
-      removeCookie('myAToken');
-      removeCookie('myRToken');
       dispatch(patientModifySuccess(true));
     } catch (e) {
       dispatch(patientModifyFailure(e));
