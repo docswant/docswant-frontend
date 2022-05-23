@@ -13,7 +13,66 @@ const ModalFade = keyframes`
     margin-top: 0%;
   }
 `;
-const DoctorModifyPatientBlock = styled.div``;
+const DoctorModifyPatientBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    align-items: baseline;
+  }
+
+  .formBlock {
+    width: 425px;
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    animation: ${ModalFade} 0.5s;
+
+    @media (max-width: 425px) {
+      width: 315px;
+    }
+    h2 {
+      text-align: center;
+    }
+    .closeBlock {
+      width: 100%;
+      text-align: right;
+      cursor: pointer;
+      svg {
+        font-size: 25px;
+      }
+    }
+
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    button {
+      width: 100%;
+      outline: none;
+      background-color: ${palette.blue[0]};
+      border: none;
+      padding: 1rem;
+      border-radius: 7px;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 1rem;
+      color: white;
+      cursor: pointer;
+    }
+  }
+`;
 
 const StyledInput = styled.input`
   margin: 0.5rem 0;
@@ -33,77 +92,72 @@ const StyledInput = styled.input`
   }
 `;
 
-const DoctorModifyPatient = () => {
+const DoctorModifyPatient = ({ form, onSubmit, onChange, onUpdate, obj }) => {
   return (
     <DoctorModifyPatientBlock>
       <div className="formBlock">
-        <div className="closeBlock" onClick={onOpen}>
-          <AiOutlineClose />
+        <div className="closeBlock">
+          <AiOutlineClose onClick={onUpdate} />
         </div>
-        <h2>환자 등록</h2>
+        <h2>환자 수정</h2>
         <form onSubmit={onSubmit}>
-          <span>환자 코드</span>
-          <div className="duplicateBlock">
-            <StyledInput
-              type="text"
-              name="code"
-              value={registerP.code}
-              placeholder="환자코드를 입력해주세요"
-              onChange={onChangeField}
-            />
-            <button
-              type="button"
-              className="duplicate"
-              onClick={onDuplicateDoctor}
-            >
-              중복확인
-            </button>
-          </div>
-          {duplicateDoctor === true && (
-            <ErrorMessageBlock>아이디가 중복됩니다.</ErrorMessageBlock>
-          )}
-          {duplicateDoctor === false && (
-            <ErrorMessageBlock>사용가능한 아이디 입니다.</ErrorMessageBlock>
-          )}
-          <span>환자 이름</span>
-          <StyledInput
-            type="text"
-            name="name"
-            value={registerP.name}
-            onChange={onChangeField}
-            placeholder="환자이름을 입력해주세요"
-          />
-          <span>생년월일</span>
-          <StyledInput
-            type="date"
-            name="birthDate"
-            value={registerP.birthDate}
-            onChange={onChangeField}
-          />
           <span>입원날짜</span>
           <StyledInput
             type="date"
             name="hospitalizationDate"
-            value={registerP.hospitalizationDate}
-            onChange={onChangeField}
+            value={form.hospitalizationDate}
+            onChange={onChange}
           />
+          <span>수술날짜</span>
+          {obj.surgeryDate ? (
+            <StyledInput
+              type="date"
+              name="surgeryDate"
+              value={form.surgeryDate}
+              onChange={onChange}
+            />
+          ) : (
+            <StyledInput
+              type="date"
+              name="surgeryDate"
+              value={form.surgeryDate}
+              onChange={onChange}
+            />
+          )}
+          <span>퇴원날짜</span>
+          {obj.dischargeDate ? (
+            <StyledInput
+              type="date"
+              name="dischargeDate"
+              value={form.dischargeDate}
+              onChange={onChange}
+            />
+          ) : (
+            <StyledInput
+              type="date"
+              name="dischargeDate"
+              value={form.dischargeDate}
+              onChange={onChange}
+            />
+          )}
+
           <span>병명</span>
           <StyledInput
             type="text"
             name="diseaseName"
-            value={registerP.diseaseName}
-            placeholder="병명을 입력해주세요"
-            onChange={onChangeField}
+            value={form.diseaseName}
+            placeholder={obj.diseaseName}
+            onChange={onChange}
           />
           <span>병실위치</span>
           <StyledInput
             type="number"
             name="hospitalRoom"
-            value={registerP.hospitalRoom}
-            placeholder="병실위치를 입력해주세요"
-            onChange={onChangeField}
+            value={form.hospitalRoom}
+            placeholder={obj.hospitalRoom}
+            onChange={onChange}
           />
-          <button>환자 등록</button>
+          <button>환자 수정</button>
         </form>
       </div>
     </DoctorModifyPatientBlock>

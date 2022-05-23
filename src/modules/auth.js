@@ -10,6 +10,8 @@ const LOGIN_CODE = 'auth/LOGIN_CODE';
 const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 const PATIENT_MODIFY_SUCCESS = 'auth/PATIENT_MODIFY_SUCCESS';
 const PATIENT_MODIFY_FAILURE = 'auth/PATIENT_MODIFY_FAILURE';
+const DOCTOR_MODIFY_PATIENT_SUCCESS = 'auth/DOCTOR_MODIFY_PATIENT_SUCCESS';
+const DOCTOR_MODIFY_PATIENT_FAILURE = 'auth/DOCTOR_MODIFY_PATIENT_FAILURE';
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -35,6 +37,14 @@ export const patientModifySuccess = createAction(
 );
 export const patientModifyFailure = createAction(
   PATIENT_MODIFY_FAILURE,
+  (error) => error,
+);
+export const doctorModifyPatientSuccess = createAction(
+  DOCTOR_MODIFY_PATIENT_SUCCESS,
+  (success) => success,
+);
+export const doctorModifyPatientFailure = createAction(
+  DOCTOR_MODIFY_PATIENT_FAILURE,
   (error) => error,
 );
 
@@ -71,6 +81,14 @@ const initialState = {
     newPasswordComfirm: '',
   },
 
+  modifyPatient: {
+    hospitalizationDate: '',
+    surgeryDate: '',
+    dischargeDate: '',
+    diseaseName: '',
+    hospitalRoom: '',
+  },
+
   //회원가입 response
   registerForm: null,
   //회원가입 response error
@@ -82,6 +100,9 @@ const initialState = {
 
   modifySuccess: null,
   modifyError: null,
+
+  modifyPatientClear: null,
+  modifyPatientError: null,
 };
 
 const auth = handleActions(
@@ -124,6 +145,15 @@ const auth = handleActions(
     [PATIENT_MODIFY_FAILURE]: (state, { payload: error }) => ({
       ...state,
       modifyError: error,
+    }),
+    [DOCTOR_MODIFY_PATIENT_SUCCESS]: (state, { payload: success }) => ({
+      ...state,
+      modifyPatientClear: success,
+      modifyPatientError: null,
+    }),
+    [DOCTOR_MODIFY_PATIENT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      modifyPatientError: error,
     }),
   },
   initialState,
