@@ -15,7 +15,7 @@ function DoctorListToPatientContainer({ onOpen }) {
     questionText: questionList.questionText,
     questionSubmit: questionList.questionSubmit,
   }));
-  const { patient_Id } = useParams();
+  const { patient_Id, page_number } = useParams();
   const dispatch = useDispatch();
   const onChangeQuestion = (e) => {
     const { name, value } = e.target;
@@ -50,7 +50,7 @@ function DoctorListToPatientContainer({ onOpen }) {
 
   useEffect(() => {
     if (questionSubmit === true) {
-      window.location.replace(`/doctor/list/${patient_Id}`);
+      window.location.replace(`/doctor/list/${page_number}/${patient_Id}`);
     }
   }, [patient_Id, questionSubmit]);
 

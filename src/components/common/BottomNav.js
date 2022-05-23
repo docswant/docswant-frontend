@@ -6,6 +6,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const BottomNavBlock = styled.div`
+  display: none;
   @media (max-width: 425px) {
     display: block;
     width: 100%;

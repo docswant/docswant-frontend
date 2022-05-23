@@ -9,6 +9,7 @@ import {
   patientListFailure,
   patientListSuccess,
 } from '../../modules/patientList';
+import { useParams } from 'react-router-dom';
 
 function DoctorMainContainer() {
   const { patientList, patientDelete, user } = useSelector(
@@ -19,6 +20,7 @@ function DoctorMainContainer() {
     }),
   );
   const dispatch = useDispatch();
+  const { page_number } = useParams();
 
   async function onPatientDelete(username) {
     const accessToken = getCookie('myAToken');
@@ -49,20 +51,22 @@ function DoctorMainContainer() {
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
-        const response = await axios.get('/api/v1/patient?page=1&size=6');
+        const response = await axios.get(
+          `/api/v1/patient?page=${page_number}&size=6`,
+        );
         dispatch(patientListSuccess(response.data.data));
       } catch (e) {
         dispatch(patientListFailure(e));
       }
     }
     onGetPatientList();
-  }, [dispatch]);
+  }, [dispatch, page_number]);
 
   useEffect(() => {
     if (patientDelete === true) {
-      window.location.reload(`/doctor/mainpage/${user.sub}`);
+      window.location.reload(`/doctor/mainpage/${page_number}/${user.sub}`);
     }
-  }, [patientDelete, user]);
+  }, [patientDelete, user, page_number]);
 
   return (
     <DoctorMain

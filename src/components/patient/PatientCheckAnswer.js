@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import palette from '../../lib/styles/palette';
-import Loading from '../common/Loading';
 
 const ModalFade = keyframes`
   from{
@@ -15,7 +14,7 @@ const ModalFade = keyframes`
   }
 `;
 
-const DoctorCheckAnswerBlock = styled.div`
+const PatientCheckAnswerBlock = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -59,31 +58,23 @@ const AnswerBlock = styled.div`
   }
 `;
 
-const DoctorCheckAnswer = ({ onAnswer, checkAnswer, loading }) => {
-  return loading === true ? (
-    <Loading />
-  ) : (
-    checkAnswer && (
-      <DoctorCheckAnswerBlock>
-        <AnswerBlock>
-          <div className="closeBlock">
-            <AiOutlineClose onClick={onAnswer} />
-          </div>
-          <div className="titleBlock">
-            <h2>{checkAnswer.content}</h2>
-          </div>
+const PatientCheckAnswer = ({ answerText, onAnswer }) => {
+  return (
+    <PatientCheckAnswerBlock>
+      <AnswerBlock>
+        <div className="closeBlock">
+          <AiOutlineClose onClick={onAnswer} />
+        </div>
+        <div className="titleBlock">
+          <h2>나의 답변</h2>
+        </div>
 
-          <div className="answerBlock">
-            {checkAnswer.answerStatus === 'DONE' ? (
-              <span>{checkAnswer.answer}</span>
-            ) : (
-              <span>답변이 없습니다.</span>
-            )}
-          </div>
-        </AnswerBlock>
-      </DoctorCheckAnswerBlock>
-    )
+        <div className="answerBlock">
+          <span>{answerText}</span>
+        </div>
+      </AnswerBlock>
+    </PatientCheckAnswerBlock>
   );
 };
 
-export default DoctorCheckAnswer;
+export default PatientCheckAnswer;

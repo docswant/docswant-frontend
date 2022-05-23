@@ -85,7 +85,7 @@ function LoginFormContainer() {
     if (user && loginForm === 'ACCOUNT_PATIENT') {
       navigate(`/patient/mainpage/${user.sub}`);
     } else if (user && loginForm === 'ACCOUNT_DOCTOR') {
-      navigate(`/doctor/mainpage/${user.sub}`);
+      navigate(`/doctor/mainpage/1/${user.sub}`);
     }
   }, [loginForm, navigate, user]);
 

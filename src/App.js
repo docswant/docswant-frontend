@@ -20,16 +20,25 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       {/* 환자 */}
       <Route path="/patient/mainpage/:user_Id" element={<MyPage />} />
-      <Route path="/patient/survey/:user_Id" element={<PatientSurveyPage />} />
+      <Route
+        path="/patient/survey/:page_number/:user_Id"
+        element={<PatientSurveyPage />}
+      />
       <Route path="/patient/modify/:user_Id" element={<PatientModifyPage />} />
       <Route
         path="/patient/inquiry_list/:user_Id"
         element={<InquiryListPage />}
       />
       {/* 의사 */}
-      <Route path="/doctor/mainpage/:user_Id" element={<DoctorMainPage />} />
+      <Route
+        path="/doctor/mainpage/:page_number/:user_Id"
+        element={<DoctorMainPage />}
+      />
       <Route path="/doctor/modify/:user_Id" element={<DoctorModifyPage />} />
-      <Route path="/doctor/list/:patient_Id" element={<DoctorListPage />} />
+      <Route
+        path="/doctor/list/:page_number/:patient_Id"
+        element={<DoctorListPage />}
+      />
       <Route path="/doctor/round/:user_Id" element={<DoctorRoundPage />} />
     </Routes>
   );

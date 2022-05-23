@@ -17,7 +17,7 @@ function DoctorListUpdateContainer({ onUpdate, content, questionId }) {
       questionUpdate: questionList.questionUpdate,
     }),
   );
-  const { patient_Id } = useParams();
+  const { patient_Id, page_number } = useParams();
   const dispatch = useDispatch();
 
   const onChangeField = (e) => {
@@ -62,7 +62,7 @@ function DoctorListUpdateContainer({ onUpdate, content, questionId }) {
 
   useEffect(() => {
     if (questionUpdate === true) {
-      window.location.replace(`/doctor/list/${patient_Id}`);
+      window.location.replace(`/doctor/list/${page_number}/${patient_Id}`);
     }
   }, [questionUpdate, patient_Id]);
 

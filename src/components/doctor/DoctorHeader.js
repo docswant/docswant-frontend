@@ -40,7 +40,7 @@ const DoctorHeader = ({ user }) => {
   const navigate = useNavigate();
 
   const onMoveMyPage = () => {
-    navigate(`/doctor/mainpage/${user.sub}`);
+    navigate(`/doctor/mainpage/1/${user.sub}`);
   };
   return (
     <DoctorHeaderBlock>

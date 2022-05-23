@@ -35,7 +35,7 @@ const DoctorNavi = ({ user }) => {
   const navigate = useNavigate();
 
   const onMoveMyPage = () => {
-    navigate(`/doctor/mainpage/${user.sub}`);
+    navigate(`/doctor/mainpage/1/${user.sub}`);
   };
   const onMoveRound = () => {
     navigate(`/doctor/round/${user.sub}`);
