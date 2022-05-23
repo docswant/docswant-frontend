@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   changeField,
   initializeForm,
+  loginCode,
   loginFailure,
   loginSucess,
 } from '../../modules/auth';
@@ -14,11 +15,12 @@ import { useNavigate } from 'react-router-dom';
 import { stageUser, stageUserError, stageWho } from '../../modules/user';
 
 function LoginFormContainer() {
-  const { form, user, loginForm, loginError } = useSelector(
+  const { form, code, user, loginForm, loginError } = useSelector(
     ({ auth, user }) => ({
       form: auth.login,
       loginForm: auth.loginForm,
       loginError: auth.loginError,
+      code: auth.code,
       user: user.user,
     }),
   );
@@ -59,6 +61,7 @@ function LoginFormContainer() {
         sameSite: 'none',
       });
       dispatch(loginSucess(response.data.data.accountType));
+      dispatch(loginCode(response.data.data.code));
       dispatch(stageUser(jwt(access)));
       dispatch(stageWho(response.data.data.accountType));
     } catch (e) {
@@ -83,11 +86,11 @@ function LoginFormContainer() {
 
   useEffect(() => {
     if (user && loginForm === 'ACCOUNT_PATIENT') {
-      navigate(`/patient/mainpage/${user.sub}`);
+      navigate(`/patient/mainpage/${code}`);
     } else if (user && loginForm === 'ACCOUNT_DOCTOR') {
-      navigate(`/doctor/mainpage/1/${user.sub}`);
+      navigate(`/doctor/mainpage/1/${code}`);
     }
-  }, [loginForm, navigate, user]);
+  }, [loginForm, navigate, user, code]);
 
   return (
     <LoginForm

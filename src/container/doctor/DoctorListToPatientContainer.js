@@ -52,7 +52,7 @@ function DoctorListToPatientContainer({ onOpen }) {
     if (questionSubmit === true) {
       window.location.replace(`/doctor/list/${page_number}/${patient_Id}`);
     }
-  }, [patient_Id, questionSubmit]);
+  }, [patient_Id, questionSubmit, page_number]);
 
   return (
     <DoctorListToPatient

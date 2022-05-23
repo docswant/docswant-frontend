@@ -64,7 +64,7 @@ function DoctorListUpdateContainer({ onUpdate, content, questionId }) {
     if (questionUpdate === true) {
       window.location.replace(`/doctor/list/${page_number}/${patient_Id}`);
     }
-  }, [questionUpdate, patient_Id]);
+  }, [questionUpdate, patient_Id, page_number]);
 
   return (
     <DoctorListUpdate

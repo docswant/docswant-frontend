@@ -6,7 +6,10 @@ const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+const LOGIN_CODE = 'auth/LOGIN_CODE';
 const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
+const PATIENT_MODIFY_SUCCESS = 'auth/PATIENT_MODIFY_SUCCESS';
+const PATIENT_MODIFY_FAILURE = 'auth/PATIENT_MODIFY_FAILURE';
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -24,7 +27,16 @@ export const loginSucess = createAction(
   LOGIN_SUCCESS,
   (loginForm) => loginForm,
 );
+export const loginCode = createAction(LOGIN_CODE, (code) => code);
 export const loginFailure = createAction(LOGIN_FAILURE, (error) => error);
+export const patientModifySuccess = createAction(
+  PATIENT_MODIFY_SUCCESS,
+  (success) => success,
+);
+export const patientModifyFailure = createAction(
+  PATIENT_MODIFY_FAILURE,
+  (error) => error,
+);
 
 const initialState = {
   //회원가입 input value
@@ -46,9 +58,9 @@ const initialState = {
     username: '',
     password: '',
     newPassword: '',
-    newPasswordComfirm: '',
-    dayText: '',
-    date: '',
+    newPasswordConfirm: '',
+    // dayText: '',
+    // date: '',
   },
 
   modifyDoctor: {
@@ -64,7 +76,11 @@ const initialState = {
   registerError: null,
 
   loginForm: null,
+  code: null,
   loginError: null,
+
+  modifySuccess: null,
+  modifyError: null,
 };
 
 const auth = handleActions(
@@ -91,9 +107,22 @@ const auth = handleActions(
       loginForm,
       loginError: null,
     }),
+    [LOGIN_CODE]: (state, { payload: code }) => ({
+      ...state,
+      code,
+    }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       loginError: error,
+    }),
+    [PATIENT_MODIFY_SUCCESS]: (state, { payload: success }) => ({
+      ...state,
+      modifySuccess: success,
+      modifyError: null,
+    }),
+    [PATIENT_MODIFY_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      modifyError: error,
     }),
   },
   initialState,

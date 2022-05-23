@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const NaviBlock = styled.div`
   border-bottom: 1px solid #e1e1e1;
@@ -28,30 +28,29 @@ const NaviBlock = styled.div`
   }
 `;
 
-function Navi({ user }) {
+function Navi() {
   const navigate = useNavigate();
+  const { user_Id } = useParams();
 
   const onMoveMyPage = () => {
-    navigate(`/patient/mainpage/${user.sub}`);
+    navigate(`/patient/mainpage/${user_Id}`);
   };
   const onMoveSurvey = () => {
-    navigate(`/patient/survey/1/${user.sub}`);
+    navigate(`/patient/survey/1/${user_Id}`);
   };
 
   const onMoveInquiry = () => {
-    navigate(`/patient/inquiry_list/${user.sub}`);
+    navigate(`/patient/inquiry_list/${user_Id}`);
   };
 
   return (
-    user && (
-      <NaviBlock>
-        <div onClick={onMoveMyPage}>마이페이지</div>
+    <NaviBlock>
+      <div onClick={onMoveMyPage}>마이페이지</div>
 
-        <div onClick={onMoveSurvey}>설문</div>
+      <div onClick={onMoveSurvey}>설문</div>
 
-        <div onClick={onMoveInquiry}>나의 문의함</div>
-      </NaviBlock>
-    )
+      <div onClick={onMoveInquiry}>나의 문의함</div>
+    </NaviBlock>
   );
 }
 
