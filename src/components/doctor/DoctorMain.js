@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import DoctorRegisterPatContainer from '../../container/doctor/DoctorRegisterPatContainer';
 import Pagination from '../common/PaginationPatientList';
+import DoctorModifyPatientContainer from '../../container/doctor/DoctorModifyPatientContainer';
 
 const DoctorMainBlock = styled.div`
   width: 100%;
@@ -94,6 +95,9 @@ const NoQuestionBlock = styled.div`
 
 const DoctorMain = ({ patientList, onGetPatientDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [code, setCode] = useState(null);
+  const [patientObj, setPatientObj] = useState({});
   const navigate = useNavigate();
 
   const onMovePatientList = (patient_Id) => {
@@ -103,10 +107,23 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
   const onOpen = () => {
     setIsOpen(!isOpen);
   };
+
+  const onUpdate = (code, obj) => {
+    setIsUpdate(!isUpdate);
+    setCode(code);
+    setPatientObj(obj);
+  };
   return (
     patientList && (
       <>
         {isOpen && <DoctorRegisterPatContainer onOpen={onOpen} />}
+        {isUpdate && (
+          <DoctorModifyPatientContainer
+            onUpdate={onUpdate}
+            code={code}
+            obj={patientObj}
+          />
+        )}
         <DoctorMainBlock>
           {patientList.content.length === 0 ? (
             <NoQuestionBlock>등록된 환자가 없습니다.</NoQuestionBlock>
@@ -118,11 +135,15 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
                   <span>생년월일 : {p.birthDate}</span>
                   <span>병동위치 : {p.hospitalRoom}</span>
                   <span>입원날짜 : {p.hospitalizationDate}</span>
-                  <span>퇴원날짜 : {p.dischargeDate}</span>
+                  {p.dischargeDate ? (
+                    <span>퇴원날짜 : {p.dischargeDate}</span>
+                  ) : (
+                    <span>퇴원날짜 : 미정</span>
+                  )}
                   <span>병명 : {p.diseaseName}</span>
                 </div>
                 <div className="buttonWrapper">
-                  <button>수정</button>
+                  <button onClick={() => onUpdate(p.code, p)}>수정</button>
                   <button onClick={() => onGetPatientDelete(p.code)}>
                     삭제
                   </button>

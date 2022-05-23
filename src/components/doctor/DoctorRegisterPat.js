@@ -26,6 +26,11 @@ const DoctorRegisterPatBlock = styled.div`
   z-index: 10000;
   background-color: rgba(0, 0, 0, 0.7);
 
+  @media (max-width: 768px) {
+    padding: 1rem;
+    align-items: baseline;
+  }
+
   .formBlock {
     width: 425px;
     background-color: white;
