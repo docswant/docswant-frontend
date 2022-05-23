@@ -4,32 +4,31 @@ import styled from 'styled-components';
 import { Calendar } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdEdit } from 'react-icons/md';
 import { AiOutlinePlus, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import AddRound from './AddRound';
+import EditRound from './EditRound';
 
 const Box = styled.div`
   display: flex;
-  padding: 1rem 0;
+  flex-direction: column;
   padding-bottom: 150px;
 `
 const CalendarBlock = styled.div`
-  display: flex;
-  /* align-items: center; */
-  width: 50%;
+  width: 100%;
   padding: 3rem 2rem;
-  border-right: solid 1px ${palette.gray[0]};
+  border-bottom: solid 1px ${palette.gray[0]};
   .cal{
     text-align: center;
   }
   .calendar{
     display: inline-block;
-    width: 80%;
+    width: 40%;
     border-radius: 3rem;
   }
 `
 const RoundInfoBlock = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
@@ -49,7 +48,7 @@ const RoundInfoBlock = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${palette.blue[0]};
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     svg {
       color: black;
       font-weight: bold;
@@ -62,23 +61,33 @@ const RoundDel = styled.div`
   display: flex;
   align-items: center;
   color: lightgray;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   &:hover{
     color: #ff6b6b;
   }
 `
-const RoundBlock = styled.div`
-  width: 60%;
-  padding: 1rem 3rem;
+const RoundEdit = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  color: lightgray;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover{
+    color: blue;
+  }
+`
+const RoundBlock = styled.div`
+  width: 100%;
+  padding: 1rem 1rem;
+  display: grid;
+  grid-template-columns: 15rem 15rem 15rem 15rem;
+  grid-gap: 3rem;
+  justify-content: center;
   .round_block{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     .round_text{
-      margin-top: 1rem;
       text-align: center;
       padding: 1rem;
       width: 100%;
@@ -86,7 +95,7 @@ const RoundBlock = styled.div`
       border-radius: 1rem;
       font-size: 18px;
       .loc{
-        margin-right: 8rem;
+        margin-right: 3rem;
       }
       .icon{
         &:hover{
@@ -99,6 +108,7 @@ const RoundBlock = styled.div`
     }
     tbody{
       text-align: center;
+      margin-bottom: 3rem;
     }
     th{
       border-bottom: 1px solid ${palette.blue[1]};
@@ -110,7 +120,7 @@ const BtnBlock = styled.div`
   display: flex;
   justify-content: right;
   button{
-    width: 15%;
+    width: 10%;
     padding: .5rem 0;
     font-size: 18px;
     border-radius: 1rem;
@@ -131,7 +141,7 @@ function Patient({patient}){
     </div>
   );
 }
-function Round({round, onRemove}){
+function Round({round, onRemove, onClick}){
   const [visible, setVisible] = useState(false);
   return(
     <div className="round_block">
@@ -157,9 +167,74 @@ function Round({round, onRemove}){
               <td>
                 <input type="checkbox" />
               </td>
-              <RoundDel onClick={()=>onRemove(round.id)}>
-                <MdDelete />
-              </RoundDel> 
+              <td>
+                <RoundDel onClick={()=>onRemove(round.id)}>
+                  <MdDelete />
+                </RoundDel> 
+                <RoundEdit onClick={onClick}>
+                  <MdEdit />
+                </RoundEdit>
+              </td>
+            </tr>
+            <tr>
+              <td>{round.code}</td>
+              <td>{round.time_h}시 {round.time_m}분</td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <RoundDel onClick={()=>onRemove(round.id)}>
+                  <MdDelete />
+                </RoundDel> 
+                <RoundEdit>
+                  <MdEdit />
+                </RoundEdit>
+              </td>
+            </tr>
+            <tr>
+              <td>{round.code}</td>
+              <td>{round.time_h}시 {round.time_m}분</td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <RoundDel onClick={()=>onRemove(round.id)}>
+                  <MdDelete />
+                </RoundDel> 
+                <RoundEdit>
+                  <MdEdit />
+                </RoundEdit>
+              </td>
+            </tr>
+            <tr>
+              <td>{round.code}</td>
+              <td>{round.time_h}시 {round.time_m}분</td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <RoundDel onClick={()=>onRemove(round.id)}>
+                  <MdDelete />
+                </RoundDel> 
+                <RoundEdit>
+                  <MdEdit />
+                </RoundEdit>
+              </td>
+            </tr>
+            <tr>
+              <td>{round.code}</td>
+              <td>{round.time_h}시 {round.time_m}분</td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <RoundDel onClick={()=>onRemove(round.id)}>
+                  <MdDelete />
+                </RoundDel>
+                <RoundEdit>
+                  <MdEdit />
+                </RoundEdit>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -170,7 +245,8 @@ function Round({round, onRemove}){
 
 function DoctorRound() {
   const [value, onChange] = useState(new Date());
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen1, setModalOpen1] = useState(false);
+  const [modalOpen2, setModalOpen2] = useState(false);
 
   const [patients, setPatients] = useState([
     {
@@ -223,11 +299,17 @@ function DoctorRound() {
   ]);
   const nextId = useRef(5);
 
-  const openModal = () => {
-    setModalOpen(true);
+  const openModal1 = () => {
+    setModalOpen1(true);
   };
-  const closeModal=()=>{
-    setModalOpen(false);
+  const openModal2 = () => {
+    setModalOpen2(true);
+  };
+  const closeModal1 = () => {
+    setModalOpen1(false);
+  };
+  const closeModal2 = () => {
+    setModalOpen2(false);
   };
 
   const onRe=(e)=>{
@@ -282,17 +364,27 @@ function DoctorRound() {
             <Round 
               round = {round}
               key={round.id}
-              onRemove={onRemove}/>
+              onRemove={onRemove}
+              onClick={openModal2}/>
           ))}
         </RoundBlock>
 
         <div className="addround">
-          <AiOutlinePlus onClick={openModal}/>
+          <AiOutlinePlus onClick={openModal1}/>
         </div>
 
         <AddRound 
-          open={modalOpen}
-          close={closeModal}
+          open={modalOpen1}
+          close={closeModal1}
+          code={code}
+          time_h={time_h}
+          time_m={time_m}
+          onRe={onRe}
+          onAdd={onAdd}/>
+        
+        <EditRound 
+          open={modalOpen2}
+          close={closeModal2}
           code={code}
           time_h={time_h}
           time_m={time_m}
