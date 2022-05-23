@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -101,12 +101,24 @@ const PatientModifiy = ({
   onChange,
   form,
   onDuplicatePatient,
+  onSubmit,
 }) => {
+  const [error, setError] = useState(null);
+
+  const onCheckPasswordConfirm = (e) => {
+    const { newPassword, newPasswordConfirm } = form;
+
+    if (newPassword !== newPasswordConfirm) {
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
   return (
     <PatientModifiyBlock>
       <h1>회원 정보 수정</h1>
       <div className="formBlock">
-        <form>
+        <form onSubmit={onSubmit}>
           <span>아이디</span>
           <div className="duplicateBlock">
             <StyledInput
@@ -150,12 +162,16 @@ const PatientModifiy = ({
           <StyledInput
             type="password"
             name="newPasswordConfirm"
-            value={form.ewPasswordConfirm}
+            value={form.newPasswordConfirm}
             placeholder="비밀번호 확인"
+            onKeyUp={onCheckPasswordConfirm}
             onChange={onChange}
           />
+          {error === false && (
+            <ErrorMessageBlock>비밀번호가 일치하지 않습니다.</ErrorMessageBlock>
+          )}
 
-          <span>D-Day</span>
+          {/* <span>D-Day</span>
           <div className="makeDay">
             <StyledInput
               type="text"
@@ -172,8 +188,8 @@ const PatientModifiy = ({
               style={{ width: '50%' }}
               onChange={onChange}
             />
-          </div>
-          <button>회원 정보 수정</button>
+          </div> */}
+          <button disabled={error === false}>회원 정보 수정</button>
         </form>
       </div>
     </PatientModifiyBlock>

@@ -6,6 +6,7 @@ import { BiCommentCheck } from 'react-icons/bi';
 import { BiCommentX } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import getCalculate from '../../lib/calculateYear';
+import { useParams } from 'react-router-dom';
 
 const PatientMypageBlock = styled.div`
   width: 100%;
@@ -93,12 +94,13 @@ const PatientMypageBlock = styled.div`
   }
 `;
 
-const PatientMypage = ({ user, patientGet, questionList }) => {
+const PatientMypage = ({ patientGet, questionList }) => {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
+  const { user_Id } = useParams();
 
   const onMoveModify = () => {
-    navigate(`/patient/modify/${user.sub}`);
+    navigate(`/patient/modify/${user_Id}`);
   };
 
   useEffect(() => {
@@ -117,12 +119,13 @@ const PatientMypage = ({ user, patientGet, questionList }) => {
         <div className="infoBlock">
           <div className="imgBlock"></div>
           <div className="patientInfo">
-            <h2>{patientGet.name}</h2>
+            <h2>{patientGet.patientName}</h2>
             <div className="patientSubInfo">
               <div style={{ marginRight: '0.3rem', marginBottom: '0.3rem' }}>
                 {getCalculate(patientGet.birthDate.substr(0, 4))}세
               </div>
               <div>퇴원까지 D-10</div>
+              <div>ddd</div>
             </div>
           </div>
           <button onClick={onMoveModify}>설정</button>

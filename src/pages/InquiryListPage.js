@@ -2,12 +2,12 @@ import React from 'react';
 import InquiryListForm from '../components/patient/InquiryListForm';
 import Footer from '../components/common/Footer';
 import NaviContainer from '../container/patient/NaviContainer';
-import HeaderContainer from '../container/common/HeaderContainer';
+import Header from '../components/common/Header';
 
 function InquiryListPage() {
   return (
     <div>
-      <HeaderContainer />
+      <Header />
       <NaviContainer />
       <InquiryListForm />
       <Footer />

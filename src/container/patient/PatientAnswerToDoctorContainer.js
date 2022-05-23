@@ -54,7 +54,7 @@ function PatientAnswerToDoctorContainer({ onOpen, questionId }) {
     if (answer === true) {
       window.location.replace(`/patient/survey/${page_number}/${user_Id}`);
     }
-  }, [answer, user_Id]);
+  }, [answer, user_Id, page_number]);
 
   useEffect(() => {
     dispatch(

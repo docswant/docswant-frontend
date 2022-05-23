@@ -11,29 +11,35 @@ import {
 } from '../../modules/questionList';
 
 function PatientMyPageContainer() {
-  const { user, patientGet, questionList } = useSelector(
+  const { patientGet, questionList } = useSelector(
     ({ user, patientGet, questionList }) => ({
-      user: user.user,
       questionList: questionList.questionList,
       patientGet: patientGet.patientGet,
     }),
   );
   const { user_Id } = useParams();
   const dispatch = useDispatch();
+  const today = new Date();
+  let year = today.getFullYear();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let day = ('0' + today.getDate()).slice(-2);
+  let dateString = year + '-' + month + '-' + day;
 
   useEffect(() => {
     async function onGetPatient() {
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
-        const response = await axios.get(`/api/v1/patient/${user_Id}`);
+        const response = await axios.get(
+          `/api/v1/patient/${user_Id}/rounding?date=${dateString}`,
+        );
         dispatch(patientGetSuccess(response.data.data));
       } catch (e) {
         dispatch(patientGetFailure(e));
       }
     }
     onGetPatient();
-  }, [dispatch, user_Id]);
+  }, [dispatch, user_Id, dateString]);
 
   useEffect(() => {
     async function onGetList() {
@@ -51,13 +57,7 @@ function PatientMyPageContainer() {
     onGetList();
   }, [dispatch, user_Id]);
 
-  return (
-    <PatientMypage
-      user={user}
-      patientGet={patientGet}
-      questionList={questionList}
-    />
-  );
+  return <PatientMypage patientGet={patientGet} questionList={questionList} />;
 }
 
 export default PatientMyPageContainer;
