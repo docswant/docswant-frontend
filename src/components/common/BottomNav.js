@@ -7,7 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const BottomNavBlock = styled.div`
   display: none;
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
     width: 100%;
     height: 100px;
@@ -42,7 +42,7 @@ const BottomNav = () => {
   };
 
   const onMoveSurvey = () => {
-    navigate(`/patient/survey/${user_Id}`);
+    navigate(`/patient/survey/1/${user_Id}`);
   };
 
   const onMoveQuestion = () => {
