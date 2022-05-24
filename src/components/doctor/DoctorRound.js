@@ -25,6 +25,9 @@ const CalendarBlock = styled.div`
     display: inline-block;
     width: 40%;
     border-radius: 3rem;
+    @media (max-width: 912px){
+      width: 95%;
+    }
   }
 `
 const RoundInfoBlock = styled.div`
@@ -84,6 +87,10 @@ const RoundBlock = styled.div`
   grid-template-columns: 15rem 15rem 15rem 15rem;
   grid-gap: 3rem;
   justify-content: center;
+  @media (max-width: 912px){
+    grid-template-columns: 11rem 11rem;
+    grid-gap: 1rem;
+  }
   .round_block{
     display: flex;
     flex-direction: column;
@@ -94,8 +101,14 @@ const RoundBlock = styled.div`
       border: 1px solid ${palette.blue[1]};
       border-radius: 1rem;
       font-size: 18px;
+      @media (max-width: 912px){
+        font-size: 14px;
+      }
       .loc{
         margin-right: 3rem;
+        @media (max-width: 912px){
+          margin-right: 1rem;
+        }
       }
       .icon{
         &:hover{
@@ -105,6 +118,9 @@ const RoundBlock = styled.div`
     }
     table{
       border-collapse: collapse;
+      @media (max-width: 912px){
+        font-size: 12px;
+      }
     }
     tbody{
       text-align: center;
@@ -131,6 +147,11 @@ const BtnBlock = styled.div`
     cursor: pointer;
     &:hover{
       background-color: ${palette.blue[1]};
+    }
+    @media (max-width: 912px){
+      width: 30%;
+      font-size: 14px;
+      margin-right: 1rem;
     }
   }
 `
