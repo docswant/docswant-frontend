@@ -43,7 +43,12 @@ const PaginationQuestionList = ({ questionList }) => {
         이전
       </button>
       <span>{questionList.page}</span>
-      <button onClick={() => onNextPage(questionList.page + 1)}>다음</button>
+      <button
+        disabled={questionList.hasNext === false}
+        onClick={() => onNextPage(questionList.page + 1)}
+      >
+        다음
+      </button>
     </PaginationBlock>
   );
 };
