@@ -104,7 +104,7 @@ const AddRoundModal = styled.div`
   }
 `
 function AddRound(props) {
-  const {open, close, code, time_h, time_m, onRe, onAdd} = props;
+  const {open, close, onChangeField, patient, time, date, onGetAddRounding} = props;
 
   return (
     <AddRoundModal>
@@ -122,36 +122,27 @@ function AddRound(props) {
                 <div>환자코드:</div>
                 <input 
                   className="code"
-                  name="code"
+                  name="patient"
                   type="text"
                   placeholder='ex) PATIENT001'
-                  value={code}
-                  onChange={onRe} />
+                  value={patient}
+                  onChange={onChangeField} />
               </div>
               <div className="box">
                 <div>회진시간: </div>
                 <input 
-                  name="time_h"
+                  name="time"
                   type="text"
-                  placeholder='ex) 13'
-                  value={time_h}
-                  onChange={onRe}/>
-                <div>시 </div>
-                <input 
-                  name="time_m"
-                  type="text"
-                  placeholder='ex) 00'
-                  value={time_m}
-                  onChange={onRe}/>
-                <div>분</div>
+                  placeholder='ex) 13:00'
+                  value={time}
+                  onChange={onChangeField}/>
               </div>
             </main>
             <footer>
               <button
                 disabled={
-                  !code && !time_h && !time_m ? true : false
-                }
-                onClick={onAdd}>
+                  !patient && !time ? true : false
+                } onClick={onGetAddRounding}>
                 추가하기
               </button>
             </footer>

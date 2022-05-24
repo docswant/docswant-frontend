@@ -107,7 +107,7 @@ const AddRoundModal = styled.div`
   }
 `
 function EditRound(props) {
-  const {open, close, code, time_h, time_m, onRe, onAdd} = props;
+  const {open, close, code, time, onRe, onAdd} = props;
 
   return (
     <AddRoundModal>
@@ -127,25 +127,17 @@ function EditRound(props) {
               <div className="box">
                 <div>회진시간: </div>
                 <input 
-                  name="time_h"
+                  name="time"
                   type="text"
                   placeholder='ex) 13'
-                  value={time_h}
+                  value={time}
                   onChange={onRe}/>
-                <div>시 </div>
-                <input 
-                  name="time_m"
-                  type="text"
-                  placeholder='ex) 00'
-                  value={time_m}
-                  onChange={onRe}/>
-                <div>분</div>
               </div>
             </main>
             <footer>
               <button
                 disabled={
-                  !code && !time_h && !time_m ? true : false
+                  !code && !time ? true : false
                 }
                 onClick={onAdd}>
                 수정하기
