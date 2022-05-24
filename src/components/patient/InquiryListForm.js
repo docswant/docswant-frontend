@@ -33,6 +33,9 @@ const InquiryListBlock = styled.div`
   padding: 0 10rem;
   padding-bottom: 150px;
   align-items: center;
+  @media(max-width: 768px){
+    padding: 0 1rem;
+  }
   .box{
     display: flex;
     margin: 0 auto;
@@ -42,6 +45,9 @@ const InquiryListBlock = styled.div`
     border-bottom: 1px solid ${palette.blue[0]};
     padding: 0.5rem;
     color: black;
+    @media(max-width: 768px){
+      width: 90%;
+    }
     &:hover{
       ${ListDel} {
         display: initial;
@@ -55,6 +61,9 @@ const InquiryListBlock = styled.div`
 const BtnBlock = styled.div`
   text-align: right;
   padding: 1rem 10rem;
+  @media(max-width: 768px){
+    padding: 1rem 2rem;
+  }
   button{
     width: 10rem;
     height: 3rem;
@@ -64,6 +73,11 @@ const BtnBlock = styled.div`
     font-size: 20px;
     border-radius: 7px;
     font-weight: 600;
+    @media(max-width: 768px){
+      width: 8rem;
+      height: 2rem;
+      font-size: 16px;
+    }
     cursor: pointer;
     background-color: ${palette.blue[0]};
     &:hover{
