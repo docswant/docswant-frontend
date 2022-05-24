@@ -41,8 +41,8 @@ const ModyModal = styled.div`
     width: 90%;
     max-width: 450px;
     margin: 0 auto;
-    border-radius: 0.3rem;
-    background-color: ${palette.gray[2]};
+    border-radius: 1rem;
+    background-color: white;
     animation: ${ModalFade} .5s;
     overflow: hidden;
     header{
@@ -71,9 +71,13 @@ const ModyModal = styled.div`
       button{
         padding: 6px 12px;
         color: white;
-        background-color: ${palette.blue[1]};
+        background-color: ${palette.blue[0]};
         border-radius: 5px;
         font-size: 13px;
+        &:hover{
+          background-color: ${palette.blue[1]};
+          cursor: pointer;
+        }
       }
       .close{
         margin-left: 1rem;
@@ -96,7 +100,7 @@ function InquiryModifyForm(props) {
         {open ? (
           <section>
             <header>
-              문의사항 수정페이지
+              문의사항을 수정해주세요.
               <button className='close' onClick={close}>
                 &times;
               </button>
