@@ -9,6 +9,7 @@ import questionList from './questionList';
 import loading from './loading';
 import answer from './answer';
 import checkAnswer from './checkAnswer';
+import rounding from './rounding';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   loading,
   answer,
   checkAnswer,
+  rounding,
 });
 
 export default persistReducer(persistConfig, rootReducer);

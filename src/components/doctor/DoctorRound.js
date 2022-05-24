@@ -242,21 +242,6 @@ function Round({round, onRemove, onClick}){
                 </RoundEdit>
               </td>
             </tr>
-            <tr>
-              <td>{round.code}</td>
-              <td>{round.time_h}시 {round.time_m}분</td>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>
-                <RoundDel onClick={()=>onRemove(round.id)}>
-                  <MdDelete />
-                </RoundDel>
-                <RoundEdit>
-                  <MdEdit />
-                </RoundEdit>
-              </td>
-            </tr>
           </tbody>
         </table>
       }
@@ -264,16 +249,14 @@ function Round({round, onRemove, onClick}){
   );
 }
 
-function DoctorRound() {
+function DoctorRound({roundingDate, onChangeDate}) {
   const [value, onChange] = useState(new Date());
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
 
   const [patients, setPatients] = useState([
     {
-      id: 'patient001',
-      room: '101',
-      name: '정재욱',
+      
     },
   ]);
   
@@ -365,14 +348,23 @@ function DoctorRound() {
     setRounds(rounds.filter(round => round.id !== id));
   };
 
+  // const test = moment(value).format("YYYY-MM-DD")
+  // console.log(test);
+
+  const text = day => {
+    console.log(moment(day).format("YYYY-MM-DD"));
+  }
+
   return (
     <Box>
       <CalendarBlock>
         <div className="cal">
           <Calendar
             className="calendar"
+            name="roundingDate"
+            value={value}
             onChange={onChange}
-            value={value} />
+            onClickDay={onChangeDate}/>
         </div>
       </CalendarBlock>
       <RoundInfoBlock>
