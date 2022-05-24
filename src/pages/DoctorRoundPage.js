@@ -2,14 +2,14 @@ import React from 'react'
 import Footer from '../components/common/Footer';
 import DoctorNaviContainer from '../container/doctor/DoctorNaviContainer';
 import DoctorHeaderContainer from '../container/doctor/DoctorHeaderContainer';
-import DoctorRound from '../components/doctor/DoctorRound';
+import DoctorRoundContainer from '../container/doctor/DoctorRoundContainer';
 
 function DoctorRoundPage() {
   return (
     <div>
       <DoctorHeaderContainer />
       <DoctorNaviContainer />
-      <DoctorRound />
+      <DoctorRoundContainer />
       <Footer />
     </div>
   )

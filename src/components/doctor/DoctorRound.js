@@ -277,16 +277,14 @@ function Round({ round, onRemove, onClick }) {
   );
 }
 
-function DoctorRound() {
+function DoctorRound({roundingDate, onChangeDate}) {
   const [value, onChange] = useState(new Date());
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
 
   const [patients, setPatients] = useState([
     {
-      id: 'patient001',
-      room: '101',
-      name: '정재욱',
+      
     },
   ]);
 
@@ -378,11 +376,23 @@ function DoctorRound() {
     setRounds(rounds.filter((round) => round.id !== id));
   };
 
+  // const test = moment(value).format("YYYY-MM-DD")
+  // console.log(test);
+
+  const text = day => {
+    console.log(moment(day).format("YYYY-MM-DD"));
+  }
+
   return (
     <Box>
       <CalendarBlock>
         <div className="cal">
-          <Calendar className="calendar" onChange={onChange} value={value} />
+          <Calendar
+            className="calendar"
+            name="roundingDate"
+            value={value}
+            onChange={onChange}
+            onClickDay={onChangeDate}/>
         </div>
       </CalendarBlock>
       <RoundInfoBlock>
