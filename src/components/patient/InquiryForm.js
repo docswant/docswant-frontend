@@ -41,8 +41,8 @@ const InquiryModal = styled.div`
     width: 90%;
     max-width: 450px;
     margin: 0 auto;
-    border-radius: 0.3rem;
-    background-color: ${palette.gray[2]};
+    border-radius: 1rem;
+    background-color: white;
     animation: ${ModalFade} 0.3s;
     overflow: hidden;
     header{
@@ -67,8 +67,11 @@ const InquiryModal = styled.div`
       input{
         width: 100%;
         margin-bottom: 1rem;
-        border: none;
+        border: 0.5px solid;
         font-size: 18px;
+        text-align: center;
+        padding: .2rem 0;
+        border-radius: .5rem;
       }
       textarea{
         resize: none;
@@ -76,12 +79,9 @@ const InquiryModal = styled.div`
         height: 10rem;
         font-size: 16px;
         border: none;
-        background-color: ${palette.gray[2]};
-        outline-color: ${palette.gray[1]};
+        /* background-color: ${palette.gray[2]};
+        outline-color: ${palette.gray[1]}; */
       }
-      /* div{
-        white-space: pre-wrap;
-      } */
     }
     footer{
       padding: 12px 16px;
@@ -89,9 +89,13 @@ const InquiryModal = styled.div`
       button{
         padding: 6px 12px;
         color: white;
-        background-color: ${palette.blue[1]};
+        background-color: ${palette.blue[0]};
         border-radius: 5px;
         font-size: 13px;
+        &:hover{
+          background-color: ${palette.blue[1]};
+          cursor: pointer;
+        }
       }
       .close{
         margin-left: 1rem;
