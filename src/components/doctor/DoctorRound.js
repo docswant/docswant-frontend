@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
 import { Calendar } from 'react-calendar';
@@ -155,123 +155,72 @@ const BtnBlock = styled.div`
     }
   }
 `;
-// function Round({ round, onRemove, onClick }) {
-//   const [visible, setVisible] = useState(false);
-//   return (
-//     <div className="round_block">
-//       <div className="round_text">
-//         <span className="loc">병동위치: {round.loc}호</span>
-//         <span
-//           className="icon"
-//           onClick={() => {
-//             setVisible(!visible);
-//           }}
-//         >
-//           {visible ? <AiFillCaretUp /> : <AiFillCaretDown />}
-//         </span>
-//       </div>
-//       {visible && (
-//         <table>
-//           <thead>
-//             <tr>
-//               <th>이름</th> <th>회진시간</th> <th>완료</th> <th></th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             <tr>
-//               <td>{round.code}</td>
-//               <td>
-//                 {round.time_h}시 {round.time_m}분
-//               </td>
-//               <td>
-//                 <input type="checkbox" />
-//               </td>
-//               <td>
-//                 <RoundDel onClick={() => onRemove(round.id)}>
-//                   <MdDelete />
-//                 </RoundDel>
-//                 <RoundEdit onClick={onClick}>
-//                   <MdEdit />
-//                 </RoundEdit>
-//               </td>
-//             </tr>
-//             <tr>
-//               <td>{round.code}</td>
-//               <td>
-//                 {round.time_h}시 {round.time_m}분
-//               </td>
-//               <td>
-//                 <input type="checkbox" />
-//               </td>
-//               <td>
-//                 <RoundDel onClick={() => onRemove(round.id)}>
-//                   <MdDelete />
-//                 </RoundDel>
-//                 <RoundEdit>
-//                   <MdEdit />
-//                 </RoundEdit>
-//               </td>
-//             </tr>
-//             <tr>
-//               <td>{round.code}</td>
-//               <td>
-//                 {round.time_h}시 {round.time_m}분
-//               </td>
-//               <td>
-//                 <input type="checkbox" />
-//               </td>
-//               <td>
-//                 <RoundDel onClick={() => onRemove(round.id)}>
-//                   <MdDelete />
-//                 </RoundDel>
-//                 <RoundEdit>
-//                   <MdEdit />
-//                 </RoundEdit>
-//               </td>
-//             </tr>
-//             <tr>
-//               <td>{round.code}</td>
-//               <td>
-//                 {round.time_h}시 {round.time_m}분
-//               </td>
-//               <td>
-//                 <input type="checkbox" />
-//               </td>
-//               <td>
-//                 <RoundDel onClick={() => onRemove(round.id)}>
-//                   <MdDelete />
-//                 </RoundDel>
-//                 <RoundEdit>
-//                   <MdEdit />
-//                 </RoundEdit>
-//               </td>
-//             </tr>
-//             <tr>
-//               <td>{round.code}</td>
-//               <td>
-//                 {round.time_h}시 {round.time_m}분
-//               </td>
-//               <td>
-//                 <input type="checkbox" />
-//               </td>
-//               <td>
-//                 <RoundDel onClick={() => onRemove(round.id)}>
-//                   <MdDelete />
-//                 </RoundDel>
-//                 <RoundEdit>
-//                   <MdEdit />
-//                 </RoundEdit>
-//               </td>
-//             </tr>
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   );
-// }
+function Round({ open, rounding, onGetDeleteRounding }) {
+  const [visible, setVisible] = useState(false);
+  return (
+    rounding &&
+    rounding.map((r) => (
+      <RoundBlock key={r.id}>
+        <div className="round_block">
+          <div className="round_text">
+            <span className="loc">병동위치: {r.hospitalRoom}호</span>
+            <span
+              className="icon"
+              onClick={() => {
+                setVisible(!visible);
+              }}
+            >
+              {visible ? <AiFillCaretUp /> : <AiFillCaretDown />}
+            </span>
+          </div>
+          {visible && (
+            <table>
+              <thead>
+                <tr>
+                  <th>이름</th> <th>회진시간</th> <th>완료</th> <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {r.roundings.map((rr) => (
+                  <tr key={rr.id}>
+                    <td>{rr.patientName}</td>
+                    <td>{rr.roundingTime}</td>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>
+                      <RoundDel>
+                        <MdDelete onClick={() => onGetDeleteRounding(rr.id)} />
+                      </RoundDel>
+                      <RoundEdit>
+                        <MdEdit onClick={open} />
+                      </RoundEdit>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </RoundBlock>
+    ))
+  );
+}
 
-function DoctorRound({rounding, onGetRounding, onChangeField, patient, time, date, onGetAddRounding}) {
+function DoctorRound({
+  rounding,
+  onGetRounding,
+  onChangeField,
+  patient,
+  time,
+  date,
+  onGetAddRounding,
+  loading,
+  onGetDeleteRounding,
+  onUpdateRounding,
+}) {
   const [value, onChange] = useState(new Date());
+  const [today, setToday] = useState('');
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
 
@@ -288,86 +237,71 @@ function DoctorRound({rounding, onGetRounding, onChangeField, patient, time, dat
     setModalOpen2(false);
   };
 
-  // const onRe = (e) => {
-  //   const { name, value } = e.target;
-  //   setInputs({
-  //     ...inputs,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const onAdd = () => {
-  //   alert('새로운 일정이 등록되었습니다.');
-
-  //   const round = {
-  //     id: nextId.current,
-  //     loc: '101',
-  //     code: code,
-  //     time_h: time_h,
-  //     time_m: time_m,
-  //   };
-  //   setRounds([...rounds, round]);
-
-  //   setInputs({
-  //     code: '',
-  //     time_h: '',
-  //     time_m: '',
-  //   });
-  //   nextId.current += 1;
-  // };
-
-  // const onRemove = (id) => {
-  //   setRounds(rounds.filter((round) => round.id !== id));
-  // };
+  const onCheckToday = (day) => {
+    setToday(day);
+  };
 
   return (
-      <Box>
-        <CalendarBlock>
-          <div className="cal">
-            <Calendar
-              className="calendar"
-              name="roundingDate"
-              value={value}
-              onChange={onChange}
-              onClickDay={() => onGetRounding(moment(value).format("YYYY-MM-DD"))}/>
-          </div>
-        </CalendarBlock>
-        <RoundInfoBlock>
-          <div className="date">
-            * {moment(value).format('YYYY년 MM월 DD일')} *
-          </div>
-
-          {/* {rounding.length === 0 
-          ? (<span>회진일정이 없습니다</span>) : (<span>ㅁㅁ</span> )} */}
-
-          <div className="addround">
-            <AiOutlinePlus onClick={openModal1} />
-          </div>
-
-          <AddRound
-            open={modalOpen1}
-            close={closeModal1}
-            onChangeField={onChangeField}
-            patient={patient}
-            time={time}
-            date={date}
-            onGetAddRounding={onGetAddRounding}
+    <Box>
+      <CalendarBlock>
+        <div className="cal">
+          <Calendar
+            className="calendar"
+            name="roundingDate"
+            value={value}
+            onChange={onChange}
+            onClickDay={() => {
+              onCheckToday(moment(value).format('YYYY-MM-DD'));
+              onGetRounding(moment(value).format('YYYY-MM-DD'));
+            }}
           />
+        </div>
+      </CalendarBlock>
+      <RoundInfoBlock>
+        <div className="date">
+          * {moment(value).format('YYYY년 MM월 DD일')} *
+        </div>
 
-          {/* <EditRound
-            open={modalOpen2}
-            close={closeModal2}
-            code={code}
-            time_h={time}
-            onRe={onRe}
-          /> */}
+        {loading === true || (rounding && rounding.length === 0) ? (
+          <span>회진일정이 없습니다</span>
+        ) : (
+          <Round
+            rounding={rounding}
+            onGetDeleteRounding={onGetDeleteRounding}
+            open={openModal2}
+          />
+        )}
 
-          <BtnBlock>
-            <button className="return">전체 휴진</button>
-          </BtnBlock>
-        </RoundInfoBlock>
-      </Box>
-    
+        <div className="addround">
+          <AiOutlinePlus onClick={openModal1} />
+        </div>
+
+        <AddRound
+          open={modalOpen1}
+          close={closeModal1}
+          onChangeField={onChangeField}
+          patient={patient}
+          time={time}
+          date={date}
+          today={today}
+          onGetAddRounding={onGetAddRounding}
+        />
+
+        <EditRound
+          open={openModal2}
+          openEdit={modalOpen2}
+          close={closeModal2}
+          time={time}
+          date={date}
+          onChangeField={onChangeField}
+          onUpdateRounding={onUpdateRounding}
+        />
+
+        <BtnBlock>
+          <button className="return">전체 휴진</button>
+        </BtnBlock>
+      </RoundInfoBlock>
+    </Box>
   );
 }
 
