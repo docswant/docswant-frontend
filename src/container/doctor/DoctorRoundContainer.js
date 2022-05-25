@@ -8,6 +8,8 @@ import {
   roundingDeleteFailure,
   roundingDeleteSuccess,
   roundingFailure,
+  roundingStateUpdateFailure,
+  roundingStateUpdateSuccess,
   roundingSuccess,
   roundingUpdateFailure,
   roundingUpdateSuccess,
@@ -26,6 +28,7 @@ function DoctorRoundContainer() {
     loading,
     roundingDelete,
     roundingUpdate,
+    roundingState,
   } = useSelector(({ rounding, loading }) => ({
     rounding: rounding.rounding,
     patient: rounding.patient,
@@ -33,7 +36,8 @@ function DoctorRoundContainer() {
     date: rounding.date,
     roundingAdd: rounding.roundingAdd,
     roundingDelete: rounding.roundingDelete,
-    roudingUpdate: rounding.roundingUpdate,
+    roundingUpdate: rounding.roundingUpdate,
+    roundingState: rounding.roundingState,
     loading: loading.loading,
   }));
   const dispatch = useDispatch();
@@ -138,6 +142,24 @@ function DoctorRoundContainer() {
   const onUpdateRounding = (id) => {
     getUpdateRounding(id);
   };
+
+  async function getRoundingState(id) {
+    const accessToken = getCookie('myAToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+    try {
+      await axios.patch(
+        `https://docswant.zooneon.dev/api/v1/doctor/${user_Id}/rounding/${id}/status`,
+      );
+      dispatch(roundingStateUpdateSuccess(true));
+    } catch (e) {
+      dispatch(roundingStateUpdateFailure(e));
+    }
+  }
+
+  const onRoundingState = (id) => {
+    getRoundingState(id);
+  };
   useEffect(() => {
     async function getRoundingDate() {
       const accessToken = getCookie('myAToken');
@@ -174,6 +196,12 @@ function DoctorRoundContainer() {
     }
   }, [roundingUpdate, user_Id]);
 
+  useEffect(() => {
+    if (roundingState === true) {
+      window.location.replace(`/doctor/round/${user_Id}`);
+    }
+  }, [roundingState, user_Id]);
+
   return (
     <DoctorRound
       rounding={rounding}
@@ -186,6 +214,7 @@ function DoctorRoundContainer() {
       loading={loading}
       onGetDeleteRounding={onGetDeleteRounding}
       onUpdateRounding={onUpdateRounding}
+      onRoundingState={onRoundingState}
     />
   );
 }

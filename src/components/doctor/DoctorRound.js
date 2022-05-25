@@ -155,12 +155,13 @@ const BtnBlock = styled.div`
     }
   }
 `;
-function Round({ open, rounding, onGetDeleteRounding }) {
+function Round({ open, rounding, onGetDeleteRounding, onRoundingState }) {
   const [visible, setVisible] = useState(false);
+
   return (
     rounding &&
     rounding.map((r) => (
-      <RoundBlock key={r.id}>
+      <RoundBlock key={r.hospitalRoom}>
         <div className="round_block">
           <div className="round_text">
             <span className="loc">병동위치: {r.hospitalRoom}호</span>
@@ -186,14 +187,21 @@ function Round({ open, rounding, onGetDeleteRounding }) {
                     <td>{rr.patientName}</td>
                     <td>{rr.roundingTime}</td>
                     <td>
-                      <input type="checkbox" />
+                      {rr.roundingStatus === 'DONE' ? (
+                        <span onClick={() => onRoundingState(rr.id)}>완료</span>
+                      ) : (
+                        <input
+                          type="checkbox"
+                          onClick={() => onRoundingState(rr.id)}
+                        />
+                      )}
                     </td>
                     <td>
                       <RoundDel>
                         <MdDelete onClick={() => onGetDeleteRounding(rr.id)} />
                       </RoundDel>
                       <RoundEdit>
-                        <MdEdit onClick={open} />
+                        <MdEdit onClick={() => open(rr.id)} />
                       </RoundEdit>
                     </td>
                   </tr>
@@ -218,17 +226,20 @@ function DoctorRound({
   loading,
   onGetDeleteRounding,
   onUpdateRounding,
+  onRoundingState,
 }) {
   const [value, onChange] = useState(new Date());
   const [today, setToday] = useState('');
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
+  const [roundingId, setRoundingId] = useState(null);
 
   const openModal1 = () => {
     setModalOpen1(true);
   };
-  const openModal2 = () => {
+  const openModal2 = (id) => {
     setModalOpen2(true);
+    setRoundingId(id);
   };
   const closeModal1 = () => {
     setModalOpen1(false);
@@ -268,6 +279,7 @@ function DoctorRound({
           <Round
             rounding={rounding}
             onGetDeleteRounding={onGetDeleteRounding}
+            onRoundingState={onRoundingState}
             open={openModal2}
           />
         )}
@@ -295,6 +307,7 @@ function DoctorRound({
           date={date}
           onChangeField={onChangeField}
           onUpdateRounding={onUpdateRounding}
+          roundingId={roundingId}
         />
 
         <BtnBlock>

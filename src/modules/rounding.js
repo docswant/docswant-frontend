@@ -10,7 +10,8 @@ const ROUNDING_DELETE_SUCCESS = 'rounding/ROUNDING_DELETE_SUCCESS';
 const ROUNDING_DELETE_FAILURE = 'rounding/ROUNDING_DELETE_FAILURE';
 const ROUNDING_UPDATE_SUCCESS = 'rounding/ROUNDING_UPDATE_SUCCESS';
 const ROUNDING_UPDATE_FAILURE = 'rounding/ROUNDING_UPDATE_FAILURE';
-
+const ROUNDING_STATE_UPDATE_SUCCESS = 'rounding/ROUNDING_STATE_UPDATE_SUCCESS';
+const ROUNDING_STATE_UPDATE_FAILURE = 'rounding/ROUNDING_STATE_UPDATE_FAILURE';
 export const roundingSuccess = createAction(
   ROUNDING_SUCCESS,
   (success) => success,
@@ -44,6 +45,14 @@ export const roundingUpdateFailure = createAction(
   ROUNDING_UPDATE_FAILURE,
   (error) => error,
 );
+export const roundingStateUpdateSuccess = createAction(
+  ROUNDING_STATE_UPDATE_SUCCESS,
+  (roundingState) => roundingState,
+);
+export const roundingStateUpdateFailure = createAction(
+  ROUNDING_STATE_UPDATE_FAILURE,
+  (error) => error,
+);
 
 const initialState = {
   rounding: null,
@@ -57,6 +66,8 @@ const initialState = {
   roundingDeleteError: null,
   roundingUpdate: null,
   roundingUpdateError: null,
+  roundingState: null,
+  roundingStateError: null,
 };
 
 const rounding = handleActions(
@@ -100,6 +111,15 @@ const rounding = handleActions(
     [ROUNDING_UPDATE_FAILURE]: (state, { payload: error }) => ({
       ...state,
       roundingUpdateError: error,
+    }),
+    [ROUNDING_STATE_UPDATE_SUCCESS]: (state, { payload: roundingState }) => ({
+      ...state,
+      roundingState,
+      roundingStateError: null,
+    }),
+    [ROUNDING_STATE_UPDATE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      roundingStateError: error,
     }),
   },
   initialState,

@@ -107,8 +107,15 @@ const AddRoundModal = styled.div`
   }
 `;
 function EditRound(props) {
-  const { openEdit, close, time, date, onChangeField, onUpdateRounding } =
-    props;
+  const {
+    openEdit,
+    close,
+    time,
+    date,
+    onChangeField,
+    onUpdateRounding,
+    roundingId,
+  } = props;
 
   return (
     <AddRoundModal>
@@ -146,7 +153,9 @@ function EditRound(props) {
               </div>
             </main>
             <footer>
-              <button onClick={() => onUpdateRounding()}>수정하기</button>
+              <button onClick={() => onUpdateRounding(roundingId)}>
+                수정하기
+              </button>
             </footer>
           </section>
         ) : null}
