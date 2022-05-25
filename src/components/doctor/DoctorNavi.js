@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const DoctorNaviBlock = styled.div`
   border-bottom: 1px solid #e1e1e1;
@@ -17,8 +17,6 @@ const DoctorNaviBlock = styled.div`
     text-align: center;
     border-bottom: 5px solid white;
     &:hover {
-      /* text-decoration: underline;
-      text-underline-position: under; */
       border-bottom: 5px solid ${palette.blue[1]};
     }
   }
@@ -31,17 +29,18 @@ const DoctorNaviBlock = styled.div`
   }
 `;
 
-const DoctorNavi = ({ user }) => {
+const DoctorNavi = () => {
   const navigate = useNavigate();
+  const { user_Id } = useParams();
 
   const onMoveMyPage = () => {
-    navigate(`/doctor/mainpage/1/${user.sub}`);
+    navigate(`/doctor/mainpage/1/${user_Id}`);
   };
   const onMoveRound = () => {
-    navigate(`/doctor/round/${user.sub}`);
+    navigate(`/doctor/round/${user_Id}`);
   };
   const onMoveModify = () => {
-    navigate(`/doctor/modify/${user.sub}`);
+    navigate(`/doctor/modify/${user_Id}`);
   };
 
   return (

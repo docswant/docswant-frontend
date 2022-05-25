@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, {keyframes} from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 const ModalFade = keyframes`
@@ -11,7 +11,7 @@ const ModalFade = keyframes`
     opacity: 1;
     margin-top: 0%;
   }
-`
+`;
 const ModalbgFade = keyframes`
   from{
     opacity: 0;
@@ -19,9 +19,9 @@ const ModalbgFade = keyframes`
   to{
     opacity: 1;
   }
-`
+`;
 const AddRoundModal = styled.div`
-  .modal{
+  .modal {
     display: none;
     position: fixed;
     align-items: center;
@@ -30,9 +30,9 @@ const AddRoundModal = styled.div`
     left: 0;
     right: 0;
     z-index: 99;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
   }
-  button{
+  button {
     outline: 0;
     border: 0;
   }
@@ -44,12 +44,12 @@ const AddRoundModal = styled.div`
     background-color: white;
     animation: ${ModalFade} 0.3s;
     overflow: hidden;
-    header{
+    header {
       position: relative;
       padding: 16px 30px;
       background-color: ${palette.blue[0]};
       font-weight: 800;
-      button{
+      button {
         position: absolute;
         cursor: pointer;
         top: 15px;
@@ -61,62 +61,70 @@ const AddRoundModal = styled.div`
         background-color: transparent;
       }
     }
-    main{
+    main {
       display: flex;
       flex-direction: column;
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
       border-bottom: 1px solid ${palette.gray[1]};
-      .name{
+      .name {
         margin-bottom: 1rem;
         font-size: 2rem;
         text-align: center;
         color: ${palette.gray[1]};
       }
-      .box{
+      .box {
         display: flex;
       }
-      input{
-        width: 20%;
+      input {
+        width: 50%;
         margin: 0 1rem 1rem 1rem;
         margin-left: 1rem;
         border: none;
         font-size: 18px;
       }
     }
-    footer{
+    footer {
       padding: 12px 16px;
       text-align: center;
-      button{
+      button {
         padding: 6px 12px;
         color: white;
         background-color: ${palette.blue[0]};
         border-radius: 5px;
         font-size: 13px;
-        &:enabled:hover{
+        &:enabled:hover {
           background-color: ${palette.blue[1]};
           cursor: pointer;
         }
       }
     }
   }
-  .openModal{
+  .openModal {
     display: flex;
     align-items: center;
     animation: ${ModalbgFade} 0.3s;
   }
-`
+`;
 function EditRound(props) {
-  const {open, close, code, time, onRe, onAdd} = props;
+  const {
+    openEdit,
+    close,
+    time,
+    date,
+    onChangeField,
+    onUpdateRounding,
+    roundingId,
+  } = props;
 
   return (
     <AddRoundModal>
-      <div className={open ? 'openModal modal':'modal'}>
-        {open ? (
+      <div className={openEdit ? 'openModal modal' : 'modal'}>
+        {openEdit ? (
           <section>
             <header>
               회진 일정 수정
-              <button className='close' onClick={close}>
+              <button className="close" onClick={close}>
                 &times;
               </button>
             </header>
@@ -125,21 +133,27 @@ function EditRound(props) {
                 <div>PATIENT001</div>
               </div>
               <div className="box">
+                <div>회진날짜: </div>
+                <input
+                  name="date"
+                  type="date"
+                  value={date}
+                  onChange={onChangeField}
+                />
+              </div>
+              <div className="box">
                 <div>회진시간: </div>
-                <input 
+                <input
                   name="time"
                   type="text"
-                  placeholder='ex) 13'
                   value={time}
-                  onChange={onRe}/>
+                  onChange={onChangeField}
+                  placeholder="회진시간을 입력해주세요"
+                />
               </div>
             </main>
             <footer>
-              <button
-                disabled={
-                  !code && !time ? true : false
-                }
-                onClick={onAdd}>
+              <button onClick={() => onUpdateRounding(roundingId)}>
                 수정하기
               </button>
             </footer>
@@ -147,7 +161,7 @@ function EditRound(props) {
         ) : null}
       </div>
     </AddRoundModal>
-  )
+  );
 }
 
-export default EditRound
+export default EditRound;
