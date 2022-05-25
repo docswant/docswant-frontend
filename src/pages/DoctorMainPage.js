@@ -1,15 +1,15 @@
 import React from 'react';
 import Footer from '../components/common/Footer';
 import MainTemplete from '../components/common/MainTemplete';
-import DoctorNaviContainer from '../container/doctor/DoctorNaviContainer';
-import DoctorHeaderContainer from '../container/doctor/DoctorHeaderContainer';
 import DoctorMainContainer from '../container/doctor/DoctorMainContainer';
+import DoctorNavi from '../components/doctor/DoctorNavi';
+import DoctorHeader from '../components/doctor/DoctorHeader';
 
 function DoctorMainPage() {
   return (
     <div>
-      <DoctorHeaderContainer />
-      <DoctorNaviContainer />
+      <DoctorHeader />
+      <DoctorNavi />
       <MainTemplete>
         <DoctorMainContainer />
       </MainTemplete>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Logo from '../../lib/image/Logo.png';
 
 const DoctorHeaderBlock = styled.div`
@@ -33,14 +33,15 @@ const DoctorHeaderBlock = styled.div`
   }
 `;
 
-const DoctorHeader = ({ user }) => {
+const DoctorHeader = () => {
   //현재 시간
   const today = new Date();
   const dataString = today.toLocaleDateString();
   const navigate = useNavigate();
+  const { user_Id } = useParams();
 
   const onMoveMyPage = () => {
-    navigate(`/doctor/mainpage/1/${user.sub}`);
+    navigate(`/doctor/mainpage/1/${user_Id}`);
   };
   return (
     <DoctorHeaderBlock>

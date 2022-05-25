@@ -3,14 +3,14 @@ import BottomNav from '../components/common/BottomNav';
 import Footer from '../components/common/Footer';
 import Header from '../components/common/Header';
 import MainTemplete from '../components/common/MainTemplete';
-import NaviContainer from '../container/patient/NaviContainer';
+import Navi from '../components/patient/Navi';
 import PatientMyPageContainer from '../container/patient/PatientMyPageContainer';
 
 export default function MyPage() {
   return (
     <div>
       <Header />
-      <NaviContainer />
+      <Navi />
       <MainTemplete>
         <PatientMyPageContainer />
       </MainTemplete>
