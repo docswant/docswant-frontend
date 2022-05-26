@@ -7,6 +7,8 @@ import {
   roundingChange,
   roundingDeleteFailure,
   roundingDeleteSuccess,
+  roundingDeleteTodayFailure,
+  roundingDeleteTodaySuccess,
   roundingFailure,
   roundingStateUpdateFailure,
   roundingStateUpdateSuccess,
@@ -17,6 +19,7 @@ import {
 import axios from 'axios';
 import { getCookie } from '../../lib/cookie';
 import { useParams } from 'react-router-dom';
+import { loadingFinish, loadingStart } from '../../modules/loading';
 
 function DoctorRoundContainer() {
   const {
@@ -29,6 +32,7 @@ function DoctorRoundContainer() {
     roundingDelete,
     roundingUpdate,
     roundingState,
+    roundingDeleteToday,
   } = useSelector(({ rounding, loading }) => ({
     rounding: rounding.rounding,
     patient: rounding.patient,
@@ -38,6 +42,7 @@ function DoctorRoundContainer() {
     roundingDelete: rounding.roundingDelete,
     roundingUpdate: rounding.roundingUpdate,
     roundingState: rounding.roundingState,
+    roundingDeleteToday: rounding.roundingDeleteToday,
     loading: loading.loading,
   }));
   const dispatch = useDispatch();
@@ -50,6 +55,7 @@ function DoctorRoundContainer() {
   let dateString = year + '-' + month + '-' + day;
 
   async function getRounding(date) {
+    dispatch(loadingStart(true));
     const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
@@ -60,6 +66,7 @@ function DoctorRoundContainer() {
     } catch (e) {
       dispatch(roundingFailure(e));
     }
+    dispatch(loadingFinish(false));
   }
 
   const onGetRounding = (date) => {
@@ -160,8 +167,32 @@ function DoctorRoundContainer() {
   const onRoundingState = (id) => {
     getRoundingState(id);
   };
+
+  async function getDeleteToday(string) {
+    const accessToken = getCookie('myAToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    try {
+      await axios.delete(
+        `https://docswant.zooneon.dev/api/v1/doctor/${user_Id}/rounding?ids=${string}`,
+      );
+      dispatch(roundingDeleteTodaySuccess(true));
+    } catch (e) {
+      dispatch(roundingDeleteTodayFailure(e));
+    }
+  }
+
+  const onGetDeleteToday = (string, date) => {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm(`${date} 회진일정을 삭제하시겠습니까?`) === true) {
+      getDeleteToday(string);
+    } else {
+      return;
+    }
+  };
+
   useEffect(() => {
     async function getRoundingDate() {
+      dispatch(loadingStart(true));
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
@@ -173,6 +204,7 @@ function DoctorRoundContainer() {
       } catch (e) {
         dispatch(roundingFailure(e));
       }
+      dispatch(loadingFinish(false));
     }
 
     getRoundingDate();
@@ -202,6 +234,12 @@ function DoctorRoundContainer() {
     }
   }, [roundingState, user_Id]);
 
+  useEffect(() => {
+    if (roundingDeleteToday === true) {
+      window.location.replace(`/doctor/round/${user_Id}`);
+    }
+  }, [roundingDeleteToday, user_Id]);
+
   return (
     <DoctorRound
       rounding={rounding}
@@ -215,6 +253,7 @@ function DoctorRoundContainer() {
       onGetDeleteRounding={onGetDeleteRounding}
       onUpdateRounding={onUpdateRounding}
       onRoundingState={onRoundingState}
+      onGetDeleteToday={onGetDeleteToday}
     />
   );
 }

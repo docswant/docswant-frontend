@@ -100,6 +100,7 @@ const AddRoundModal = styled.div`
     animation: ${ModalbgFade} 0.3s;
   }
 `;
+
 function AddRound(props) {
   const { open, close, onChangeField, patient, time, date, onGetAddRounding } =
     props;

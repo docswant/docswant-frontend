@@ -45,7 +45,7 @@ const Pagination = ({ patientList }) => {
       <span>{patientList.page}</span>
       <button
         disabled={patientList.hasNext === false}
-        nClick={() => onNextPage(patientList.page + 1)}
+        onClick={() => onNextPage(patientList.page + 1)}
       >
         다음
       </button>

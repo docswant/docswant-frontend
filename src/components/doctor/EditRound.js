@@ -115,6 +115,7 @@ function EditRound(props) {
     onChangeField,
     onUpdateRounding,
     roundingId,
+    roundingName,
   } = props;
 
   return (
@@ -130,7 +131,7 @@ function EditRound(props) {
             </header>
             <main>
               <div className="name">
-                <div>PATIENT001</div>
+                <div>{roundingName}</div>
               </div>
               <div className="box">
                 <div>회진날짜: </div>
