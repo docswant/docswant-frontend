@@ -65,19 +65,19 @@ const RoundDel = styled.div`
   align-items: center;
   color: lightgray;
   font-size: 20px;
+  margin-left: 1rem;
   cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
+
+  #remove {
+    &:hover {
+      color: #ff6b6b;
+    }
   }
-`;
-const RoundEdit = styled.div`
-  display: flex;
-  align-items: center;
-  color: lightgray;
-  font-size: 20px;
-  cursor: pointer;
-  &:hover {
-    color: blue;
+
+  #edit {
+    &:hover {
+      color: blue;
+    }
   }
 `;
 const RoundBlock = styled.div`
@@ -156,62 +156,80 @@ const BtnBlock = styled.div`
   }
 `;
 function Round({ open, rounding, onGetDeleteRounding, onRoundingState }) {
-  const [visible, setVisible] = useState(false);
+  const [isRoundingSelect, setIsRoundingSelect] = useState(false);
+  let sortRounding;
+
+  if (rounding) {
+    sortRounding = rounding.sort(function (a, b) {
+      return a.hospitalRoom - b.hospitalRoom;
+    });
+  }
+
+  const onHandleClick = (idx) => {
+    const newArr = Array(rounding.length).fill(false);
+    newArr[idx] = !newArr[idx];
+    setIsRoundingSelect(newArr);
+  };
 
   return (
-    rounding &&
-    rounding.map((r) => (
-      <RoundBlock key={r.hospitalRoom}>
-        <div className="round_block">
-          <div className="round_text">
-            <span className="loc">병동위치: {r.hospitalRoom}호</span>
-            <span
-              className="icon"
-              onClick={() => {
-                setVisible(!visible);
-              }}
-            >
-              {visible ? <AiFillCaretUp /> : <AiFillCaretDown />}
-            </span>
-          </div>
-          {visible && (
-            <table>
-              <thead>
-                <tr>
-                  <th>이름</th> <th>회진시간</th> <th>완료</th> <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {r.roundings.map((rr) => (
-                  <tr key={rr.id}>
-                    <td>{rr.patientName}</td>
-                    <td>{rr.roundingTime}</td>
-                    <td>
-                      {rr.roundingStatus === 'DONE' ? (
-                        <span onClick={() => onRoundingState(rr.id)}>완료</span>
-                      ) : (
-                        <input
-                          type="checkbox"
-                          onClick={() => onRoundingState(rr.id)}
-                        />
-                      )}
-                    </td>
-                    <td>
-                      <RoundDel>
-                        <MdDelete onClick={() => onGetDeleteRounding(rr.id)} />
-                      </RoundDel>
-                      <RoundEdit>
-                        <MdEdit onClick={() => open(rr.id)} />
-                      </RoundEdit>
-                    </td>
+    sortRounding && (
+      <RoundBlock>
+        {sortRounding.map((r, index) => (
+          <div className="round_block" key={index}>
+            <div className="round_text">
+              <span className="loc">병동위치: {r.hospitalRoom}호</span>
+              {isRoundingSelect[index] === true ? (
+                <AiFillCaretUp onClick={() => onHandleClick(index)} />
+              ) : (
+                <AiFillCaretDown onClick={() => onHandleClick(index)} />
+              )}
+            </div>
+            {isRoundingSelect[index] === true && (
+              <table>
+                <thead>
+                  <tr>
+                    <th>이름</th> <th>회진시간</th> <th>완료</th>
+                    <th>삭제/수정</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+                </thead>
+                <tbody>
+                  {r.roundings.map((rr) => (
+                    <tr key={rr.id}>
+                      <td>{rr.patientName}</td>
+                      <td>{rr.roundingTime}</td>
+                      <td>
+                        {rr.roundingStatus === 'DONE' ? (
+                          <span onClick={() => onRoundingState(rr.id)}>
+                            완료
+                          </span>
+                        ) : (
+                          <input
+                            type="checkbox"
+                            onClick={() => onRoundingState(rr.id)}
+                          />
+                        )}
+                      </td>
+                      <td>
+                        <RoundDel>
+                          <MdDelete
+                            id="remove"
+                            onClick={() => onGetDeleteRounding(rr.id)}
+                          />
+                          <MdEdit
+                            id="edit"
+                            onClick={() => open(rr.id, rr.patientName)}
+                          />
+                        </RoundDel>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        ))}
       </RoundBlock>
-    ))
+    )
   );
 }
 
@@ -227,19 +245,38 @@ function DoctorRound({
   onGetDeleteRounding,
   onUpdateRounding,
   onRoundingState,
+  onGetDeleteToday,
 }) {
   const [value, onChange] = useState(new Date());
   const [today, setToday] = useState('');
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
   const [roundingId, setRoundingId] = useState(null);
+  const [roundingName, setRoundingName] = useState('');
+
+  let array = [];
+  let string = '';
+
+  if (rounding) {
+    for (let i = 0; i < rounding.length; i++) {
+      for (let j = 0; j < rounding[i].roundings.length; j++) {
+        array.push(rounding[i].roundings[j].id);
+      }
+    }
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    string += array[i] + ',';
+  }
+  string = string.slice(0, -1);
 
   const openModal1 = () => {
     setModalOpen1(true);
   };
-  const openModal2 = (id) => {
+  const openModal2 = (id, name) => {
     setModalOpen2(true);
     setRoundingId(id);
+    setRoundingName(name);
   };
   const closeModal1 = () => {
     setModalOpen1(false);
@@ -308,10 +345,16 @@ function DoctorRound({
           onChangeField={onChangeField}
           onUpdateRounding={onUpdateRounding}
           roundingId={roundingId}
+          roundingName={roundingName}
         />
 
         <BtnBlock>
-          <button className="return">전체 휴진</button>
+          <button
+            className="return"
+            onClick={() => onGetDeleteToday(string, today)}
+          >
+            오늘 휴진
+          </button>
         </BtnBlock>
       </RoundInfoBlock>
     </Box>
