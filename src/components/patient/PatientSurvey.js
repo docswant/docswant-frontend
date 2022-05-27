@@ -109,7 +109,7 @@ const PatientSurvey = ({ questionList, loading }) => {
               <div className="surveyList" key={c.id}>
                 <div className="surveyInfo">
                   <span>김의사</span>
-                  <span>2022.05.07</span>
+                  <span>{c.createdAt}</span>
                   {c.answerStatus === 'DONE' && (
                     <span id="finish" onClick={() => onAnswer(c.answer)}>
                       답변완료
