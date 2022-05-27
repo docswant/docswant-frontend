@@ -158,6 +158,7 @@ const BtnBlock = styled.div`
 function Round({ open, rounding, onGetDeleteRounding, onRoundingState }) {
   const [isRoundingSelect, setIsRoundingSelect] = useState(false);
   let sortRounding;
+  let newArr;
 
   if (rounding) {
     sortRounding = rounding.sort(function (a, b) {
@@ -166,8 +167,8 @@ function Round({ open, rounding, onGetDeleteRounding, onRoundingState }) {
   }
 
   const onHandleClick = (idx) => {
-    const newArr = Array(rounding.length).fill(false);
-    newArr[idx] = !newArr[idx];
+    newArr = Array(rounding.length).fill(false);
+    newArr[idx] = !isRoundingSelect[idx];
     setIsRoundingSelect(newArr);
   };
 
