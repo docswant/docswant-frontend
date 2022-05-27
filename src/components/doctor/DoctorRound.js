@@ -101,6 +101,7 @@ const RoundBlock = styled.div`
       border: 1px solid ${palette.blue[1]};
       border-radius: 1rem;
       font-size: 18px;
+      cursor: pointer;
       @media (max-width: 912px) {
         font-size: 14px;
       }
@@ -200,12 +201,19 @@ function Round({ open, rounding, onGetDeleteRounding, onRoundingState }) {
                       <td>{rr.roundingTime}</td>
                       <td>
                         {rr.roundingStatus === 'DONE' ? (
-                          <span onClick={() => onRoundingState(rr.id)}>
+                          <span
+                            style={{
+                              cursor: 'pointer',
+                              color: 'red',
+                            }}
+                            onClick={() => onRoundingState(rr.id)}
+                          >
                             완료
                           </span>
                         ) : (
                           <input
                             type="checkbox"
+                            style={{ cursor: 'pointer' }}
                             onClick={() => onRoundingState(rr.id)}
                           />
                         )}
