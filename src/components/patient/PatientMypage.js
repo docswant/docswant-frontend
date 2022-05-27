@@ -41,9 +41,14 @@ const PatientMypageBlock = styled.div`
       flex-direction: column;
       align-items: center;
 
-      h2 {
-        margin: 0;
-        margin: 0.5rem 0;
+      .nameAge {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        h2 {
+          margin: 0;
+        }
       }
 
       .patientSubInfo {
@@ -51,7 +56,11 @@ const PatientMypageBlock = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font-size: 18px;
+        font-size: 16px;
+
+        div {
+          margin-top: 0.3rem;
+        }
       }
     }
 
@@ -99,6 +108,22 @@ const PatientMypage = ({ patientGet, questionList }) => {
   const navigate = useNavigate();
   const { user_Id } = useParams();
 
+  let now = new Date();
+  let Dday;
+  let discharge;
+  let result;
+  let gap;
+
+  if (patientGet) {
+    discharge = patientGet.dischargeDate;
+    let year = discharge.substr(0, 4);
+    let month = discharge.substr(5, 2);
+    let day = discharge.substr(8, 2);
+    Dday = new Date(year, month - 1, day);
+    gap = now.getTime() - Dday.getTime();
+    result = Math.floor(gap / 1000 / 60 / 60 / 24) * -1;
+  }
+
   const onMoveModify = () => {
     navigate(`/patient/modify/${user_Id}`);
   };
@@ -119,13 +144,25 @@ const PatientMypage = ({ patientGet, questionList }) => {
         <div className="infoBlock">
           <div className="imgBlock"></div>
           <div className="patientInfo">
-            <h2>{patientGet.patientName}</h2>
+            <div className="nameAge">
+              <h2 style={{ marginRight: '0.3rem' }}>
+                {patientGet.patientName}
+              </h2>
+              <h2>{getCalculate(patientGet.birthDate.substr(0, 4))}세</h2>
+            </div>
             <div className="patientSubInfo">
-              <div style={{ marginRight: '0.3rem', marginBottom: '0.3rem' }}>
-                {getCalculate(patientGet.birthDate.substr(0, 4))}세
-              </div>
-              <div>퇴원까지 D-10</div>
-              <div>ddd</div>
+              {patientGet.dischargeDate ? (
+                <div>
+                  퇴원까지 : D-{result} ({patientGet.dischargeDate})
+                </div>
+              ) : (
+                <div>예정된 퇴원일자가 없습니다.</div>
+              )}
+              {patientGet.roundingTime ? (
+                <div>오늘의 회진 일정 : {patientGet.roundingTime}</div>
+              ) : (
+                <div>예정된 회진이 없습니다.</div>
+              )}
             </div>
           </div>
           <button onClick={onMoveModify}>설정</button>
