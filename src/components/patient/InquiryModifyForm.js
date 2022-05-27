@@ -92,7 +92,7 @@ const ModyModal = styled.div`
 `
 
 function InquiryModifyForm(props) {
-  const {open, close, onSubmit, inquiries} = props;
+  const {open, close, inquiries, onGetUpdateInquiry} = props;
 
   return (
     <ModyModal>
@@ -113,7 +113,7 @@ function InquiryModifyForm(props) {
               {inquiries[0].text}
             </main>
             <footer>
-              <button className='submit' onClick={onSubmit}>
+              <button className='submit' onClick={onGetUpdateInquiry}>
                 확인
               </button>
               <button className='close' onClick={close}>

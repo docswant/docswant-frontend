@@ -1,9 +1,10 @@
-import React, {useState, useRef} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import InquiryForm from './InquiryForm';
 import {MdDelete, MdEdit} from 'react-icons/md';
 import InquiryModifyForm from './InquiryModifyForm';
+import Loading from '../common/Loading';
 
 
 const ListDel = styled.div`
@@ -86,17 +87,18 @@ const BtnBlock = styled.div`
   }
 `
 
-function Inquiry({inquiry, onRemove, openModal2, onToggle}){
+function Inquiry({inquiry, openModal2, onGetDeleteInquiry}){
   return (
     <div className="box">
       <div>
         제목 : {inquiry.title} _ {inquiry.id}
-        <ListDel onClick={()=>onRemove(inquiry.id)}>
-          <MdDelete />
+        <ListDel>
+          <MdDelete onClick={()=>{
+            onGetDeleteInquiry()
+          }}/>
         </ListDel>
         <ListEdit onClick={()=>{
           openModal2()
-          onToggle(inquiry.id)
         }}>
           <MdEdit />
         </ListEdit>
@@ -106,15 +108,18 @@ function Inquiry({inquiry, onRemove, openModal2, onToggle}){
   );
 }
 
-function InquiryListForm() {
+function InquiryListForm({
+  title,
+  content,
+  onGetAddInquiry,
+  onChangeField,
+  onGetDeleteInquiry,
+  onGetUpdateInquiry,
+  loading,
+}){
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
-  const [inputs, setInputs] = useState({
-    title: '',
-    text: ''
-  });
-  const {title, text} = inputs;
-
+ 
   const [inquiries, setInquiries] = useState([
     {
       id: 1,
@@ -147,7 +152,6 @@ function InquiryListForm() {
       active: false
     },
   ]);
-  const nextId = useRef(6);
 
   const openModal1 = () => {
     setModalOpen1(true);
@@ -162,45 +166,9 @@ function InquiryListForm() {
     setModalOpen2(false);
   };
 
-  const onChange=(e)=>{
-    const {name, value} = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value
-    });
-  };
-  const onReset=()=>{
-    alert("제출되었습니다.");
-
-    const inquiry = {
-      id: nextId.current,
-      title: title,
-      text: text
-    };
-    setInquiries([...inquiries, inquiry]);
-
-    console.log(title);
-    setInputs({
-      title: '',
-      text: ''
-    });
-    nextId.current += 1;
-  };
-  const onSubmit=()=>{
-    alert("성공적으로 수정되었습니다.")
-  };
-  const onRemove = id => {
-    setInquiries(inquiries.filter(inquiry => inquiry.id !== id));
-  };
-  const onToggle = id => {
-    setInquiries(
-      inquiries.map(inquiry =>
-        inquiry.id === id ? {...inquiry, active: !inquiry.active} : inquiry
-      )
-    )
-  }
-
-  return (
+  return loading === true ? (
+    <Loading />
+  ) : (
     <>
       <BtnBlock>
         <button onClick={openModal1}>문의 하기</button>
@@ -209,9 +177,8 @@ function InquiryListForm() {
       <InquiryForm
         open={modalOpen1}
         close={closeModal1}
-        onChange={onChange}
-        text={text}
-        reset={onReset}
+        onChangeField={onChangeField}
+        contnet={content}
         title={title}/>
 
       <InquiryListBlock>
@@ -219,18 +186,17 @@ function InquiryListForm() {
           <Inquiry 
             inquiry = {inquiry}
             key={inquiry.id}
-            onRemove={onRemove}
             openModal2={openModal2}
-            onToggle = {onToggle}/>
+            onGetDeleteInquiry={onGetDeleteInquiry} />
         ))}
         <InquiryModifyForm 
           open={modalOpen2}
           close={closeModal2}
-          onSubmit={onSubmit}
-          inquiries={inquiries} />
+          inquiries={inquiries}
+          onGetUpdateInquiry={onGetUpdateInquiry} />
       </InquiryListBlock>
     </>
   )
-}
+};
 
 export default InquiryListForm
