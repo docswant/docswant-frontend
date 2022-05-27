@@ -110,7 +110,7 @@ const InquiryModal = styled.div`
 `
 
 function InquiryForm(props) {
-  const {open, close, onChange, text, reset, title} = props;
+  const {open, close, onChangeField, content, title} = props;
 
   return (
     <InquiryModal>
@@ -129,15 +129,15 @@ function InquiryForm(props) {
                 type="text"
                 placeholder='제목을 입력하세요.'
                 value={title}
-                onChange={onChange}/>
+                onChange={onChangeField}/>
               <textarea 
-                name="text"
+                name="content"
                 placeholder='내용을 입력하세요.' 
-                value={text}
-                onChange={onChange} />
+                value={content}
+                onChange={onChangeField} />
             </main>
             <footer>
-              <button className='submit' onClick={reset}>
+              <button className='submit'>
                 Submit
               </button>
               <button className='close' onClick={close}>

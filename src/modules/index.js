@@ -10,8 +10,10 @@ import loading from './loading';
 import answer from './answer';
 import checkAnswer from './checkAnswer';
 import rounding from './rounding';
+import inquiry from './inquiry';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
 
 const persistConfig = {
   key: 'root',
@@ -31,6 +33,7 @@ const rootReducer = combineReducers({
   answer,
   checkAnswer,
   rounding,
+  inquiry,
 });
 
 export default persistReducer(persistConfig, rootReducer);
