@@ -121,10 +121,14 @@ const DoctorList = ({
     setIsAnswer(!isAnswer);
   };
 
-  const onUpdate = (content, id) => {
-    setIsUpdate(!isUpdate);
-    setContent(content);
-    setQuestionId(id);
+  const onUpdate = (content, id, answer) => {
+    if (answer === 'DONE') {
+      alert('답변이 있는 설문은 수정이 불가능합니다.\n삭제 후 재등록 해주세요');
+    } else {
+      setIsUpdate(!isUpdate);
+      setContent(content);
+      setQuestionId(id);
+    }
   };
   return loading === true ? (
     <Loading />
@@ -166,7 +170,9 @@ const DoctorList = ({
                     <span>{c.content}</span>
                   </div>
                   <div className="listButton">
-                    <button onClick={() => onUpdate(c.content, c.id)}>
+                    <button
+                      onClick={() => onUpdate(c.content, c.id, c.answerStatus)}
+                    >
                       수정
                     </button>
                     <button onClick={() => onGetDeleteQuestion(c.id)}>

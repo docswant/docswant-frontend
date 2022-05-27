@@ -108,7 +108,6 @@ const PatientSurvey = ({ questionList, loading }) => {
             questionList.content.map((c) => (
               <div className="surveyList" key={c.id}>
                 <div className="surveyInfo">
-                  <span>김의사</span>
                   <span>{c.createdAt}</span>
                   {c.answerStatus === 'DONE' && (
                     <span id="finish" onClick={() => onAnswer(c.answer)}>
