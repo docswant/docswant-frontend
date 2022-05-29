@@ -115,13 +115,15 @@ const PatientMypage = ({ patientGet, questionList }) => {
   let gap;
 
   if (patientGet) {
-    discharge = patientGet.dischargeDate;
-    let year = discharge.substr(0, 4);
-    let month = discharge.substr(5, 2);
-    let day = discharge.substr(8, 2);
-    Dday = new Date(year, month - 1, day);
-    gap = now.getTime() - Dday.getTime();
-    result = Math.floor(gap / 1000 / 60 / 60 / 24) * -1;
+    if (patientGet.dischargeDate) {
+      discharge = patientGet.dischargeDate;
+      let year = discharge.substr(0, 4);
+      let month = discharge.substr(5, 2);
+      let day = discharge.substr(8, 2);
+      Dday = new Date(year, month - 1, day);
+      gap = now.getTime() - Dday.getTime();
+      result = Math.floor(gap / 1000 / 60 / 60 / 24) * -1;
+    }
   }
 
   const onMoveModify = () => {
