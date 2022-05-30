@@ -13,7 +13,8 @@ const ModalFade = keyframes`
     margin-top: 0%;
   }
 `;
-const DoctorListUpdateBlock = styled.div`
+
+const DoctorInquiryPatientBlock = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -33,7 +34,6 @@ const DoctorListUpdateBlock = styled.div`
   .formBlock {
     width: 425px;
     background-color: white;
-    padding: 1rem 1.5rem;
     border-radius: 12px;
     animation: ${ModalFade} 0.5s;
 
@@ -44,82 +44,74 @@ const DoctorListUpdateBlock = styled.div`
     .closeBlock {
       width: 100%;
       text-align: right;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       cursor: pointer;
+      padding: 0.6rem;
+      border-bottom: 2px solid ${palette.blue[0]};
       svg {
         font-size: 25px;
       }
+
+      #name {
+        margin-left: 1rem;
+        font-size: 2rem;
+        color: ${palette.gray[1]};
+      }
     }
-    h2 {
-      text-align: center;
-    }
-    form {
+
+    .detailBlock {
+      width: 100%;
       display: flex;
       flex-direction: column;
+      padding: 0.6rem 1rem;
 
-      #contentArea {
-        height: 100px;
-        border: 1px solid ${palette.blue[0]};
-        outline: none;
-        font-size: 16px;
-
-        &::placeholder {
-          font-size: 16px;
-        }
-      }
-
-      button {
-        outline: none;
-        background-color: ${palette.blue[0]};
-        border: none;
-        padding: 1rem;
-        border-radius: 7px;
-        font-size: 20px;
-        font-weight: bold;
+      span {
         margin-top: 1rem;
-        color: white;
-        cursor: pointer;
       }
     }
   }
 `;
 
-const DoctorListUpdate = ({
-  onUpdate,
-  questionUpdateText,
-  onChangeField,
-  onSubmit,
-}) => {
+const DoctorInquiryPatient = ({ onDetail, surgery, discharge, name }) => {
   useEffect(() => {
     document.body.style.cssText = `
-      position: fixed;
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
+          position: fixed;
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
     return () => {
       const scrollY = document.body.style.top;
       document.body.style.cssText = '';
       window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     };
   }, []);
+  console.log(surgery, discharge);
   return (
-    <DoctorListUpdateBlock>
+    <DoctorInquiryPatientBlock>
       <div className="formBlock">
         <div className="closeBlock">
-          <AiOutlineClose onClick={onUpdate} />
+          <div id="name">{name}</div>
+          <AiOutlineClose onClick={onDetail} />
         </div>
-        <h2>질문 수정</h2>
-        <form onSubmit={onSubmit}>
-          <textarea
-            id="contentArea"
-            name="questionUpdateText"
-            value={questionUpdateText}
-            onChange={onChangeField}
-          />
-          <button>수정하기</button>
-        </form>
+        <div className="detailBlock">
+          {surgery ? (
+            <span>수술날짜 : {surgery}</span>
+          ) : (
+            <span>예정된 수술 날짜가 없습니다.</span>
+          )}
+          {discharge ? (
+            <span style={{ marginBottom: '1rem' }}>퇴원날짜 : {discharge}</span>
+          ) : (
+            <span style={{ marginBottom: '1rem' }}>
+              예정된 퇴원날짜가 없습니다.
+            </span>
+          )}
+        </div>
       </div>
-    </DoctorListUpdateBlock>
+    </DoctorInquiryPatientBlock>
   );
 };
 
-export default DoctorListUpdate;
+export default DoctorInquiryPatient;
