@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -19,11 +19,16 @@ const DoctorListUpdateBlock = styled.div`
   position: absolute;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
+  padding: 3rem;
   left: 0;
   top: 0;
   z-index: 10000;
   background-color: rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 
   .formBlock {
     width: 425px;
@@ -84,6 +89,18 @@ const DoctorListUpdate = ({
   onChangeField,
   onSubmit,
 }) => {
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
   return (
     <DoctorListUpdateBlock>
       <div className="formBlock">

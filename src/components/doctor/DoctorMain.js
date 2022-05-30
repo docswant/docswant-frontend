@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import DoctorRegisterPatContainer from '../../container/doctor/DoctorRegisterPatContainer';
 import Pagination from '../common/PaginationPatientList';
 import DoctorModifyPatientContainer from '../../container/doctor/DoctorModifyPatientContainer';
+import DoctorInquiryPatient from './DoctorInquiryPatient';
 
 const DoctorMainBlock = styled.div`
   width: 100%;
@@ -30,6 +31,7 @@ const DoctorMainBlock = styled.div`
       width: 75%;
       display: flex;
       justify-content: space-between;
+      cursor: pointer;
 
       @media (max-width: 912px) {
         width: 90%;
@@ -96,6 +98,10 @@ const NoQuestionBlock = styled.div`
 const DoctorMain = ({ patientList, onGetPatientDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+  const [surgery, setSurgery] = useState('');
+  const [discharge, setDischarge] = useState('');
+  const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [patientObj, setPatientObj] = useState({});
   const navigate = useNavigate();
@@ -113,6 +119,14 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
     setCode(code);
     setPatientObj(obj);
   };
+
+  const onDetail = (surgery, discharge, name) => {
+    setIsDetail(!isDetail);
+    setSurgery(surgery);
+    setDischarge(discharge);
+    setName(name);
+  };
+
   return (
     patientList && (
       <>
@@ -124,23 +138,41 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
             obj={patientObj}
           />
         )}
+        {isDetail && (
+          <DoctorInquiryPatient
+            onDetail={onDetail}
+            surgery={surgery}
+            discharge={discharge}
+            name={name}
+          />
+        )}
         <DoctorMainBlock>
           {patientList.content.length === 0 ? (
             <NoQuestionBlock>등록된 환자가 없습니다.</NoQuestionBlock>
           ) : (
             patientList.content.map((p) => (
               <div className="patientIndi" key={p.code}>
-                <div className="patientInfo">
-                  <span>이름 : {p.name}</span>
-                  <span>생년월일 : {p.birthDate}</span>
-                  <span>병동위치 : {p.hospitalRoom}</span>
-                  <span>입원날짜 : {p.hospitalizationDate}</span>
-                  {p.dischargeDate ? (
-                    <span>퇴원날짜 : {p.dischargeDate}</span>
-                  ) : (
-                    <span>퇴원날짜 : 미정</span>
-                  )}
-                  <span>병명 : {p.diseaseName}</span>
+                <div
+                  className="patientInfo"
+                  onClick={() =>
+                    onDetail(p.surgeryDate, p.dischargeDate, p.name)
+                  }
+                >
+                  <div className="name">
+                    <span>이름 : {p.name}</span>
+                  </div>
+                  <div className="birthDate">
+                    <span>생년월일 : {p.birthDate}</span>
+                  </div>
+                  <div className="hospitalRoom">
+                    <span>병동위치 : {p.hospitalRoom}</span>
+                  </div>
+                  <div className="hospitalizationDate">
+                    <span>입원날짜 : {p.hospitalizationDate}</span>
+                  </div>
+                  <div className="diseaseName">
+                    <span>병명 : {p.diseaseName}</span>
+                  </div>
                 </div>
                 <div className="buttonWrapper">
                   <button onClick={() => onUpdate(p.code, p)}>수정</button>
