@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DoctorRegisterPatContainer from '../../container/doctor/DoctorRegisterPatContainer';
 import Pagination from '../common/PaginationPatientList';
 import DoctorModifyPatientContainer from '../../container/doctor/DoctorModifyPatientContainer';
@@ -28,7 +28,7 @@ const DoctorMainBlock = styled.div`
     }
 
     .patientInfo {
-      width: 75%;
+      width: 70%;
       display: flex;
       justify-content: space-between;
       cursor: pointer;
@@ -104,10 +104,15 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
   const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [patientObj, setPatientObj] = useState({});
+  const { user_Id } = useParams();
   const navigate = useNavigate();
 
   const onMovePatientList = (patient_Id) => {
     navigate(`/doctor/list/1/${patient_Id}`);
+  };
+
+  const onMoveDoctorInquiry = (patient_Id) => {
+    navigate(`/doctor/inquiry/1/${user_Id}/${patient_Id}`);
   };
 
   const onOpen = () => {
@@ -181,6 +186,9 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
                   </button>
                   <button onClick={() => onMovePatientList(p.code)}>
                     LIST
+                  </button>
+                  <button onClick={() => onMoveDoctorInquiry(p.code)}>
+                    문의사항
                   </button>
                 </div>
               </div>
