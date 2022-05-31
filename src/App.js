@@ -11,6 +11,7 @@ import DoctorModifyPage from './pages/DoctorModifyPage';
 import DoctorMainPage from './pages/DoctorMainPage';
 import DoctorListPage from './pages/DoctorListPage';
 import DoctorRoundPage from './pages/DoctorRoundPage';
+import DoctorInquiryPage from './pages/DoctorInquiryPage';
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
         element={<DoctorListPage />}
       />
       <Route path="/doctor/round/:user_Id" element={<DoctorRoundPage />} />
+      <Route
+        path="/doctor/inquiry/:page_number/:user_Id/:patient_Id"
+        element={<DoctorInquiryPage />}
+      />
     </Routes>
   );
 }
