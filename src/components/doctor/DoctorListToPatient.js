@@ -17,10 +17,10 @@ const ModalFade = keyframes`
 const DoctorListToPatientBlock = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   padding: 3rem;
   left: 0;
   top: 0;
@@ -61,6 +61,7 @@ const DoctorListToPatientBlock = styled.div`
         height: 100px;
         border: 1px solid ${palette.blue[0]};
         outline: none;
+        resize: none;
       }
 
       button {
@@ -74,6 +75,9 @@ const DoctorListToPatientBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
+        &:hover{
+          background-color: ${palette.blue[1]};
+        }
       }
     }
   }
