@@ -44,6 +44,9 @@ const PatientModifiyBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
+        &:hover{
+          background-color: ${palette.blue[1]};
+        }
       }
 
       .duplicateBlock {
@@ -54,7 +57,7 @@ const PatientModifiyBlock = styled.div`
           width: 30%;
           margin: 0;
           margin-left: 1rem;
-          font-size: 12px;
+          font-size: 15px;
           padding: 1rem;
           cursor: pointer;
 

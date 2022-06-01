@@ -66,6 +66,7 @@ const PatientMypageBlock = styled.div`
 
     button {
       background-color: white;
+      color: ${palette.gray[1]};
       outline: none;
       margin-top: 1rem;
       margin-bottom: 1rem;
@@ -74,6 +75,10 @@ const PatientMypageBlock = styled.div`
       padding: 0.5rem 1rem;
       font-weight: bold;
       cursor: pointer;
+      &:hover{
+        color: black;
+        border-color: black;
+      }
     }
     .subInfo {
       width: 100%;

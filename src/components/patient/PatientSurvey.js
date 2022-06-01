@@ -31,6 +31,9 @@ const PatientSurveyBlock = styled.div`
         color: ${palette.blue[0]};
         font-weight: bold;
         cursor: pointer;
+        &:hover{
+          color: ${palette.blue[1]};
+        }
       }
     }
     .surveyCheck {
