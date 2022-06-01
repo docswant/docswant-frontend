@@ -68,6 +68,9 @@ const InquiryBlock = styled.div`
     margin-top: 1rem;
     color: white;
     cursor: pointer;
+    &:hover{
+      background-color: ${palette.blue[1]};
+    }
   }
 `;
 

@@ -61,6 +61,7 @@ const DoctorListUpdateBlock = styled.div`
         border: 1px solid ${palette.blue[0]};
         outline: none;
         font-size: 16px;
+        resize: none;
 
         &::placeholder {
           font-size: 16px;
@@ -78,6 +79,9 @@ const DoctorListUpdateBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
+        &:hover{
+          background-color: ${palette.blue[1]};
+        }
       }
     }
   }
