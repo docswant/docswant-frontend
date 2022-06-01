@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
 import DoctorInquiryDetail from './DoctorInquiryDetail';
+import PaginationInquiryDoctor from '../common/PaginationInquiryDoctor';
 
 const DoctorInquiryBlock = styled.div`
   width: 100%;
@@ -66,13 +67,23 @@ const DoctorInquiryBlock = styled.div`
 
 const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [confirmTitle, setConfirmTitle] = useState('');
+  const [confirmContent, setConfirmContent] = useState('');
 
-  const onOpen = () => {
+  const onOpen = (title, content) => {
     setIsOpen(!isOpen);
+    setConfirmTitle(title);
+    setConfirmContent(content);
   };
   return (
     <>
-      {isOpen && <DoctorInquiryDetail onOpen={onOpen} />}
+      {isOpen && (
+        <DoctorInquiryDetail
+          onOpen={onOpen}
+          confirmTitle={confirmTitle}
+          confirmContent={confirmContent}
+        />
+      )}
       {patientGet && inquiry && (
         <DoctorInquiryBlock>
           <div className="listHeader">
@@ -86,12 +97,12 @@ const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
           {inquiry.content.map((i) => (
             <div className="listInfo" key={i.id}>
               <div className="listText">
-                <span>{i.content}</span>
+                <span>{i.title}</span>
               </div>
               <div className="listButton">
                 <button
                   onClick={() => {
-                    onOpen();
+                    onOpen(i.title, i.content);
                     onGetConfirmInquiry(i.id);
                   }}
                 >
@@ -100,6 +111,7 @@ const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
               </div>
             </div>
           ))}
+          <PaginationInquiryDoctor inquiry={inquiry} />
         </DoctorInquiryBlock>
       )}
     </>
