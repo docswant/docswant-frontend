@@ -1,14 +1,23 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react';
 import InquiryListForm from '../../components/patient/InquiryListForm';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { inquiryAddSuccess, inquiryChange, inquiryDeleteFailure, inquiryDeleteSuccess, inquiryFailure, inquirySuccess, inquiryUpdateFailure, inquiryUpdateSuccess } from '../../modules/inquiry';
+import {
+  inquiryAddSuccess,
+  inquiryChange,
+  inquiryDeleteFailure,
+  inquiryDeleteSuccess,
+  inquiryFailure,
+  inquirySuccess,
+  inquiryUpdateFailure,
+  inquiryUpdateSuccess,
+} from '../../modules/inquiry';
 import { useParams } from 'react-router-dom';
 import { loadingFinish, loadingStart } from '../../modules/loading';
 import { getCookie } from '../../lib/cookie';
 
 function PatientInquiryContainer() {
-  const{
+  const {
     inquiry,
     inquiryError,
     inquiryAdd,
@@ -20,7 +29,7 @@ function PatientInquiryContainer() {
     inquiryUpdate,
     inquiryUpdateError,
     loading,
-  } = useSelector(({inquiry, loading}) => ({
+  } = useSelector(({ inquiry, loading }) => ({
     inquiry: inquiry.inquiry,
     inquiryError: inquiry.inquiryError,
     inquiryAdd: inquiry.inquiryAdd,
@@ -35,20 +44,19 @@ function PatientInquiryContainer() {
   }));
 
   const dispatch = useDispatch();
-  const {user_Id} = useParams();
+  const { user_Id } = useParams();
 
   useEffect(() => {
-    async function getInquiry(){
+    async function getInquiry() {
       // dispatch(loadingStart(true));
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(
-          `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement?page=1&size=3`
+          `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement?page=1&size=3`,
         );
         dispatch(inquirySuccess(response.data.data));
-      }
-      catch(e){
+      } catch (e) {
         dispatch(inquiryFailure(e));
       }
       // dispatch(loadingFinish(false));
@@ -56,7 +64,7 @@ function PatientInquiryContainer() {
     getInquiry();
   }, [dispatch, user_Id]);
 
-  async function getAddInquiry(){
+  async function getAddInquiry() {
     const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
@@ -68,17 +76,16 @@ function PatientInquiryContainer() {
         },
       );
       dispatch(inquiryAddSuccess(true));
-    }
-    catch(e){
+    } catch (e) {
       dispatch(inquiryAddError(e));
     }
-  };
-  const onGetAddInquiry = () =>{
+  }
+  const onGetAddInquiry = () => {
     getAddInquiry();
   };
 
   const onChangeField = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     dispatch(
       inquiryChange({
         key: name,
@@ -90,78 +97,75 @@ function PatientInquiryContainer() {
   async function getDeleteInquiry(id) {
     const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-    try{
+    try {
       await axios.delete(
-        `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement/${id}`
+        `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement/${id}`,
       );
       dispatch(inquiryDeleteSuccess(true));
-    }
-    catch(e){
+    } catch (e) {
       dispatch(inquiryDeleteFailure(e));
     }
-  };
+  }
   const onGetDeleteInquiry = (id) => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm('해당 문의사항을 삭제하겠습니까?') === true) {
       getDeleteInquiry(id);
-      alert('성공적으로 삭제 되었습니다.');
-    }
-    else{
+    } else {
       return;
     }
-  }
+  };
 
   async function getUpdateInquiry(id) {
     const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-    try{
+    try {
       await axios.patch(
         `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement/${id}/content`,
         {
           content: content,
-        }
+        },
       );
       dispatch(inquiryUpdateSuccess(true));
-    }
-    catch(e){
+    } catch (e) {
       dispatch(inquiryUpdateFailure(e));
     }
-  };
+  }
   const onGetUpdateInquiry = (id) => {
     getUpdateInquiry(id);
-    alert('성공적으로 수정 되었습니다.');
   };
 
   useEffect(() => {
-    if(inquiryAdd === true) {
+    if (inquiryAdd === true) {
       window.location.replace(`/patient/inquiry_list/${user_Id}`);
     }
   }, [inquiryAdd, user_Id]);
 
   useEffect(() => {
-    if(inquiryDelete === true) {
+    if (inquiryDelete === true) {
+      alert('성공적으로 삭제 되었습니다.');
       window.location.replace(`/patient/inquiry_list/${user_Id}`);
     }
-  }, [inquiryDelete, user_Id])
+  }, [inquiryDelete, user_Id]);
 
   useEffect(() => {
-    if(inquiryUpdate === true) {
+    if (inquiryUpdate === true) {
+      alert('성공적으로 수정 되었습니다.');
       window.location.replace(`/patient/inquiry_list/${user_Id}`);
     }
-  }, [inquiryUpdate, user_Id])
+  }, [inquiryUpdate, user_Id]);
 
   return (
     <InquiryListForm
-      inquiry = {inquiry}
-      title = {title}
-      content = {content}
-      onGetAddInquiry = {onGetAddInquiry}
-      onChangeField = {onChangeField}
-      onGetDeleteInquiry = {onGetDeleteInquiry}
-      onGetUpdateInquiry = {onGetUpdateInquiry}
-      loading = {loading}
+      inquiry={inquiry}
+      title={title}
+      content={content}
+      onGetAddInquiry={onGetAddInquiry}
+      onChangeField={onChangeField}
+      onGetDeleteInquiry={onGetDeleteInquiry}
+      onGetUpdateInquiry={onGetUpdateInquiry}
+      loading={loading}
     />
-  )
+  );
 }
 
-export default PatientInquiryContainer
+export default PatientInquiryContainer;
