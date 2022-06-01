@@ -64,7 +64,7 @@ const DoctorInquiryBlock = styled.div`
   }
 `;
 
-const DoctorInquiry = ({ patientGet, onGetInquiryList }) => {
+const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onOpen = () => {
@@ -72,13 +72,8 @@ const DoctorInquiry = ({ patientGet, onGetInquiryList }) => {
   };
   return (
     <>
-      {isOpen && (
-        <DoctorInquiryDetail
-          onOpen={onOpen}
-          onGetInquiryList={onGetInquiryList}
-        />
-      )}
-      {patientGet && (
+      {isOpen && <DoctorInquiryDetail onOpen={onOpen} />}
+      {patientGet && inquiry && (
         <DoctorInquiryBlock>
           <div className="listHeader">
             <span>이름 : {patientGet.name}</span>
@@ -88,14 +83,23 @@ const DoctorInquiry = ({ patientGet, onGetInquiryList }) => {
               <span>병명 : {patientGet.diseaseName}</span>
             </div>
           </div>
-          <div className="listInfo">
-            <div className="listText">
-              <span>제목</span>
+          {inquiry.content.map((i) => (
+            <div className="listInfo" key={i.id}>
+              <div className="listText">
+                <span>{i.content}</span>
+              </div>
+              <div className="listButton">
+                <button
+                  onClick={() => {
+                    onOpen();
+                    onGetConfirmInquiry(i.id);
+                  }}
+                >
+                  상세보기
+                </button>
+              </div>
             </div>
-            <div className="listButton">
-              <button onClick={onOpen}>상세보기</button>
-            </div>
-          </div>
+          ))}
         </DoctorInquiryBlock>
       )}
     </>
