@@ -171,44 +171,47 @@ function InquiryListForm({
       <BtnBlock>
         <button onClick={openModal1}>문의 하기</button>
       </BtnBlock>
-      <InquiryForm
-        open={modalOpen1}
-        close={closeModal1}
-        onChangeField={onChangeField}
-        contnet={content}
-        title={title}
-        onGetAddInquiry={onGetAddInquiry}
-      />
-
-      <InquiryListBlock>
-        {inquiry &&
-          inquiry.content.map((i) => (
-            <Inquiry
-              i={i}
-              key={i.id}
-              openModal2={openModal2}
-              openModal3={openModal3}
-              onGetDeleteInquiry={onGetDeleteInquiry}
+      {inquiry && (
+        <>
+          <InquiryForm
+            open={modalOpen1}
+            close={closeModal1}
+            onChangeField={onChangeField}
+            contnet={content}
+            title={title}
+            onGetAddInquiry={onGetAddInquiry}
+          />
+          <InquiryListBlock>
+            {inquiry &&
+              inquiry.content.map((i) => (
+                <Inquiry
+                  i={i}
+                  key={i.id}
+                  openModal2={openModal2}
+                  openModal3={openModal3}
+                  onGetDeleteInquiry={onGetDeleteInquiry}
+                />
+              ))}
+            <InquiryContent
+              open={modalOpen3}
+              close={closeModal3}
+              text={text}
+              confirmTitle={confirmTitle}
             />
-          ))}
-        <InquiryContent
-          open={modalOpen3}
-          close={closeModal3}
-          text={text}
-          confirmTitle={confirmTitle}
-        />
 
-        <InquiryModifyForm
-          open={modalOpen2}
-          close={closeModal2}
-          onGetUpdateInquiry={onGetUpdateInquiry}
-          updateId={updateId}
-          onChangeField={onChangeField}
-          content={content}
-          text={text}
-        />
-        <PaginationInquiryPatient inquiry={inquiry}/>
-      </InquiryListBlock>
+            <InquiryModifyForm
+              open={modalOpen2}
+              close={closeModal2}
+              onGetUpdateInquiry={onGetUpdateInquiry}
+              updateId={updateId}
+              onChangeField={onChangeField}
+              content={content}
+              text={text}
+            />
+            <PaginationInquiryPatient inquiry={inquiry} />
+          </InquiryListBlock>
+        </>
+      )}
     </>
   );
 }
