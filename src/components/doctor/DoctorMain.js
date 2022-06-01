@@ -54,6 +54,9 @@ const DoctorMainBlock = styled.div`
         border-radius: 12px;
         padding: 0.3rem 0.9rem;
         cursor: pointer;
+        &:hover{
+          border-color: ${palette.blue[1]};
+        }
       }
       @media (max-width: 912px) {
         text-align: right;
@@ -76,6 +79,9 @@ const DoctorMainBlock = styled.div`
       margin-top: 1rem;
       color: white;
       cursor: pointer;
+      &:hover{
+        background-color: ${palette.blue[1]};
+      }
 
       @media (max-width: 425px) {
         width: 100%;

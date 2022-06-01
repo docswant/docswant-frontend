@@ -126,21 +126,21 @@ function PatientInquiryContainer() {
 
   useEffect(() => {
     if (inquiryAdd === true) {
-      window.location.replace(`/patient/inquiry_list/${user_Id}`);
+      window.location.replace(`/patient/inquiry_list/1/${user_Id}`);
     }
   }, [inquiryAdd, user_Id]);
 
   useEffect(() => {
     if (inquiryDelete === true) {
       alert('성공적으로 삭제 되었습니다.');
-      window.location.replace(`/patient/inquiry_list/${user_Id}`);
+      window.location.replace(`/patient/inquiry_list/1/${user_Id}`);
     }
   }, [inquiryDelete, user_Id]);
 
   useEffect(() => {
     if (inquiryUpdate === true) {
       alert('성공적으로 수정 되었습니다.');
-      window.location.replace(`/patient/inquiry_list/${user_Id}`);
+      window.location.replace(`/patient/inquiry_list/1/${user_Id}`);
     }
   }, [inquiryUpdate, user_Id]);
 
