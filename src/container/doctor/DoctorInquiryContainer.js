@@ -19,7 +19,7 @@ function DoctorInquiryContainer() {
     inquiry: inquiry.inquiry,
   }));
   const dispatch = useDispatch();
-  const { patient_Id } = useParams();
+  const { patient_Id, page_number } = useParams();
 
   useEffect(() => {
     async function onGetPatient() {
@@ -44,7 +44,7 @@ function DoctorInquiryContainer() {
 
       try {
         const response = await axios.get(
-          `https://docswant.zooneon.dev/api/v1/patient/${patient_Id}/requirement?page=1&size=3`,
+          `https://docswant.zooneon.dev/api/v1/patient/${patient_Id}/requirement?page=${page_number}&size=5`,
         );
         dispatch(inquirySuccess(response.data.data));
       } catch (e) {
@@ -53,7 +53,7 @@ function DoctorInquiryContainer() {
     }
 
     getInquiryList();
-  }, [dispatch, patient_Id]);
+  }, [dispatch, patient_Id, page_number]);
 
   async function getConfirmInquiry(id) {
     let accessToken = getCookie('myAToken');

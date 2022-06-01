@@ -71,7 +71,12 @@ const InquiryBlock = styled.div`
   }
 `;
 
-const DoctorInquiryDetail = ({ onOpen, onGetInquiryList }) => {
+const DoctorInquiryDetail = ({
+  onOpen,
+  onGetInquiryList,
+  confirmTitle,
+  confirmContent,
+}) => {
   return (
     <DoctorInquiryDetailBlock>
       <InquiryBlock>
@@ -79,12 +84,12 @@ const DoctorInquiryDetail = ({ onOpen, onGetInquiryList }) => {
           <AiOutlineClose onClick={onOpen} />
         </div>
         <div className="titleBlock">
-          <h2>제목</h2>
+          <h2>{confirmTitle}</h2>
         </div>
         <div className="answerBlock">
-          <span>내용</span>
+          <span>{confirmContent}</span>
         </div>
-        <button onClick={() => onGetInquiryList(3)}>확인</button>
+        <button onClick={onOpen}>확인</button>
       </InquiryBlock>
     </DoctorInquiryDetailBlock>
   );

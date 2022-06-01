@@ -13,33 +13,25 @@ import {
   inquiryUpdateSuccess,
 } from '../../modules/inquiry';
 import { useParams } from 'react-router-dom';
-import { loadingFinish, loadingStart } from '../../modules/loading';
 import { getCookie } from '../../lib/cookie';
 
 function PatientInquiryContainer() {
   const {
     inquiry,
-    inquiryError,
     inquiryAdd,
     inquiryAddError,
     title,
     content,
     inquiryDelete,
-    inquiryDeleteError,
     inquiryUpdate,
-    inquiryUpdateError,
     loading,
   } = useSelector(({ inquiry, loading }) => ({
     inquiry: inquiry.inquiry,
-    inquiryError: inquiry.inquiryError,
     inquiryAdd: inquiry.inquiryAdd,
-    inquiryAddError: inquiry.inquiryAddError,
     title: inquiry.title,
     content: inquiry.content,
     inquiryDelete: inquiry.inquiryDelete,
-    inquiryDeleteError: inquiry.inquiryDeleteError,
     inquiryUpdate: inquiry.inquiryUpdate,
-    inquiryUpdateError: inquiry.inquiryUpdateError,
     loading: loading.loading,
   }));
 
@@ -48,7 +40,6 @@ function PatientInquiryContainer() {
 
   useEffect(() => {
     async function getInquiry() {
-      // dispatch(loadingStart(true));
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
@@ -59,7 +50,6 @@ function PatientInquiryContainer() {
       } catch (e) {
         dispatch(inquiryFailure(e));
       }
-      // dispatch(loadingFinish(false));
     }
     getInquiry();
   }, [dispatch, user_Id, page_number]);
