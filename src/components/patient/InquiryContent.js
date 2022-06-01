@@ -20,7 +20,7 @@ const ModalbgFade = keyframes`
     opacity: 1;
   }
 `
-const InquiryModal = styled.div`
+const Modal = styled.div`
   .modal{
     display: none;
     position: fixed;
@@ -43,7 +43,7 @@ const InquiryModal = styled.div`
     margin: 0 auto;
     border-radius: 1rem;
     background-color: white;
-    animation: ${ModalFade} 0.3s;
+    animation: ${ModalFade} .5s;
     overflow: hidden;
     header{
       position: relative;
@@ -64,24 +64,6 @@ const InquiryModal = styled.div`
     main{
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
-      input{
-        width: 100%;
-        margin-bottom: 1rem;
-        border: 0.5px solid;
-        font-size: 18px;
-        text-align: center;
-        padding: .2rem 0;
-        border-radius: .5rem;
-      }
-      textarea{
-        resize: none;
-        width: 100%;
-        height: 10rem;
-        font-size: 16px;
-        border: none;
-        /* background-color: ${palette.gray[2]};
-        outline-color: ${palette.gray[1]}; */
-      }
     }
     footer{
       padding: 12px 16px;
@@ -97,49 +79,33 @@ const InquiryModal = styled.div`
           cursor: pointer;
         }
       }
-      .close{
-        margin-left: 1rem;
-      }
     }
   }
   .openModal{
     display: flex;
     align-items: center;
-    animation: ${ModalbgFade} 0.3s;
+    animation: ${ModalbgFade} .5s;
   }
 `
 
-function InquiryForm(props) {
-  const {open, close, onChangeField, content, title, onGetAddInquiry} = props;
+function InquiryContent(props) {
+  const {open, close, text} = props;
 
   return (
-    <InquiryModal>
+    <Modal>
       <div className={open ? 'openModal modal':'modal'}>
         {open ? (
           <section>
             <header>
-              문의사항을 작성해주세요.
+              Title
               <button className='close' onClick={close}>
                 &times;
               </button>
             </header>
             <main>
-              <input 
-                name="title"
-                type="text"
-                placeholder='제목을 입력하세요.'
-                value={title}
-                onChange={onChangeField}/>
-              <textarea 
-                name="content"
-                placeholder='내용을 입력하세요.' 
-                value={content}
-                onChange={onChangeField} />
+              {text}
             </main>
             <footer>
-              <button className='submit' onClick={onGetAddInquiry}>
-                Submit
-              </button>
               <button className='close' onClick={close}>
                 Close
               </button>
@@ -147,8 +113,8 @@ function InquiryForm(props) {
           </section>
         ) : null}
       </div>
-    </InquiryModal>
+    </Modal>
   )
 }
 
-export default InquiryForm
+export default InquiryContent

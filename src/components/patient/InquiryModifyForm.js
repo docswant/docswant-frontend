@@ -92,7 +92,7 @@ const ModyModal = styled.div`
 `
 
 function InquiryModifyForm(props) {
-  const {open, close, inquiries, onGetUpdateInquiry} = props;
+  const {open, close, onGetUpdateInquiry, updateId, onChangeField, content, text} = props;
 
   return (
     <ModyModal>
@@ -105,15 +105,15 @@ function InquiryModifyForm(props) {
                 &times;
               </button>
             </header>
-            <main
-              style = {{
-                cursor: 'pointer',
-                color: inquiries[0].active ? 'green' : 'black'
-              }}>
-              {inquiries[0].text}
+            <main>
+                <textarea 
+                  name="content"
+                  value={content}
+                  onChange={onChangeField}
+                  placeholder={text} />
             </main>
             <footer>
-              <button className='submit' onClick={onGetUpdateInquiry}>
+              <button className='submit' onClick={() => onGetUpdateInquiry(updateId)}>
                 확인
               </button>
               <button className='close' onClick={close}>
