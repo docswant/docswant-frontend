@@ -1,6 +1,8 @@
 import { handleActions } from 'redux-actions';
 import { createAction } from 'redux-actions';
 
+const INQUIRY_SUCCESS = 'inquiry/INQUIRY_SUCCESS';
+const INQUIRY_FAILURE = 'inquiry/INQUIRY_FAILURE';
 const INQUIRY_ADD_SUCCESS = 'inquiry/INQUIRY_ADD_SUCCESS';
 const INQUIRY_ADD_FAILURE = 'inquiry/INQUIRY_ADD_FAILURE';
 const INQUIRY_CHANGE = 'inquiry/INQUIRY_CHANGE';
@@ -9,6 +11,15 @@ const INQUIRY_DELETE_FAILURE = 'inquiry/INQUIRY_DELETE_FAILURE';
 const INQUIRY_UPDATE_SUCCESS = 'inquiry/INQUIRY_UPDATE_SUCCESS';
 const INQUIRY_UPDATE_FAILURE = 'inquiry/INQUIRY_UPDATE_FAULURE';
 
+
+export const inquirySuccess = createAction(
+  INQUIRY_SUCCESS,
+  (success) => success,
+);
+export const inquiryFailure = createAction(
+  INQUIRY_FAILURE,
+  (error) => error,
+);
 export const inquiryAddSuccess = createAction(
   INQUIRY_ADD_SUCCESS,
   (success) => success,
@@ -39,6 +50,8 @@ export const inquiryUpdateFailure = createAction(
 );
 
 const initialState = {
+  inquiry: null,
+  inquiryError: null,
   inquiryAdd: null,
   inquiryAddError: null,
   title: '',
@@ -51,6 +64,15 @@ const initialState = {
 
 const inquiry = handleActions(
   {
+    [INQUIRY_SUCCESS]: (state, {payload: success}) => ({
+      ...state,
+      inquiry: success,
+      inquiryError: null,
+    }),
+    [INQUIRY_FAILURE]: (state, {payload: error}) => ({
+      ...state,
+      inquiryError: error,
+    }),
     [INQUIRY_ADD_SUCCESS]: (state, {payload: success}) => ({
       ...state,
       inquiryAdd: success,

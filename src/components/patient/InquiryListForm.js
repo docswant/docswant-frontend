@@ -4,6 +4,7 @@ import palette from '../../lib/styles/palette';
 import InquiryForm from './InquiryForm';
 import {MdDelete, MdEdit} from 'react-icons/md';
 import InquiryModifyForm from './InquiryModifyForm';
+import InquiryContent from './InquiryContent';
 import Loading from '../common/Loading';
 
 
@@ -49,6 +50,9 @@ const InquiryListBlock = styled.div`
     @media(max-width: 768px){
       width: 90%;
     }
+    .content{
+      cursor: pointer;
+    }
     &:hover{
       ${ListDel} {
         display: initial;
@@ -87,28 +91,33 @@ const BtnBlock = styled.div`
   }
 `
 
-function Inquiry({inquiry, openModal2, onGetDeleteInquiry}){
+function Inquiry({i, openModal2, openModal3, onGetDeleteInquiry}){
   return (
     <div className="box">
       <div>
-        제목 : {inquiry.title} _ {inquiry.id}
+        <span className="content" onClick={()=>{
+          openModal3(i.content)
+        }}>
+          제목 : {i.content}
+        </span>
         <ListDel>
           <MdDelete onClick={()=>{
-            onGetDeleteInquiry()
+            onGetDeleteInquiry(i.id)
           }}/>
         </ListDel>
         <ListEdit onClick={()=>{
-          openModal2()
+          openModal2(i.id, i.content)
         }}>
           <MdEdit />
         </ListEdit>
       </div>
-      <p>읽음</p>
+      {i.status === "READ" && (<p>읽음</p>)}
     </div>
   );
 }
 
 function InquiryListForm({
+  inquiry,
   title,
   content,
   onGetAddInquiry,
@@ -119,39 +128,12 @@ function InquiryListForm({
 }){
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
- 
-  const [inquiries, setInquiries] = useState([
-    {
-      id: 1,
-      title: '약 관련 문의',
-      text: '첫번째 약 관련 문의',
-      active: true
-    },
-    {
-      id: 2,
-      title: '약 관련 문의',
-      text: '두번째 약 관련 문의',
-      active: false
-    },
-    {
-      id: 3,
-      title: '약 관련 문의',
-      text: '세번째 약 관련 문의',
-      active: false
-    },
-    {
-      id: 4,
-      title: '약 관련 문의',
-      text: '네번째 약 관련 문의',
-      active: false
-    },
-    {
-      id: 5,
-      title: '약 관련 문의',
-      text: '다섯번째 약 관련 문의',
-      active: false
-    },
-  ]);
+  const [modalOpen3, setModalOpen3] = useState(false);
+
+  const [updateId, setUpdateId] = useState(null);
+  const [text, setText] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
+
 
   const openModal1 = () => {
     setModalOpen1(true);
@@ -159,11 +141,20 @@ function InquiryListForm({
   const closeModal1=()=>{
     setModalOpen1(false);
   };
-  const openModal2 = () => {
+  const openModal2 = (updateId, text) => {
+    setUpdateId(updateId);
+    setText(text);
     setModalOpen2(true);
   };
   const closeModal2=()=>{
     setModalOpen2(false);
+  };
+  const openModal3 = (text) => {
+    setText(text);
+    setModalOpen3(true);
+  };
+  const closeModal3=()=>{
+    setModalOpen3(false);
   };
 
   return loading === true ? (
@@ -179,21 +170,34 @@ function InquiryListForm({
         close={closeModal1}
         onChangeField={onChangeField}
         contnet={content}
-        title={title}/>
+        title={title}
+        onGetAddInquiry={onGetAddInquiry}/>
 
       <InquiryListBlock>
-        {inquiries.map(inquiry => (
-          <Inquiry 
-            inquiry = {inquiry}
-            key={inquiry.id}
-            openModal2={openModal2}
-            onGetDeleteInquiry={onGetDeleteInquiry} />
-        ))}
+        {inquiry && (
+          inquiry.content.map(i => (
+            <Inquiry 
+              i = {i}
+              key={i.id}
+              openModal2={openModal2}
+              openModal3={openModal3}
+              onGetDeleteInquiry={onGetDeleteInquiry} />
+          ))
+        )}
+        <InquiryContent
+          open={modalOpen3}
+          close={closeModal3}
+          text={text} />
+
         <InquiryModifyForm 
           open={modalOpen2}
           close={closeModal2}
-          inquiries={inquiries}
-          onGetUpdateInquiry={onGetUpdateInquiry} />
+          onGetUpdateInquiry={onGetUpdateInquiry}
+          updateId = {updateId}
+          onChangeField={onChangeField}
+          content={content}
+          text={text} />
+        
       </InquiryListBlock>
     </>
   )
