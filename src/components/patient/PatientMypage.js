@@ -75,7 +75,7 @@ const PatientMypageBlock = styled.div`
       padding: 0.5rem 1rem;
       font-weight: bold;
       cursor: pointer;
-      &:hover{
+      &:hover {
         color: black;
         border-color: black;
       }
@@ -159,9 +159,13 @@ const PatientMypage = ({ patientGet, questionList }) => {
             </div>
             <div className="patientSubInfo">
               {patientGet.dischargeDate ? (
-                <div>
-                  퇴원까지 : D-{result} ({patientGet.dischargeDate})
-                </div>
+                result < 0 ? (
+                  <div>예정된 퇴원일자가 없습니다.</div>
+                ) : (
+                  <div>
+                    퇴원까지 : D-{result} ({patientGet.dischargeDate})
+                  </div>
+                )
               ) : (
                 <div>예정된 퇴원일자가 없습니다.</div>
               )}
