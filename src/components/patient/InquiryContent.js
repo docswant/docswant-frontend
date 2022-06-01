@@ -64,6 +64,13 @@ const Modal = styled.div`
     main{
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
+      textarea{
+        resize: none;
+        width: 100%;
+        height: 10rem;
+        font-size: 16px;
+        border: none;
+      }
     }
     footer{
       padding: 12px 16px;
@@ -103,7 +110,9 @@ function InquiryContent(props) {
               </button>
             </header>
             <main>
-              {text}
+              <textarea disabled>
+                {text}
+              </textarea>
             </main>
             <footer>
               <button className='close' onClick={close}>
