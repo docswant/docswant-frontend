@@ -34,6 +34,7 @@ function PatientMyPageContainer() {
           `/api/v1/patient/${user_Id}/rounding?date=${dateString}`,
         );
         dispatch(patientGetSuccess(response.data.data));
+        localStorage.setItem('patient', JSON.stringify(response.data.data));
       } catch (e) {
         dispatch(patientGetFailure(e));
       }

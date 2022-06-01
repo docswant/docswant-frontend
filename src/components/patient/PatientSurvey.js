@@ -31,7 +31,7 @@ const PatientSurveyBlock = styled.div`
         color: ${palette.blue[0]};
         font-weight: bold;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: ${palette.blue[1]};
         }
       }
@@ -90,6 +90,9 @@ const PatientSurvey = ({ questionList, loading }) => {
     setIsOpenAnswer(!isOpenAnswer);
     setAnswerText(text);
   };
+
+  let patientObj = JSON.parse(localStorage.getItem('patient'));
+
   return loading === true ? (
     <Loading />
   ) : (
@@ -111,6 +114,7 @@ const PatientSurvey = ({ questionList, loading }) => {
             questionList.content.map((c) => (
               <div className="surveyList" key={c.id}>
                 <div className="surveyInfo">
+                  <span>{patientObj.doctorName}</span>
                   <span>{c.createdAt}</span>
                   {c.answerStatus === 'DONE' && (
                     <span id="finish" onClick={() => onAnswer(c.answer)}>
