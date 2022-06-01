@@ -6,10 +6,17 @@ import { getCookie } from '../../lib/cookie';
 import { loadingStart, loadingFinish } from '../../modules/loading';
 import { useParams } from 'react-router-dom';
 import { patientGetSuccess, patientGetFailure } from '../../modules/patientGet';
+import {
+  inquiryConfirmFailure,
+  inquiryConfirmSuccess,
+  inquiryFailure,
+  inquirySuccess,
+} from '../../modules/inquiry';
 
 function DoctorInquiryContainer() {
-  const { patientGet } = useSelector(({ patientGet }) => ({
+  const { patientGet, inquiry } = useSelector(({ patientGet, inquiry }) => ({
     patientGet: patientGet.patientGet,
+    inquiry: inquiry.inquiry,
   }));
   const dispatch = useDispatch();
   const { patient_Id } = useParams();
@@ -30,26 +37,47 @@ function DoctorInquiryContainer() {
     onGetPatient();
   }, [dispatch, patient_Id]);
 
-  async function getInquiryList(id) {
+  useEffect(() => {
+    async function getInquiryList() {
+      let accessToken = getCookie('myAToken');
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+      try {
+        const response = await axios.get(
+          `https://docswant.zooneon.dev/api/v1/patient/${patient_Id}/requirement?page=1&size=3`,
+        );
+        dispatch(inquirySuccess(response.data.data));
+      } catch (e) {
+        dispatch(inquiryFailure(e));
+      }
+    }
+
+    getInquiryList();
+  }, [dispatch, patient_Id]);
+
+  async function getConfirmInquiry(id) {
     let accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     try {
-      const response = await axios.get(
+      await axios.get(
         `https://docswant.zooneon.dev/api/v1/patient/${patient_Id}/requirement/${id}`,
       );
-      console.log(response.data.data);
-    } catch (e) {}
+      dispatch(inquiryConfirmSuccess(true));
+    } catch (e) {
+      dispatch(inquiryConfirmFailure(e));
+    }
   }
 
-  const onGetInquiryList = (id) => {
-    getInquiryList(id);
+  const onGetConfirmInquiry = (id) => {
+    getConfirmInquiry(id);
   };
 
   return (
     <DoctorInquiry
       patientGet={patientGet}
-      onGetInquiryList={onGetInquiryList}
+      inquiry={inquiry}
+      onGetConfirmInquiry={onGetConfirmInquiry}
     />
   );
 }
