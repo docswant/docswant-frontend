@@ -17,10 +17,10 @@ const ModalFade = keyframes`
 const DoctorListToPatientBlock = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   padding: 3rem;
   left: 0;
   top: 0;

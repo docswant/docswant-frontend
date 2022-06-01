@@ -67,7 +67,7 @@ const DoctorRegisterPatBlock = styled.div`
         width: 30%;
         margin: 0;
         margin-left: 1rem;
-        font-size: 12px;
+        font-size: 14px;
         padding: 1rem;
         cursor: pointer;
 
@@ -89,6 +89,9 @@ const DoctorRegisterPatBlock = styled.div`
       margin-top: 1rem;
       color: white;
       cursor: pointer;
+      &:hover{
+        background-color: ${palette.blue[1]};
+      }
     }
   }
 `;

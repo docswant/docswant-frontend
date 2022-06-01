@@ -18,7 +18,7 @@ const ModalFade = keyframes`
 const DoctorCheckAnswerBlock = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
