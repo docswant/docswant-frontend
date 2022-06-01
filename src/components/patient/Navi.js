@@ -40,7 +40,7 @@ function Navi() {
   };
 
   const onMoveInquiry = () => {
-    navigate(`/patient/inquiry_list/${user_Id}`);
+    navigate(`/patient/inquiry_list/1/${user_Id}`);
   };
 
   return (

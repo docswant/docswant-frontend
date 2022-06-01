@@ -6,6 +6,7 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 import InquiryModifyForm from './InquiryModifyForm';
 import InquiryContent from './InquiryContent';
 import Loading from '../common/Loading';
+import PaginationInquiryPatient from '../common/PaginationInquiryPatient';
 
 const ListDel = styled.div`
   display: flex;
@@ -117,7 +118,7 @@ function Inquiry({ i, openModal2, openModal3, onGetDeleteInquiry }) {
           <MdEdit />
         </ListEdit>
       </div>
-      {i.status === 'READ' && <p>읽음</p>}
+      {i.status === 'READ' && <div>읽음</div>}
     </div>
   );
 }
@@ -139,7 +140,6 @@ function InquiryListForm({
   const [updateId, setUpdateId] = useState(null);
   const [text, setText] = useState('');
   const [confirmTitle, setConfirmTitle] = useState('');
-  const [deleteId, setDeleteId] = useState(null);
 
   const openModal1 = () => {
     setModalOpen1(true);
@@ -171,7 +171,6 @@ function InquiryListForm({
       <BtnBlock>
         <button onClick={openModal1}>문의 하기</button>
       </BtnBlock>
-
       <InquiryForm
         open={modalOpen1}
         close={closeModal1}
@@ -208,6 +207,7 @@ function InquiryListForm({
           content={content}
           text={text}
         />
+        <PaginationInquiryPatient inquiry={inquiry}/>
       </InquiryListBlock>
     </>
   );
