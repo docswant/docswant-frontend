@@ -45,7 +45,7 @@ const InquiryListBlock = styled.div`
     align-items: center;
     width: 60%;
     border-bottom: 1px solid ${palette.blue[0]};
-    padding: 0.5rem;
+    padding: 1rem 0;
     color: black;
     @media(max-width: 768px){
       width: 90%;

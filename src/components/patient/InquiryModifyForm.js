@@ -64,6 +64,13 @@ const ModyModal = styled.div`
     main{
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
+      textarea{
+        resize: none;
+        width: 100%;
+        height: 10rem;
+        font-size: 16px;
+        border: none;
+      }
     }
     footer{
       padding: 12px 16px;
@@ -110,7 +117,8 @@ function InquiryModifyForm(props) {
                   name="content"
                   value={content}
                   onChange={onChangeField}
-                  placeholder={text} />
+                  placeholder={text}>
+                </textarea>
             </main>
             <footer>
               <button className='submit' onClick={() => onGetUpdateInquiry(updateId)}>
