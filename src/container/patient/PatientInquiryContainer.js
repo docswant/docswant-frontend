@@ -44,7 +44,7 @@ function PatientInquiryContainer() {
   }));
 
   const dispatch = useDispatch();
-  const { user_Id } = useParams();
+  const { user_Id, page_number } = useParams();
 
   useEffect(() => {
     async function getInquiry() {
@@ -53,7 +53,7 @@ function PatientInquiryContainer() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(
-          `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement?page=1&size=3`,
+          `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement?page=${page_number}&size=3`,
         );
         dispatch(inquirySuccess(response.data.data));
       } catch (e) {
@@ -62,7 +62,7 @@ function PatientInquiryContainer() {
       // dispatch(loadingFinish(false));
     }
     getInquiry();
-  }, [dispatch, user_Id]);
+  }, [dispatch, user_Id, page_number]);
 
   async function getAddInquiry() {
     const accessToken = getCookie('myAToken');
