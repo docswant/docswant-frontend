@@ -61,6 +61,7 @@ const DoctorListToPatientBlock = styled.div`
         height: 100px;
         border: 1px solid ${palette.blue[0]};
         outline: none;
+        resize: none;
       }
 
       button {
@@ -74,6 +75,9 @@ const DoctorListToPatientBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
+        &:hover{
+          background-color: ${palette.blue[1]};
+        }
       }
     }
   }
