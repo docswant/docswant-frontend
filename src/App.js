@@ -27,7 +27,7 @@ function App() {
       />
       <Route path="/patient/modify/:user_Id" element={<PatientModifyPage />} />
       <Route
-        path="/patient/inquiry_list/:user_Id"
+        path="/patient/inquiry_list/:page_number/:user_Id"
         element={<InquiryListPage />}
       />
       {/* 의사 */}
