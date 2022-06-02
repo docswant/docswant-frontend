@@ -6,6 +6,7 @@ import DoctorRegisterPatContainer from '../../container/doctor/DoctorRegisterPat
 import Pagination from '../common/PaginationPatientList';
 import DoctorModifyPatientContainer from '../../container/doctor/DoctorModifyPatientContainer';
 import DoctorInquiryPatient from './DoctorInquiryPatient';
+import Loading from '../common/Loading';
 
 const DoctorMainBlock = styled.div`
   width: 100%;
@@ -54,7 +55,7 @@ const DoctorMainBlock = styled.div`
         border-radius: 12px;
         padding: 0.3rem 0.9rem;
         cursor: pointer;
-        &:hover{
+        &:hover {
           border-color: ${palette.blue[1]};
         }
       }
@@ -79,7 +80,7 @@ const DoctorMainBlock = styled.div`
       margin-top: 1rem;
       color: white;
       cursor: pointer;
-      &:hover{
+      &:hover {
         background-color: ${palette.blue[1]};
       }
 
@@ -101,7 +102,7 @@ const NoQuestionBlock = styled.div`
   color: ${palette.blue[0]};
 `;
 
-const DoctorMain = ({ patientList, onGetPatientDelete }) => {
+const DoctorMain = ({ patientList, onGetPatientDelete, loading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
@@ -138,7 +139,9 @@ const DoctorMain = ({ patientList, onGetPatientDelete }) => {
     setName(name);
   };
 
-  return (
+  return loading === true ? (
+    <Loading />
+  ) : (
     patientList && (
       <>
         {isOpen && <DoctorRegisterPatContainer onOpen={onOpen} />}

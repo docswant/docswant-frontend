@@ -9,14 +9,16 @@ import {
   patientListFailure,
   patientListSuccess,
 } from '../../modules/patientList';
+import { loadingFinish, loadingStart } from '../../modules/loading';
 import { useParams } from 'react-router-dom';
 
 function DoctorMainContainer() {
-  const { patientList, patientDelete, user } = useSelector(
-    ({ user, patientList }) => ({
+  const { patientList, patientDelete, user, loading } = useSelector(
+    ({ user, patientList, loading }) => ({
       user: user.user,
       patientList: patientList.patientList,
       patientDelete: patientList.patientDelete,
+      loading: loading.loading,
     }),
   );
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ function DoctorMainContainer() {
     async function onGetPatientList() {
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      dispatch(loadingStart(true));
       try {
         const response = await axios.get(
           `/api/v1/patient?page=${page_number}&size=6`,
@@ -58,6 +61,7 @@ function DoctorMainContainer() {
       } catch (e) {
         dispatch(patientListFailure(e));
       }
+      dispatch(loadingFinish(false));
     }
     onGetPatientList();
   }, [dispatch, page_number]);
@@ -72,6 +76,7 @@ function DoctorMainContainer() {
     <DoctorMain
       patientList={patientList}
       onGetPatientDelete={onGetPatientDelete}
+      loading={loading}
     />
   );
 }

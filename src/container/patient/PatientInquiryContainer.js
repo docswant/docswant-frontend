@@ -14,6 +14,7 @@ import {
 } from '../../modules/inquiry';
 import { useParams } from 'react-router-dom';
 import { getCookie } from '../../lib/cookie';
+import { loadingFinish, loadingStart } from '../../modules/loading';
 
 function PatientInquiryContainer() {
   const {
@@ -42,6 +43,7 @@ function PatientInquiryContainer() {
     async function getInquiry() {
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      dispatch(loadingStart(true));
       try {
         const response = await axios.get(
           `https://docswant.zooneon.dev/api/v1/patient/${user_Id}/requirement?page=${page_number}&size=6`,
@@ -50,6 +52,7 @@ function PatientInquiryContainer() {
       } catch (e) {
         dispatch(inquiryFailure(e));
       }
+      dispatch(loadingFinish(false));
     }
     getInquiry();
   }, [dispatch, user_Id, page_number]);
