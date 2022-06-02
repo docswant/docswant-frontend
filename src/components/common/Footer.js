@@ -14,7 +14,7 @@ const FooterBlock = styled.div`
     padding: 1rem 0.5rem;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: none;
   }
 
@@ -30,12 +30,6 @@ const FooterBlock = styled.div`
       margin: 0;
       margin-bottom: 0.3rem;
     }
-    /* img {
-      width: 200px;
-      height: 90px;
-      margin-right: 1rem;
-    } */
-
     .FooterInfo {
       .Member {
         display: flex;
@@ -59,7 +53,6 @@ const Footer = () => {
   return (
     <FooterBlock>
       <div className="FooterWrapper">
-        {/* <img src={Logo} alt="Logo" /> */}
         <p>스마트 회진 예약 시스템</p>
         <div className="FooterInfo">
           <div className="Member">

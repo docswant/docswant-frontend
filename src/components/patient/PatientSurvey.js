@@ -22,9 +22,14 @@ const PatientSurveyBlock = styled.div`
     margin-bottom: 1rem;
 
     .surveyInfo {
+      width: 100%;
       span {
         margin-right: 0.5rem;
         color: #999999;
+
+        @media (max-width: 320px) {
+          font-size: 14px;
+        }
       }
 
       #finish {
@@ -48,6 +53,11 @@ const PatientSurveyBlock = styled.div`
           border-radius: 12px;
           padding: 0.5rem 1.5rem;
           cursor: pointer;
+
+          @media (max-width: 320px) {
+            font-size: 12px;
+            padding: 0.3rem 1.3rem;
+          }
 
           &:hover {
             background-color: ${palette.blue[0]};

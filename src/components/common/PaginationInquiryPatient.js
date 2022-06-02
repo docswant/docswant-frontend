@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,10 @@ const PaginationBlock = styled.div`
   justify-content: space-between;
   margin-top: 1rem;
 
+  @media (max-width: 425px) {
+    width: 70%;
+  }
+
   button {
     outline: none;
     background-color: white;
@@ -20,7 +24,7 @@ const PaginationBlock = styled.div`
     cursor: pointer;
     font-weight: bold;
   }
-`
+`;
 const PaginationInquiryPatient = ({ inquiry }) => {
   const navigate = useNavigate();
   const { user_Id } = useParams();
@@ -50,7 +54,7 @@ const PaginationInquiryPatient = ({ inquiry }) => {
         다음
       </button>
     </PaginationBlock>
-  )
-}
+  );
+};
 
-export default PaginationInquiryPatient
+export default PaginationInquiryPatient;

@@ -1,4 +1,5 @@
 import React from 'react';
+import BottomNav from '../components/common/BottomNav';
 import Footer from '../components/common/Footer';
 import MainTemplete from '../components/common/MainTemplete';
 import DoctorHeader from '../components/doctor/DoctorHeader';
@@ -14,6 +15,7 @@ function DoctorListPage() {
         <DoctorListContainer />
       </MainTemplete>
       <Footer />
+      <BottomNav />
     </div>
   );
 }

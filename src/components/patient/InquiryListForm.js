@@ -43,7 +43,7 @@ const InquiryListBlock = styled.div`
     margin: 0 auto;
     justify-content: space-between;
     align-items: center;
-    width: 60%;
+    width: 100%;
     border-bottom: 1px solid ${palette.blue[0]};
     padding: 1rem 0;
     color: black;
@@ -55,15 +55,22 @@ const InquiryListBlock = styled.div`
     }
     &:hover {
       ${ListDel} {
+        @media (max-width: 768px) {
+          display: none;
+        }
         display: initial;
       }
       ${ListEdit} {
+        @media (max-width: 768px) {
+          display: none;
+        }
         display: initial;
       }
     }
   }
 `;
 const BtnBlock = styled.div`
+  width: 100%;
   text-align: right;
   padding: 1rem 10rem;
   @media (max-width: 768px) {

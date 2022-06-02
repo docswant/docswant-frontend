@@ -112,11 +112,7 @@ function InquiryContent(props) {
             <main>
               <textarea disabled>{text}</textarea>
             </main>
-            <footer>
-              <button className="close" onClick={close}>
-                Close
-              </button>
-            </footer>
+            <footer></footer>
           </section>
         ) : null}
       </div>

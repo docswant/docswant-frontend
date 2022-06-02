@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, {keyframes} from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 const ModalFade = keyframes`
@@ -11,7 +11,7 @@ const ModalFade = keyframes`
     opacity: 1;
     margin-top: 0%;
   }
-`
+`;
 const ModalbgFade = keyframes`
   from{
     opacity: 0;
@@ -19,9 +19,9 @@ const ModalbgFade = keyframes`
   to{
     opacity: 1;
   }
-`
+`;
 const InquiryModal = styled.div`
-  .modal{
+  .modal {
     display: none;
     position: fixed;
     align-items: center;
@@ -30,9 +30,9 @@ const InquiryModal = styled.div`
     left: 0;
     right: 0;
     z-index: 99;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
   }
-  button{
+  button {
     outline: 0;
     cursor: pointer;
     border: 0;
@@ -45,12 +45,12 @@ const InquiryModal = styled.div`
     background-color: white;
     animation: ${ModalFade} 0.3s;
     overflow: hidden;
-    header{
+    header {
       position: relative;
       padding: 16px 30px;
       background-color: ${palette.blue[0]};
       font-weight: 700;
-      button{
+      button {
         position: absolute;
         top: 15px;
         right: 15px;
@@ -61,19 +61,19 @@ const InquiryModal = styled.div`
         background-color: transparent;
       }
     }
-    main{
+    main {
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
-      input{
+      input {
         width: 100%;
         margin-bottom: 1rem;
         border: 0.5px solid;
         font-size: 18px;
         text-align: center;
-        padding: .2rem 0;
-        border-radius: .5rem;
+        padding: 0.2rem 0;
+        border-radius: 0.5rem;
       }
-      textarea{
+      textarea {
         resize: none;
         width: 100%;
         height: 10rem;
@@ -83,72 +83,73 @@ const InquiryModal = styled.div`
         outline-color: ${palette.gray[1]}; */
       }
     }
-    footer{
+    footer {
       padding: 12px 16px;
       text-align: center;
-      button{
+      button {
+        width: 100%;
         padding: 6px 12px;
         color: white;
         background-color: ${palette.blue[0]};
         border-radius: 5px;
         font-size: 13px;
-        &:hover{
+        font-weight: bold;
+        &:hover {
           background-color: ${palette.blue[1]};
           cursor: pointer;
         }
       }
-      .close{
+      .close {
         margin-left: 1rem;
       }
     }
   }
-  .openModal{
+  .openModal {
     display: flex;
     align-items: center;
     animation: ${ModalbgFade} 0.3s;
   }
-`
+`;
 
 function InquiryForm(props) {
-  const {open, close, onChangeField, content, title, onGetAddInquiry} = props;
+  const { open, close, onChangeField, content, title, onGetAddInquiry } = props;
 
   return (
     <InquiryModal>
-      <div className={open ? 'openModal modal':'modal'}>
+      <div className={open ? 'openModal modal' : 'modal'}>
         {open ? (
           <section>
             <header>
               문의사항을 작성해주세요.
-              <button className='close' onClick={close}>
+              <button className="close" onClick={close}>
                 &times;
               </button>
             </header>
             <main>
-              <input 
+              <input
                 name="title"
                 type="text"
-                placeholder='제목을 입력하세요.'
+                placeholder="제목을 입력하세요."
                 value={title}
-                onChange={onChangeField}/>
-              <textarea 
+                onChange={onChangeField}
+              />
+              <textarea
                 name="content"
-                placeholder='내용을 입력하세요.' 
+                placeholder="내용을 입력하세요."
                 value={content}
-                onChange={onChangeField} />
+                onChange={onChangeField}
+              />
             </main>
             <footer>
-              <button className='submit' onClick={onGetAddInquiry}>
-                Submit
-              </button>
-              <button className='close' onClick={close}>
-                Close
+              <button className="submit" onClick={onGetAddInquiry}>
+                작성하기
               </button>
             </footer>
           </section>
         ) : null}
       </div>
     </InquiryModal>
-  )
+  );
 }
 
-export default InquiryForm
+export default InquiryForm;
