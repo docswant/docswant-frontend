@@ -184,7 +184,7 @@ function InquiryListForm({
             open={modalOpen1}
             close={closeModal1}
             onChangeField={onChangeField}
-            contnet={content}
+            content={content}
             title={title}
             onGetAddInquiry={onGetAddInquiry}
           />

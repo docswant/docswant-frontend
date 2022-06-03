@@ -18,7 +18,7 @@ const PatientMypageBlock = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    padding-bottom: 0;
+    padding-bottom: 150px;
   }
   .infoBlock {
     width: 414px;
@@ -170,7 +170,20 @@ const PatientMypage = ({ patientGet, questionList }) => {
                 <div>예정된 퇴원일자가 없습니다.</div>
               )}
               {patientGet.roundingTime ? (
-                <div>오늘의 회진 일정 : {patientGet.roundingTime}</div>
+                <>
+                  <div>오늘의 회진 일정 : {patientGet.roundingTime}</div>
+                  <div>
+                    대기인원 :{' '}
+                    <span
+                      style={{
+                        fontWeight: 'bold',
+                        color: `${palette.blue[1]}`,
+                      }}
+                    >
+                      {patientGet.roundsWaitingOrder}
+                    </span>
+                  </div>
+                </>
               ) : (
                 <div>예정된 회진이 없습니다.</div>
               )}

@@ -30,7 +30,8 @@ function PatientAnswerToDoctorContainer({ onOpen, questionId }) {
   };
 
   async function getAnswerDoctor() {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.patch(

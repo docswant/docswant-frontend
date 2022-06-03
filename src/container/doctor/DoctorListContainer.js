@@ -30,7 +30,8 @@ function DoctorListContainer() {
   const { patient_Id, page_number } = useParams();
 
   async function onDeleteQuestion(id) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.delete(
@@ -55,7 +56,8 @@ function DoctorListContainer() {
 
   async function getAnswerCheck(questionId) {
     dispatch(loadingStart(true));
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       const response = await axios.get(
@@ -75,7 +77,8 @@ function DoctorListContainer() {
   useEffect(() => {
     async function onGetPatient() {
       dispatch(loadingStart(true));
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(`/api/v1/patient/${patient_Id}`);
@@ -91,7 +94,8 @@ function DoctorListContainer() {
   useEffect(() => {
     async function onGetList() {
       dispatch(loadingStart(true));
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
       try {

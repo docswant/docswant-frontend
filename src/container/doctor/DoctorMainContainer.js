@@ -25,7 +25,8 @@ function DoctorMainContainer() {
   const { page_number } = useParams();
 
   async function onPatientDelete(username) {
-    const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
+    // const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.delete(

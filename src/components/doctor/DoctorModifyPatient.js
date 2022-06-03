@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import palette from '../../lib/styles/palette';
 import styled, { keyframes } from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -100,7 +100,33 @@ const StyledInput = styled.input`
   }
 `;
 
+const ErrorMessageBlock = styled.div`
+  text-align: center;
+  margin: 0.3rem 0;
+  color: red;
+  font-weight: bold;
+`;
+
 const DoctorModifyPatient = ({ form, onSubmit, onChange, onUpdate, obj }) => {
+  const [error, setError] = useState({
+    hospitalizationDate: null,
+    surgeryDate: null,
+    dischargeDate: null,
+  });
+
+  const onCheckHospitalizationDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setError({ ...error, hospitalizationDate: RegExp.test(e.target.value) });
+  };
+  const onChecksurgeryDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setError({ ...error, surgeryDate: RegExp.test(e.target.value) });
+  };
+  const onCheckdischargeDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setError({ ...error, dischargeDate: RegExp.test(e.target.value) });
+  };
+
   useEffect(() => {
     document.body.style.cssText = `
       position: fixed;
@@ -123,44 +149,40 @@ const DoctorModifyPatient = ({ form, onSubmit, onChange, onUpdate, obj }) => {
         <form onSubmit={onSubmit}>
           <span>입원날짜</span>
           <StyledInput
-            type="date"
+            type="text"
             name="hospitalizationDate"
             value={form.hospitalizationDate}
             onChange={onChange}
+            onKeyUp={onCheckHospitalizationDate}
+            placeholder="ex) 2000-01-01"
           />
+          {error.hospitalizationDate === false && (
+            <ErrorMessageBlock>날짜 입력 형식을 지켜주세요</ErrorMessageBlock>
+          )}
           <span>수술날짜</span>
-          {obj.surgeryDate ? (
-            <StyledInput
-              type="date"
-              name="surgeryDate"
-              value={form.surgeryDate}
-              onChange={onChange}
-            />
-          ) : (
-            <StyledInput
-              type="date"
-              name="surgeryDate"
-              value={form.surgeryDate}
-              onChange={onChange}
-            />
+          <StyledInput
+            type="text"
+            name="surgeryDate"
+            value={form.surgeryDate}
+            onChange={onChange}
+            onKeyUp={onChecksurgeryDate}
+            placeholder="ex) 2000-01-01"
+          />
+          {error.surgeryDate === false && (
+            <ErrorMessageBlock>날짜 입력 형식을 지켜주세요</ErrorMessageBlock>
           )}
           <span>퇴원날짜</span>
-          {obj.dischargeDate ? (
-            <StyledInput
-              type="date"
-              name="dischargeDate"
-              value={form.dischargeDate}
-              onChange={onChange}
-            />
-          ) : (
-            <StyledInput
-              type="date"
-              name="dischargeDate"
-              value={form.dischargeDate}
-              onChange={onChange}
-            />
+          <StyledInput
+            type="text"
+            name="dischargeDate"
+            value={form.dischargeDate}
+            onChange={onChange}
+            onKeyUp={onCheckdischargeDate}
+            placeholder="ex) 2000-01-01"
+          />
+          {error.dischargeDate === false && (
+            <ErrorMessageBlock>날짜 입력 형식을 지켜주세요</ErrorMessageBlock>
           )}
-
           <span>병명</span>
           <StyledInput
             type="text"

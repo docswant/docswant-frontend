@@ -55,7 +55,8 @@ function DoctorRoundContainer() {
   let dateString = year + '-' + month + '-' + day;
 
   async function getRounding(date) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       const response = await axios.get(
@@ -72,7 +73,8 @@ function DoctorRoundContainer() {
   };
 
   async function getAddRounding() {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.post(
@@ -104,7 +106,8 @@ function DoctorRoundContainer() {
   };
 
   async function getDeleteRounding(id) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     try {
@@ -127,7 +130,8 @@ function DoctorRoundContainer() {
   };
 
   async function getUpdateRounding(id) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     try {
@@ -149,7 +153,8 @@ function DoctorRoundContainer() {
   };
 
   async function getRoundingState(id) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     try {
@@ -167,7 +172,8 @@ function DoctorRoundContainer() {
   };
 
   async function getDeleteToday(string) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.delete(
@@ -191,7 +197,8 @@ function DoctorRoundContainer() {
   useEffect(() => {
     async function getRoundingDate() {
       dispatch(loadingStart(true));
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
       try {

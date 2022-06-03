@@ -22,7 +22,8 @@ function PatientSurveyContainer() {
 
   useEffect(() => {
     async function onGetList() {
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       dispatch(loadingStart(true));
       try {

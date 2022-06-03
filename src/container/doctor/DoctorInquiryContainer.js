@@ -26,7 +26,8 @@ function DoctorInquiryContainer() {
 
   useEffect(() => {
     async function onGetPatient() {
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(`/api/v1/patient/${patient_Id}`);
@@ -40,7 +41,8 @@ function DoctorInquiryContainer() {
 
   useEffect(() => {
     async function getInquiryList() {
-      let accessToken = getCookie('myAToken');
+      // let accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       dispatch(loadingStart(true));
       try {
@@ -58,7 +60,8 @@ function DoctorInquiryContainer() {
   }, [dispatch, patient_Id, page_number]);
 
   async function getConfirmInquiry(id) {
-    let accessToken = getCookie('myAToken');
+    // let accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     try {

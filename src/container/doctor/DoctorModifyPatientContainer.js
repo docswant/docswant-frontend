@@ -32,7 +32,8 @@ function DoctorModifyPatientContainer({ onUpdate, code, obj }) {
   };
 
   async function getDoctorModifyPatient() {
-    let accessToken = getCookie('myAToken');
+    // let accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     let editObject = _.pickBy(form, (value, key) => {
       return !_.isEmpty(value);
@@ -51,6 +52,26 @@ function DoctorModifyPatientContainer({ onUpdate, code, obj }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    // const {
+    //   hospitalizationDate,
+    //   surgeryDate,
+    //   dischargeDate,
+    //   diseaseName,
+    //   hospitalRoom,
+    // } = form;
+
+    // if (
+    //   [
+    //     hospitalizationDate,
+    //     surgeryDate,
+    //     dischargeDate,
+    //     diseaseName,
+    //     hospitalRoom,
+    //   ].includes('')
+    // ) {
+    //   alert('빈 칸을 모두 입력하세요');
+    //   return;
+    // }
     getDoctorModifyPatient();
   };
 

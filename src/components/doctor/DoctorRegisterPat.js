@@ -42,6 +42,11 @@ const DoctorRegisterPatBlock = styled.div`
       width: 315px;
     }
 
+    .dateWrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
     input[type='number']::-webkit-outer-spin-button,
     input[type='number']::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -168,20 +173,22 @@ const DoctorRegisterPat = ({
             onChange={onChangeField}
             placeholder="환자이름을 입력해주세요"
           />
-          <span>생년월일</span>
-          <StyledInput
-            type="date"
-            name="birthDate"
-            value={registerP.birthDate}
-            onChange={onChangeField}
-          />
-          <span>입원날짜</span>
-          <StyledInput
-            type="date"
-            name="hospitalizationDate"
-            value={registerP.hospitalizationDate}
-            onChange={onChangeField}
-          />
+          <div className="dateWrapper">
+            <span>생년월일</span>
+            <StyledInput
+              type="date"
+              name="birthDate"
+              value={registerP.birthDate}
+              onChange={onChangeField}
+            />
+            <span>입원날짜</span>
+            <StyledInput
+              type="date"
+              name="hospitalizationDate"
+              value={registerP.hospitalizationDate}
+              onChange={onChangeField}
+            />
+          </div>
           <span>병명</span>
           <StyledInput
             type="text"

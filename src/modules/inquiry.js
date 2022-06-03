@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { createAction } from 'redux-actions';
 
+const INQUIRY_INITIALIZE = 'inquiry/INQUIRY_INITIALIZE';
 const INQUIRY_SUCCESS = 'inquiry/INQUIRY_SUCCESS';
 const INQUIRY_FAILURE = 'inquiry/INQUIRY_FAILURE';
 const INQUIRY_ADD_SUCCESS = 'inquiry/INQUIRY_ADD_SUCCESS';
@@ -13,6 +14,7 @@ const INQUIRY_UPDATE_FAILURE = 'inquiry/INQUIRY_UPDATE_FAULURE';
 const INQUIRY_CONFIRM_SUCCESS = 'inquiry/INQUIRY_CONFIRM_SUCCESS';
 const INQUIRY_CONFIRM_FAILURE = 'inquiry/INQUIRY_CONFIRM_FAULURE';
 
+export const inquiryInitialize = createAction(INQUIRY_INITIALIZE);
 export const inquirySuccess = createAction(
   INQUIRY_SUCCESS,
   (success) => success,
@@ -72,6 +74,10 @@ const initialState = {
 
 const inquiry = handleActions(
   {
+    [INQUIRY_INITIALIZE]: (state, { payload: form }) => ({
+      ...state,
+      [form]: initialState[form],
+    }),
     [INQUIRY_SUCCESS]: (state, { payload: success }) => ({
       ...state,
       inquiry: success,

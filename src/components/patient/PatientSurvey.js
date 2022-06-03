@@ -27,8 +27,8 @@ const PatientSurveyBlock = styled.div`
         margin-right: 0.5rem;
         color: #999999;
 
-        @media (max-width: 320px) {
-          font-size: 14px;
+        @media (max-width: 425px) {
+          font-size: 13px;
         }
       }
 
@@ -46,6 +46,10 @@ const PatientSurveyBlock = styled.div`
       justify-content: space-between;
       align-items: center;
 
+      @media (max-width: 425px) {
+        font-size: 13px;
+      }
+
       .surveyButton {
         button {
           border: 1px solid ${palette.blue[0]};
@@ -54,7 +58,7 @@ const PatientSurveyBlock = styled.div`
           padding: 0.5rem 1.5rem;
           cursor: pointer;
 
-          @media (max-width: 320px) {
+          @media (max-width: 425px) {
             font-size: 12px;
             padding: 0.3rem 1.3rem;
           }

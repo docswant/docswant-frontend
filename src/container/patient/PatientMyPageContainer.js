@@ -27,7 +27,8 @@ function PatientMyPageContainer() {
 
   useEffect(() => {
     async function onGetPatient() {
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(
@@ -44,7 +45,8 @@ function PatientMyPageContainer() {
 
   useEffect(() => {
     async function onGetList() {
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
         const response = await axios.get(

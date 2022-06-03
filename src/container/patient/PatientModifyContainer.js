@@ -53,7 +53,8 @@ function PatientModifyContainer() {
   };
 
   async function getModifyPatient() {
-    let accessToken = getCookie('myAToken');
+    // let accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     let editObject = _.pickBy(form, (value, key) => {
@@ -76,7 +77,7 @@ function PatientModifyContainer() {
     getModifyPatient();
   };
   useEffect(() => {
-    dispatch(initializeForm({ form: 'modify' }));
+    dispatch(initializeForm('modify'));
   }, [dispatch]);
 
   useEffect(() => {

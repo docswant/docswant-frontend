@@ -13,6 +13,7 @@ const PatientModifiyBlock = styled.div`
 
   @media (max-width: 425px) {
     padding: 1rem;
+    padding-bottom: 150px;
   }
 
   h2 {
@@ -44,7 +45,7 @@ const PatientModifiyBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: ${palette.blue[1]};
         }
       }

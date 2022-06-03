@@ -97,7 +97,6 @@ function RegisterFormContainer() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    getRegister();
 
     const { username, password, passwordConfirm, code, name, major } = form;
 
@@ -110,6 +109,8 @@ function RegisterFormContainer() {
       alert('중복검사를 해주세요');
       return;
     }
+
+    getRegister();
   };
 
   useEffect(() => {

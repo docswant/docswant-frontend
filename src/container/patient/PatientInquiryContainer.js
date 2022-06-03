@@ -8,6 +8,7 @@ import {
   inquiryDeleteFailure,
   inquiryDeleteSuccess,
   inquiryFailure,
+  inquiryInitialize,
   inquirySuccess,
   inquiryUpdateFailure,
   inquiryUpdateSuccess,
@@ -41,7 +42,8 @@ function PatientInquiryContainer() {
 
   useEffect(() => {
     async function getInquiry() {
-      const accessToken = getCookie('myAToken');
+      // const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       dispatch(loadingStart(true));
       try {
@@ -58,7 +60,8 @@ function PatientInquiryContainer() {
   }, [dispatch, user_Id, page_number]);
 
   async function getAddInquiry() {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.post(
@@ -88,7 +91,8 @@ function PatientInquiryContainer() {
   };
 
   async function getDeleteInquiry(id) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.delete(
@@ -109,7 +113,8 @@ function PatientInquiryContainer() {
   };
 
   async function getUpdateInquiry(id) {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.patch(
@@ -146,6 +151,14 @@ function PatientInquiryContainer() {
       window.location.replace(`/patient/inquiry_list/1/${user_Id}`);
     }
   }, [inquiryUpdate, user_Id]);
+
+  useEffect(() => {
+    dispatch(inquiryInitialize('content'));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(inquiryInitialize('title'));
+  }, [dispatch]);
 
   return (
     <InquiryListForm

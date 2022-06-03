@@ -56,7 +56,8 @@ function DoctorRegisterPatContainer({ onOpen }) {
   }
 
   async function onRegisterPatient() {
-    const accessToken = getCookie('myAToken');
+    // const accessToken = getCookie('myAToken');
+    const accessToken = JSON.parse(localStorage.getItem('myAToken'));
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
       await axios.post(
@@ -71,6 +72,34 @@ function DoctorRegisterPatContainer({ onOpen }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const {
+      code,
+      name,
+      birthDate,
+      hospitalizationDate,
+      diseaseName,
+      hospitalRoom,
+    } = registerP;
+
+    if (
+      [
+        code,
+        name,
+        birthDate,
+        hospitalizationDate,
+        diseaseName,
+        hospitalRoom,
+      ].includes('')
+    ) {
+      alert('빈 칸을 모두 입력하세요');
+      return;
+    }
+
+    if (duplicateDoctor === null) {
+      alert('중복검사를 해주세요');
+      return;
+    }
     onRegisterPatient();
   };
 
