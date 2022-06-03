@@ -7,6 +7,9 @@ import Pagination from '../common/PaginationPatientList';
 import DoctorModifyPatientContainer from '../../container/doctor/DoctorModifyPatientContainer';
 import DoctorInquiryPatient from './DoctorInquiryPatient';
 import Loading from '../common/Loading';
+// import { IoAlert } from 'react-icons/Io';
+// import { GrCircleAlert } from 'react-icons/gr';
+import { AiFillAlert } from 'react-icons/ai';
 
 const DoctorMainBlock = styled.div`
   width: 100%;
@@ -48,6 +51,12 @@ const DoctorMainBlock = styled.div`
       }
     }
     .buttonWrapper {
+      display: flex;
+      align-items: center;
+      svg {
+        width: 25px;
+        height: 25px;
+      }
       button {
         margin-left: 1rem;
         border: 1px solid ${palette.blue[0]};
@@ -194,15 +203,30 @@ const DoctorMain = ({ patientList, onGetPatientDelete, loading }) => {
                   </div>
                 </div>
                 <div className="buttonWrapper">
-                  <button onClick={() => onUpdate(p.code, p)}>수정</button>
+                  {p.hasUnreadRequirement === true && (
+                    <>
+                      {/* <GrCircleAlert />
+                      <IoAlert /> */}
+                      <AiFillAlert
+                        color="red"
+                        onClick={() => onMoveDoctorInquiry(p.code)}
+                      />
+                      {/* <button onClick={() => onMoveDoctorInquiry(p.code)}>
+                        문의사항
+                      </button> */}
+                    </>
+                  )}
+                  <button
+                    style={{ marginLeft: '1rem' }}
+                    onClick={() => onUpdate(p.code, p)}
+                  >
+                    수정
+                  </button>
                   <button onClick={() => onGetPatientDelete(p.code)}>
                     삭제
                   </button>
                   <button onClick={() => onMovePatientList(p.code)}>
                     LIST
-                  </button>
-                  <button onClick={() => onMoveDoctorInquiry(p.code)}>
-                    문의사항
                   </button>
                 </div>
               </div>
