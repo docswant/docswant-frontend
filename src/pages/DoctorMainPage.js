@@ -4,7 +4,7 @@ import MainTemplete from '../components/common/MainTemplete';
 import DoctorMainContainer from '../container/doctor/DoctorMainContainer';
 import DoctorNavi from '../components/doctor/DoctorNavi';
 import DoctorHeader from '../components/doctor/DoctorHeader';
-import BottomNav from '../components/common/BottomNav';
+import DoctorBottomNav from '../components/common/DoctorBottomNav';
 
 function DoctorMainPage() {
   return (
@@ -15,7 +15,7 @@ function DoctorMainPage() {
         <DoctorMainContainer />
       </MainTemplete>
       <Footer />
-      <BottomNav />
+      <DoctorBottomNav />
     </div>
   );
 }

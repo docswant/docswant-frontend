@@ -8,6 +8,7 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 import { AiOutlinePlus, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import AddRound from './AddRound';
 import EditRound from './EditRound';
+import Loading from '../common/Loading';
 
 const Box = styled.div`
   display: flex;
@@ -298,7 +299,9 @@ function DoctorRound({
     setToday(day);
   };
 
-  return (
+  return loading === true ? (
+    <Loading />
+  ) : (
     <Box>
       <CalendarBlock>
         <div className="cal">

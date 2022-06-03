@@ -37,6 +37,11 @@ const DoctorModifyPatientBlock = styled.div`
     border-radius: 12px;
     animation: ${ModalFade} 0.5s;
 
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
     @media (max-width: 425px) {
       width: 315px;
     }
@@ -70,7 +75,7 @@ const DoctorModifyPatientBlock = styled.div`
       margin-top: 1rem;
       color: white;
       cursor: pointer;
-      &:hover{
+      &:hover {
         background-color: ${palette.blue[1]};
       }
     }

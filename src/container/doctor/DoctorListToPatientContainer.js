@@ -3,6 +3,7 @@ import DoctorListToPatient from '../../components/doctor/DoctorListToPatient';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   questionChange,
+  questionInitialize,
   questionSubmitFailure,
   questionSubmitSuccess,
 } from '../../modules/questionList';
@@ -53,6 +54,10 @@ function DoctorListToPatientContainer({ onOpen }) {
       window.location.replace(`/doctor/list/${page_number}/${patient_Id}`);
     }
   }, [patient_Id, questionSubmit, page_number]);
+
+  useEffect(() => {
+    dispatch(questionInitialize('questionText'));
+  }, [dispatch]);
 
   return (
     <DoctorListToPatient

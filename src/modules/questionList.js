@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { createAction } from 'redux-actions';
 
+const QUESTION_INITIALIZE = 'questionList/QUESTION_INITIALIZE';
 const QUESTION_LIST_SUCCESS = 'questionList/QUESTION_LIST_SUCCESS';
 const QUESTION_LIST_FAILURE = 'questionList/QUESTION_LIST_FAILURE';
 const QUESTION_CHANGE = 'questionList/QUESTION_CHANGE';
@@ -12,6 +13,7 @@ const QUESTION_DELETE_FAILURE = 'questionList/QUSTION_DELETE_FAILURE';
 const QUESTION_UPDATE_SUCCESS = 'questionList/QUESTION_UPDATE_SUCCESS';
 const QUESTION_UPDATE_FAILURE = 'questionList/QUSTION_UPDATE_FAILURE';
 
+export const questionInitialize = createAction(QUESTION_INITIALIZE);
 export const questionListSuccess = createAction(
   QUESTION_LIST_SUCCESS,
   (list) => list,
@@ -62,12 +64,17 @@ const initialState = {
   questionDeleteError: null,
   questionUpdate: null,
   questionUpdateError: null,
+
   questionText: '',
   questionUpdateText: '',
 };
 
 const questionList = handleActions(
   {
+    [QUESTION_INITIALIZE]: (state, { payload: form }) => ({
+      ...state,
+      [form]: initialState[form],
+    }),
     [QUESTION_LIST_SUCCESS]: (state, { payload: list }) => ({
       ...state,
       questionList: list,

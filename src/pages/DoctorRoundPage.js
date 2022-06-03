@@ -3,8 +3,8 @@ import Footer from '../components/common/Footer';
 import DoctorRoundContainer from '../container/doctor/DoctorRoundContainer';
 import DoctorNavi from '../components/doctor/DoctorNavi';
 import DoctorHeader from '../components/doctor/DoctorHeader';
-import BottomNav from '../components/common/BottomNav';
 import MainTemplete from '../components/common/MainTemplete';
+import DoctorBottomNav from '../components/common/DoctorBottomNav';
 
 function DoctorRoundPage() {
   return (
@@ -15,7 +15,7 @@ function DoctorRoundPage() {
         <DoctorRoundContainer />
       </MainTemplete>
       <Footer />
-      <BottomNav />
+      <DoctorBottomNav />
     </div>
   );
 }

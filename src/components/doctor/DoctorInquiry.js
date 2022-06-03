@@ -3,6 +3,7 @@ import palette from '../../lib/styles/palette';
 import styled from 'styled-components';
 import DoctorInquiryDetail from './DoctorInquiryDetail';
 import PaginationInquiryDoctor from '../common/PaginationInquiryDoctor';
+import Loading from '../common/Loading';
 
 const DoctorInquiryBlock = styled.div`
   width: 100%;
@@ -61,14 +62,30 @@ const DoctorInquiryBlock = styled.div`
       border-radius: 12px;
       padding: 0.3rem 0.9rem;
       cursor: pointer;
-      &:hover{
+      &:hover {
         border-color: ${palette.blue[1]};
       }
     }
   }
 `;
 
-const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
+const NoQuestionBlock = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: ${palette.blue[0]};
+`;
+
+const DoctorInquiry = ({
+  patientGet,
+  inquiry,
+  onGetConfirmInquiry,
+  loading,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmTitle, setConfirmTitle] = useState('');
   const [confirmContent, setConfirmContent] = useState('');
@@ -78,7 +95,9 @@ const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
     setConfirmTitle(title);
     setConfirmContent(content);
   };
-  return (
+  return loading === true ? (
+    <Loading />
+  ) : (
     <>
       {isOpen && (
         <DoctorInquiryDetail
@@ -97,23 +116,27 @@ const DoctorInquiry = ({ patientGet, inquiry, onGetConfirmInquiry }) => {
               <span>병명 : {patientGet.diseaseName}</span>
             </div>
           </div>
-          {inquiry.content.map((i) => (
-            <div className="listInfo" key={i.id}>
-              <div className="listText">
-                <span>{i.title}</span>
+          {inquiry.content.length === 0 ? (
+            <NoQuestionBlock>등록된 문의사항이 없습니다</NoQuestionBlock>
+          ) : (
+            inquiry.content.map((i) => (
+              <div className="listInfo" key={i.id}>
+                <div className="listText">
+                  <span>{i.title}</span>
+                </div>
+                <div className="listButton">
+                  <button
+                    onClick={() => {
+                      onOpen(i.title, i.content);
+                      onGetConfirmInquiry(i.id);
+                    }}
+                  >
+                    상세보기
+                  </button>
+                </div>
               </div>
-              <div className="listButton">
-                <button
-                  onClick={() => {
-                    onOpen(i.title, i.content);
-                    onGetConfirmInquiry(i.id);
-                  }}
-                >
-                  상세보기
-                </button>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
           <PaginationInquiryDoctor inquiry={inquiry} />
         </DoctorInquiryBlock>
       )}

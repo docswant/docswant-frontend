@@ -17,10 +17,6 @@ const DoctorListUpdateBlock = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem;
   left: 0;
   top: 0;
   z-index: 10000;
@@ -36,6 +32,10 @@ const DoctorListUpdateBlock = styled.div`
     padding: 1rem 1.5rem;
     border-radius: 12px;
     animation: ${ModalFade} 0.5s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     @media (max-width: 425px) {
       width: 315px;
@@ -79,7 +79,7 @@ const DoctorListUpdateBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: ${palette.blue[1]};
         }
       }

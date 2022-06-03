@@ -50,6 +50,8 @@ function LoginFormContainer() {
       );
       let refresh = response.data.data.refreshToken;
       let access = response.data.data.accessToken;
+
+      localStorage.setItem('myAToken', JSON.stringify(access));
       setCookie('myRToken', refresh, {
         path: '/',
         secure: true,
@@ -77,11 +79,7 @@ function LoginFormContainer() {
   };
 
   useEffect(() => {
-    dispatch(
-      initializeForm({
-        form: 'login',
-      }),
-    );
+    dispatch(initializeForm('login'));
   }, [dispatch]);
 
   useEffect(() => {

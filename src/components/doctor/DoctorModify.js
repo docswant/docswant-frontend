@@ -13,12 +13,7 @@ const DoctorModifyBlock = styled.div`
   padding-bottom: 150px;
 
   @media (max-width: 425px) {
-    padding: 150px 1rem;
-  }
-
-  h2 {
-    margin: 1rem;
-    margin-bottom: 5rem;
+    padding: 0 1rem;
   }
   .formBlock {
     width: 100%;
@@ -44,7 +39,7 @@ const DoctorModifyBlock = styled.div`
         margin-top: 1rem;
         color: white;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: ${palette.blue[1]};
         }
       }
@@ -57,20 +52,19 @@ const DoctorModifyBlock = styled.div`
           width: 30%;
           margin: 0;
           margin-left: 1rem;
-          font-size: 15px;
+          font-size: 12px;
           padding: 1rem;
           cursor: pointer;
 
           @media (max-width: 425px) {
             width: 40%;
           }
+
+          @media (max-width: 320px) {
+            width: 45%;
+          }
         }
       }
-    }
-
-    .makeDay {
-      display: flex;
-      justify-content: space-between;
     }
   }
 `;

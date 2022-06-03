@@ -18,10 +18,6 @@ const DoctorInquiryPatientBlock = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  padding: 3rem;
   left: 0;
   top: 0;
   z-index: 10000;
@@ -36,6 +32,10 @@ const DoctorInquiryPatientBlock = styled.div`
     background-color: white;
     border-radius: 12px;
     animation: ${ModalFade} 0.5s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     @media (max-width: 425px) {
       width: 315px;

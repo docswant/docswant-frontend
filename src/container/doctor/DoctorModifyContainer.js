@@ -46,7 +46,7 @@ function DoctorModifyContainer() {
   };
 
   useEffect(() => {
-    dispatch(initializeForm({ form: 'modifyDoctor' }));
+    dispatch(initializeForm('modifyDoctor'));
   }, [dispatch]);
 
   return (

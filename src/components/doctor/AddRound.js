@@ -67,11 +67,15 @@ const AddRoundModal = styled.div`
       padding: 16px;
       border-top: 1px solid ${palette.gray[1]};
       border-bottom: 1px solid ${palette.gray[1]};
+
+      @media (max-width: 364px) {
+        padding: 12px;
+      }
       .box {
         display: flex;
       }
       input {
-        width: 50%;
+        width: 60%;
         margin: 0 1rem 1rem 1rem;
         margin-left: 1rem;
         border: none;

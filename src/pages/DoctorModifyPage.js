@@ -1,5 +1,5 @@
 import React from 'react';
-import BottomNav from '../components/common/BottomNav';
+import DoctorBottomNav from '../components/common/DoctorBottomNav';
 import Footer from '../components/common/Footer';
 import MainTemplete from '../components/common/MainTemplete';
 import DoctorHeader from '../components/doctor/DoctorHeader';
@@ -15,7 +15,7 @@ function DoctorModifyPage() {
         <DoctorModifyContainer />
       </MainTemplete>
       <Footer />
-      <BottomNav />
+      <DoctorBottomNav />
     </div>
   );
 }

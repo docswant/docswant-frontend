@@ -10,6 +10,10 @@ const PaginationInquiryDoctorBlock = styled.div`
   justify-content: space-between;
   margin-top: 3rem;
 
+  @media (max-width: 425px) {
+    width: 70%;
+  }
+
   button {
     outline: none;
     background-color: white;

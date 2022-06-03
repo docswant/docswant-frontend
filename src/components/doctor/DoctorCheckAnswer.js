@@ -19,13 +19,14 @@ const DoctorCheckAnswerBlock = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   left: 0;
   top: 0;
   z-index: 10000;
   background-color: rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 
   .closeBlock {
     width: 100%;
@@ -43,6 +44,14 @@ const AnswerBlock = styled.div`
   padding: 1rem 1.5rem;
   border-radius: 12px;
   animation: ${ModalFade} 0.5s;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @media (max-width: 425px) {
+    width: 315px;
+  }
 
   .titleBlock {
     h2 {

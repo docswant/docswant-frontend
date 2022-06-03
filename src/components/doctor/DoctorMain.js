@@ -24,7 +24,7 @@ const DoctorMainBlock = styled.div`
     justify-content: space-between;
     margin-bottom: 2.5rem;
 
-    @media (max-width: 912px) {
+    @media (max-width: 1024px) {
       flex-direction: column;
     }
 
@@ -58,8 +58,13 @@ const DoctorMainBlock = styled.div`
         &:hover {
           border-color: ${palette.blue[1]};
         }
+
+        @media (max-width: 375px) {
+          margin-left: 0.35rem;
+        }
       }
-      @media (max-width: 912px) {
+      @media (max-width: 1024px) {
+        margin-top: 1rem;
         text-align: right;
       }
     }

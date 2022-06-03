@@ -55,7 +55,6 @@ function DoctorRoundContainer() {
   let dateString = year + '-' + month + '-' + day;
 
   async function getRounding(date) {
-    dispatch(loadingStart(true));
     const accessToken = getCookie('myAToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     try {
@@ -66,7 +65,6 @@ function DoctorRoundContainer() {
     } catch (e) {
       dispatch(roundingFailure(e));
     }
-    dispatch(loadingFinish(false));
   }
 
   const onGetRounding = (date) => {

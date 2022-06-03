@@ -50,12 +50,13 @@ function DoctorMainContainer() {
 
   useEffect(() => {
     async function onGetPatientList() {
-      const accessToken = getCookie('myAToken');
+      const accessToken = JSON.parse(localStorage.getItem('myAToken'));
+      // const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       dispatch(loadingStart(true));
       try {
         const response = await axios.get(
-          `/api/v1/patient?page=${page_number}&size=6`,
+          `https://docswant.zooneon.dev/api/v1/patient?page=${page_number}&size=6`,
         );
         dispatch(patientListSuccess(response.data.data));
       } catch (e) {

@@ -55,11 +55,7 @@ function DoctorModifyPatientContainer({ onUpdate, code, obj }) {
   };
 
   useEffect(() => {
-    dispatch(
-      initializeForm({
-        form: 'modifyPatient',
-      }),
-    );
+    dispatch(initializeForm('modifyPatient'));
   }, [dispatch]);
 
   useEffect(() => {

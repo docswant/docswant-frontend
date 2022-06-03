@@ -14,16 +14,18 @@ import {
 } from '../../modules/inquiry';
 
 function DoctorInquiryContainer() {
-  const { patientGet, inquiry } = useSelector(({ patientGet, inquiry }) => ({
-    patientGet: patientGet.patientGet,
-    inquiry: inquiry.inquiry,
-  }));
+  const { patientGet, inquiry, loading } = useSelector(
+    ({ patientGet, inquiry, loading }) => ({
+      patientGet: patientGet.patientGet,
+      inquiry: inquiry.inquiry,
+      loading: loading.loading,
+    }),
+  );
   const dispatch = useDispatch();
   const { patient_Id, page_number } = useParams();
 
   useEffect(() => {
     async function onGetPatient() {
-      dispatch(loadingStart(true));
       const accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       try {
@@ -32,7 +34,6 @@ function DoctorInquiryContainer() {
       } catch (e) {
         dispatch(patientGetFailure(e));
       }
-      dispatch(loadingFinish(false));
     }
     onGetPatient();
   }, [dispatch, patient_Id]);
@@ -41,7 +42,7 @@ function DoctorInquiryContainer() {
     async function getInquiryList() {
       let accessToken = getCookie('myAToken');
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
+      dispatch(loadingStart(true));
       try {
         const response = await axios.get(
           `https://docswant.zooneon.dev/api/v1/patient/${patient_Id}/requirement?page=${page_number}&size=5`,
@@ -50,6 +51,7 @@ function DoctorInquiryContainer() {
       } catch (e) {
         dispatch(inquiryFailure(e));
       }
+      dispatch(loadingFinish(false));
     }
 
     getInquiryList();
@@ -78,6 +80,7 @@ function DoctorInquiryContainer() {
       patientGet={patientGet}
       inquiry={inquiry}
       onGetConfirmInquiry={onGetConfirmInquiry}
+      loading={loading}
     />
   );
 }

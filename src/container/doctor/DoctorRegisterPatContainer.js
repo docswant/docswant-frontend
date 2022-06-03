@@ -84,6 +84,10 @@ function DoctorRegisterPatContainer({ onOpen }) {
     }
   }, [registerSuccess, user]);
 
+  useEffect(() => {
+    dispatch(initializeRegister('registerP'));
+  }, [dispatch]);
+
   return (
     <DoctorRegisterPat
       onOpen={onOpen}

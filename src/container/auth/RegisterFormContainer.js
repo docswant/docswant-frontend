@@ -113,11 +113,7 @@ function RegisterFormContainer() {
   };
 
   useEffect(() => {
-    dispatch(
-      initializeForm({
-        form: 'register',
-      }),
-    );
+    dispatch(initializeForm('register'));
   }, [dispatch]);
 
   useEffect(() => {
