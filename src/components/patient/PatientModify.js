@@ -108,8 +108,14 @@ const PatientModifiy = ({
   onSubmit,
 }) => {
   const [error, setError] = useState(null);
+  const [dateError, setDateError] = useState(null);
 
-  const onCheckPasswordConfirm = (e) => {
+  const onCheckRoundingDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setDateError(RegExp.test(e.target.value));
+  };
+
+  const onCheckPasswordConfirm = () => {
     const { password, passwordConfirm } = form;
 
     if (password !== passwordConfirm) {
@@ -177,11 +183,18 @@ const PatientModifiy = ({
 
           <span>생년월일</span>
           <StyledInput
-            type="date"
+            type="text"
             name="birthDate"
             value={form.birthDate}
             onChange={onChange}
+            placeholder="ex) 2000-01-01"
+            onKeyUp={onCheckRoundingDate}
           />
+          {dateError === false && (
+            <ErrorMessageBlock style={{ display: 'block' }}>
+              날짜 입력 형식을 지켜주세요
+            </ErrorMessageBlock>
+          )}
 
           {/* <span>D-Day</span>
           <div className="makeDay">

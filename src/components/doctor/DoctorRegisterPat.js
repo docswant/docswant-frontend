@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import palette from '../../lib/styles/palette';
 import styled, { keyframes } from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -134,6 +134,20 @@ const DoctorRegisterPat = ({
   duplicateDoctor,
   onSubmit,
 }) => {
+  const [error, setError] = useState({
+    birthDate: null,
+    hospitalizationDate: null,
+  });
+
+  const onCheckBirthDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setError({ ...error, birthDate: RegExp.test(e.target.value) });
+  };
+  const onCheckHospitalizationDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setError({ ...error, hospitalizationDate: RegExp.test(e.target.value) });
+  };
+
   return (
     <DoctorRegisterPatBlock>
       <div className="formBlock">
@@ -176,18 +190,28 @@ const DoctorRegisterPat = ({
           <div className="dateWrapper">
             <span>생년월일</span>
             <StyledInput
-              type="date"
+              type="text"
               name="birthDate"
               value={registerP.birthDate}
               onChange={onChangeField}
+              onKeyUp={onCheckBirthDate}
+              placeholder="ex) 2000-01-01"
             />
+            {error.birthDate === false && (
+              <ErrorMessageBlock>날짜 입력 형식을 지켜주세요</ErrorMessageBlock>
+            )}
             <span>입원날짜</span>
             <StyledInput
-              type="date"
+              type="text"
               name="hospitalizationDate"
               value={registerP.hospitalizationDate}
               onChange={onChangeField}
+              onKeyUp={onCheckHospitalizationDate}
+              placeholder="ex) 2000-01-01"
             />
+            {error.hospitalizationDate === false && (
+              <ErrorMessageBlock>날짜 입력 형식을 지켜주세요</ErrorMessageBlock>
+            )}
           </div>
           <span>병명</span>
           <StyledInput

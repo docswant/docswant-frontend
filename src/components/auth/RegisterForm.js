@@ -159,7 +159,6 @@ const RegisterForm = ({
   onChange,
   onMajor,
   onSubmit,
-  registerError,
   onDuplicateCode,
   onDuplicateUser,
   duplicateCode,

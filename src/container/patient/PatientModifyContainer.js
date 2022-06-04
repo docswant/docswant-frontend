@@ -60,7 +60,6 @@ function PatientModifyContainer() {
     let editObject = _.pickBy(form, (value, key) => {
       return !_.isEmpty(value);
     });
-    console.log(editObject);
     try {
       await axios.patch(
         `https://docswant.zooneon.dev/api/v1/patient/${user_Id}`,

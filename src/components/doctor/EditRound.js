@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -75,13 +75,24 @@ const AddRoundModal = styled.div`
       }
       .box {
         display: flex;
+        flex-direction: column;
       }
       input {
-        width: 50%;
-        margin: 0 1rem 1rem 1rem;
-        margin-left: 1rem;
-        border: none;
+        width: 100%;
+        border: 1px solid ${palette.blue[0]};
+        padding: 1rem;
+        margin: 0.5rem 0;
         font-size: 18px;
+        border-radius: 7px;
+        outline: none;
+
+        &::placeholder {
+          color: #cccccc;
+        }
+
+        &:hover {
+          border: 1px solid ${palette.blue[0]};
+        }
       }
     }
     footer {
@@ -106,6 +117,13 @@ const AddRoundModal = styled.div`
     animation: ${ModalbgFade} 0.3s;
   }
 `;
+
+const ErrorMessageBlock = styled.div`
+  text-align: center;
+  margin: 0.3rem 0;
+  color: red;
+  font-weight: bold;
+`;
 function EditRound(props) {
   const {
     openEdit,
@@ -117,6 +135,13 @@ function EditRound(props) {
     roundingId,
     roundingName,
   } = props;
+
+  const [error, setError] = useState(false);
+
+  const onCheckRoundingDate = (e) => {
+    let RegExp = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    setError(RegExp.test(e.target.value));
+  };
 
   return (
     <AddRoundModal>
@@ -137,11 +162,18 @@ function EditRound(props) {
                 <div>회진날짜: </div>
                 <input
                   name="date"
-                  type="date"
+                  type="text"
                   value={date}
                   onChange={onChangeField}
+                  placeholder="ex) 2000-01-01"
+                  onKeyUp={onCheckRoundingDate}
                 />
               </div>
+              {error === false && (
+                <ErrorMessageBlock style={{ display: 'block' }}>
+                  날짜 입력 형식을 지켜주세요
+                </ErrorMessageBlock>
+              )}
               <div className="box">
                 <div>회진시간: </div>
                 <input

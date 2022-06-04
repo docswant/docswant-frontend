@@ -205,15 +205,10 @@ const DoctorMain = ({ patientList, onGetPatientDelete, loading }) => {
                 <div className="buttonWrapper">
                   {p.hasUnreadRequirement === true && (
                     <>
-                      {/* <GrCircleAlert />
-                      <IoAlert /> */}
                       <AiFillAlert
                         color="red"
                         onClick={() => onMoveDoctorInquiry(p.code)}
                       />
-                      {/* <button onClick={() => onMoveDoctorInquiry(p.code)}>
-                        문의사항
-                      </button> */}
                     </>
                   )}
                   <button
