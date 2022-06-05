@@ -60,14 +60,15 @@ const DoctorListBlock = styled.div`
     .listButton {
       display: flex;
       align-items: center;
+
       button {
-        margin-right: 1rem;
+        margin-left: 1rem;
         border: 1px solid ${palette.blue[0]};
         background-color: white;
         border-radius: 12px;
         padding: 0.3rem 0.9rem;
         cursor: pointer;
-        &:hover{
+        &:hover {
           border-color: ${palette.blue[1]};
         }
       }
@@ -173,14 +174,6 @@ const DoctorList = ({
                     <span>{c.content}</span>
                   </div>
                   <div className="listButton">
-                    <button
-                      onClick={() => onUpdate(c.content, c.id, c.answerStatus)}
-                    >
-                      수정
-                    </button>
-                    <button onClick={() => onGetDeleteQuestion(c.id)}>
-                      삭제
-                    </button>
                     {c.answerStatus === 'DONE' && (
                       <MdOutlineQuestionAnswer
                         cursor="pointer"
@@ -191,6 +184,14 @@ const DoctorList = ({
                         }}
                       />
                     )}
+                    <button
+                      onClick={() => onUpdate(c.content, c.id, c.answerStatus)}
+                    >
+                      수정
+                    </button>
+                    <button onClick={() => onGetDeleteQuestion(c.id)}>
+                      삭제
+                    </button>
                   </div>
                 </div>
               ))}
